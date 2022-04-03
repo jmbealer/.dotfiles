@@ -1,9 +1,13 @@
+#+title: Stumpwm Configuration
+#+PROPERTY: header-args:lisp :tangle ~/.dotfiles/.config/stumpwm/config
+
+#+begin_src lisp
 ;; -*-lisp-*-
 (in-package :stumpwm)
 
 (setf *message-window-gravity* :center
-	*input-window-gravity* :center
-	*window-border-style* :thin
+	,*input-window-gravity* :center
+	,*window-border-style* :thin
 	)
 
 ;; Mouse
@@ -68,3 +72,4 @@
 ;; S hsplit
 ;; n pull-hidden-next
 ;; b banish
+#+end_src
