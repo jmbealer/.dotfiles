@@ -126,9 +126,12 @@
 
 ;; t (:m evil-find-char-to)
 (map! :m "t" #'evil-next-line)
+(map! :map dired-mode-map :gn "t" nil)
+(map! :map dired-mode-map :n "t" #'dired-previous-line)
 ;; T (:m evil-find-char-to backward)
 
 (map! :m "n" #'evil-previous-line)
+(map! :map dired-mode-map :n "n" #'dired-next-line)
 
 ;; b (:m evil-backward-word-begin)
 (map! :m "b" #'evil-forward-word-begin)
