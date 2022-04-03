@@ -7,7 +7,6 @@
 
 (setf *message-window-gravity* :center
 	,*input-window-gravity* :center
-	,*window-border-style* :thin
 	)
 
 ;; Mouse
@@ -16,6 +15,17 @@
 ;;; Window borders
 (set-focus-color "#6F9D7F")
 (setf *normal-border-width* 1)
+(setf *window-border-style* :tight)
+
+(set-fg-color "#F7DC75")
+(set-border-color "#6F9D7F")
+
+;; turn on/off the mode line for the current head only.
+;; (stumpwm:toggle-mode-line (stumpwm:current-screen)
+                          ;; (stumpwm:current-head))
+;; (setf stumpwm:*screen-mode-line-format*
+      ;; (list "%w | "
+            ;; '(:eval (stumpwm:run-shell-command "date" t))))
 
 
 ;; (run-shell-command "/home/jb/.screenlayout/myLayout.sh")
@@ -56,10 +66,13 @@
 
 (define-key *root-map* (kbd "RET") "exec alacritty")
 
-(define-key *root-map* (kbd "s") "move-focus left")
+;; (define-key *root-map* (kbd "s") "move-focus left")
+(define-key *root-map* (kbd "s") "fprev")
 (define-key *root-map* (kbd "t") "move-focus down")
 (define-key *root-map* (kbd "n") "move-focus up")
-(define-key *root-map* (kbd "b") "move-focus right")
+;; (define-key *root-map* (kbd "b") "move-focus right")
+(define-key *root-map* (kbd "b") "fnext")
+
 (define-key *root-map* (kbd "S") "move-window left")
 (define-key *root-map* (kbd "T") "move-window down")
 (define-key *root-map* (kbd "N") "move-window up")
