@@ -1,0 +1,5 @@
+(("default" . ((user-emacs-directory . "~/.config/emacs")))
+ ("doom" . ((user-emacs-directory . "~/.config/emacs-configs/doom-emacs")
+            (env. (("DOOMDIR" . "~/.config/doom")))))
+  ("rational" . ((user-emacs-directory . "~/.config/emacs-configs/rational-emacs")))
+ )

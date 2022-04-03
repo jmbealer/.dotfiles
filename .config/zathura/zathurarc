@@ -1,0 +1,34 @@
+# Zathura Configuration
+# See man "man zathurarc"
+
+# include themes/gruvbox-material-dark
+include themes/gruvbox-dark-hard
+
+set status-h-padding 0
+set status-v-padding 0
+set page-padding 2
+set adjust-open "fit-page"
+
+set pages-per-row 1
+
+set selection-clipboard clipboard
+set window-title-home-tilde true
+set page-padding 1
+set pages-per-row 1
+set first-page-column 1
+
+set font "monospace normal 10"
+
+## Rest of your configs go here:
+
+# Smooth scrolling:
+# set smooth-scroll true
+set scroll-step 300
+
+map s scroll left
+map t scroll down
+map n scroll up
+map b scroll right
+
+map T navigate next
+map N navigate previous
