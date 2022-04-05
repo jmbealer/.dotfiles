@@ -36,6 +36,19 @@
 (setq org-directory "~/Documents/org/")
 (setq org-roam-directory "~/Documents/org")
 (setq org-roam-completion-everywhere t)
+;; (setq org-roam-capture-templates
+  ;; ("d" "default" plain "%?"
+ ;; :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+date: %U\n")
+ ;; :unnarrowed t)
+  ;; )
+
+;; (setq org-roam-capture-templates
+  ;; '(("d" "default" plain "%?"
+      ;; (file "~/Documents/org/templates/roamDefault.org")
+      ;; :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                ;; "#+title: ${title}\n#+date: %U\n")
+      ;; :unnarrowed t))
+;; )
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -124,18 +137,41 @@
 (map! :m "s" #'evil-backward-word-begin)
 ;; S (:n evil-change-whole-line)
 
+;; evil-window-split
+;; +evil/window-split-and-follow
+(map! :map doom-leader-map "w s" #'evil-window-left)
+(map! :map doom-leader-map "w S" #'+evil/window-move-left)
+
 ;; t (:m evil-find-char-to)
 (map! :m "t" #'evil-next-line)
-(map! :map dired-mode-map :gn "t" nil)
+;; (map! :map dired-mode-map :nveomrg "t" nil)
+;; (map! :mode normal-state :map dired-mode-map "* t" nil)
+;; (define-key dired-mode-map (kbd "t") #'evil-next-line)
+;; (define-key! dired-mode-map (kbd "t") nil)
+;; (unbind-key "t" 'dired-mode-map)
 (map! :map dired-mode-map :n "t" #'dired-previous-line)
 ;; T (:m evil-find-char-to backward)
+
+;; evil-window-top-left
+;; tear-off-window
+(map! :map doom-leader-map "w t" #'evil-window-down)
+(map! :map doom-leader-map "w T" #'+evil/window-move-down)
+(map! :map doom-leader-map "b t" #'previous-buffer)
 
 (map! :m "n" #'evil-previous-line)
 (map! :map dired-mode-map :n "n" #'dired-next-line)
 
+;; evil-window-new
+(map! :map doom-leader-map "w n" #'evil-window-up)
+(map! :map doom-leader-map "w N" #'+evil/window-move-up)
+
 ;; b (:m evil-backward-word-begin)
 (map! :m "b" #'evil-forward-word-begin)
 ;; B (:m evil-backward-WORD-begin)
+
+;; evil-window-bottom-right
+(map! :map doom-leader-map "w b" #'evil-window-right)
+(map! :map doom-leader-map "w B" #'+evil/window-move-right)
 
 (map! :m "k" #'evil-ex-search-next)
 ;; K (:nv +lookup/documentation)
@@ -155,6 +191,7 @@
 (map! :m "l" #'evil-find-char-to)
 (map! :m "L" nil)
 (map! :m "L" #'evil-find-char-to-backward)
+
 
 (use-package! org-roam-bibtex
   :after org-roam

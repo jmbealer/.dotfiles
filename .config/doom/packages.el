@@ -54,8 +54,8 @@
 
 (package! org-roam
   :recipe (:host github :repo "org-roam/org-roam"
-           :files (:defaults "extensions/*")))
-(unpin! org-roam)
+            :files (:defaults "extensions/*")))
+;; (unpin! org-roam)
 (package! org-roam-ui)
 
 (package! org-ref)
