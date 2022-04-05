@@ -1,0 +1,4 @@
+#+title: JB .dotfiles
+
+TODO need rewrite configs in org mode
+my .dotfiles
