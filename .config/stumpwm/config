@@ -39,8 +39,9 @@
     (define-key m (kbd "b") "exec firefox")
     ;; (define-key m (kbd "B") "exec qutebrowser")
     ;; (define-key m (kbd "d") "exec discord")
-    ;; (define-key m (kbd "e") "exec emacsclient -c")
-    (define-key m (kbd "e") "exec emacsclient --eva '(emacs-everywhere)'")
+    (define-key m (kbd "e") "exec emacsclient -c -a emacs")
+    ;; (define-key m (kbd "e") "exec emacsclient --eval '(emacs-everywhere)'")
+    ;; (define-key m (kbd "e") "exec /usr/bin/env emacsclient --eval '(emacs-everywhere)'")
     (define-key m (kbd "t") "exec blueman-manager")
     ;; (define-key m (kbd "g") "exec gimp")
     ;; (define-key m (kbd "n") "exec nemo")
@@ -62,6 +63,7 @@
     m))
 
 (define-key *root-map* (kbd "RET") "exec alacritty")
+(define-key *root-map* (kbd "e") "exec /usr/bin/env emacsclient --eval '(emacs-everywhere)'")
 
 ;; (define-key *root-map* (kbd "s") "move-focus left")
 (define-key *root-map* (kbd "s") "fprev")

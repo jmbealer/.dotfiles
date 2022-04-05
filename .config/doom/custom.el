@@ -9,6 +9,7 @@
 #+date: %U
 ")
          :unnarrowed t)))
+ '(org-startup-folded 'content)
   '(package-selected-packages
      '(sqlite org-roam org-roam-ui emacsql-mysql emacsql git-commit irony esqlite emacsql-libsqlite3 sqlite3 pg finalize emacsql-sqlite3))
  '(tab-width 2))

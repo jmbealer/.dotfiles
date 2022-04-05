@@ -1,4 +1,6 @@
-#+title: JB .dotfiles
+#+TITLE: JB's .dotfiles
+#+AUTHOR: Justin Bealer
 
-TODO need rewrite configs in org mode
-my .dotfiles
+My repository for my beloved .dotfiles.
+
+Rewriting my config file in org mode
