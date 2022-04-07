@@ -232,3 +232,23 @@
 (setq! org-src-fontify-natively t)
 (setq! org-confirm-babel-evaluate nil)
 ;; (setq org-src-window-setup 'current-window)
+
+;; (lsp-stdio-connection '("/usr/bin/env bash" "-c" "clojure-lsp"))
+;; (lsp-stdio-connection '("/usr/bin/env bash" "-c" "/usr/local/bin/clojure-lsp"))
+;; /usr/bin/env emacs --daemon
+;; (use-package lsp-mode
+  ;; :commands lsp
+  ;; :config
+  ;; (dolist (m '(clojure-mode
+               ;; clojurec-mode
+               ;; clojurescript-mode
+               ;; clojurex-mode))
+    ;; (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
+  ;; :custom
+  ;; ((lsp-clojure-server-command '("bash" "-c" "/usr/local/bin/clojure-lsp")) ;; <- here
+   ;; (lsp-enable-indentation nil))
+  ;; :hook
+  ;; (clojure-mode . lsp)
+  ;; (clojurec-mode . lsp)
+  ;; (clojurescript-mode . lsp))
+(setq lsp-clojure-custom-server-command '("bash" "-c" ".local/bin/clojure-lsp"))
