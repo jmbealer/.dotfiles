@@ -3,4 +3,4 @@
 
 My repository for my beloved .dotfiles.
 
-Rewriting my config file in org mode
+Rewriting my config file in org mode.
