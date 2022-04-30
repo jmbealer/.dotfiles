@@ -2,5 +2,4 @@
 #+AUTHOR: Justin Bealer
 
 My repository for my beloved .dotfiles.
-
 Rewriting my config file in org mode.
