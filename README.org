@@ -2,4 +2,8 @@
 #+AUTHOR: Justin Bealer
 
 My repository for my beloved .dotfiles.
+
 Rewriting my config file in org mode.
+
+need to finish setting up guix
+need to finish install apps
