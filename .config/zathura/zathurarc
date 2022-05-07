@@ -4,8 +4,8 @@
 # include themes/gruvbox-material-dark
 include themes/gruvbox-dark-hard
 
-set status-h-padding 0
-set status-v-padding 0
+# set status-h-padding 0
+# set status-v-padding 0
 set page-padding 2
 set adjust-open "fit-page"
 
