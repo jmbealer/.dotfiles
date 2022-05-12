@@ -1,6 +1,8 @@
 ;; -*-lisp-*-
 (in-package :stumpwm)
 
+(run-shell-command "/home/jb/.screenlayout/myLayout.sh")
+
 (setf *message-window-gravity* :center
 	*input-window-gravity* :center
 	)
