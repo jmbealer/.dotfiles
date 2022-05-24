@@ -13,7 +13,7 @@
         :unnarrowed t)))
  '(org-startup-folded 'content)
  '(package-selected-packages
-    '(company-go company-native-complete auto-complete-clang native-complete bash-completion go-complete go go-guru sqlite org-roam org-roam-ui emacsql-mysql emacsql git-commit irony esqlite emacsql-libsqlite3 sqlite3 pg finalize emacsql-sqlite3))
+    '(org-pdftools anki-connect anki-mode company-go company-native-complete auto-complete-clang native-complete bash-completion go-complete go go-guru sqlite org-roam org-roam-ui emacsql-mysql emacsql git-commit irony esqlite emacsql-libsqlite3 sqlite3 pg finalize emacsql-sqlite3))
  '(tab-width 2))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
