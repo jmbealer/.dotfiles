@@ -93,14 +93,23 @@
   # started in user sessions.
   # programs.mtr.enable = true;
   # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
+    # enable = true;
+    # enableSSHSupport = true;
   # };
+
+  # programs.ssh.startAgent = true;
 
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    passwordAuthentication = false;
+  };
+  # users.users.jb = {
+    # ssh-rsa SHA256:gVaesRPzuPptWyX458lVyTjkAtFnj3AgptY9Vk6i7oM jb@nixos
+  # };
+
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -127,4 +136,3 @@ system.autoUpgrade.allowReboot = true;
 services.emacs.enable = true;
 	
 }
-
