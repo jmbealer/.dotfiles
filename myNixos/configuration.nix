@@ -5,14 +5,18 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./hosts.nix
+  imports = [
+    ./hardware-configuration.nix
+    ./hosts.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  environment.variables = {
+    SUDO_EDITOR = "vim";
+  };
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
@@ -41,15 +45,30 @@
   #   keyMap = "us";
   # };
 
-  # Enable the X11 windowing system.
+  # X11 windowing system.
   services.xserver.enable = true;
-
-
-  # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.windowManager.bspwm.enable = true;
-  services.xserver.windowManager.bspwm.configFile = "/home/jb/.config/bspwm/bspwmrc";
-  
+  # services.xserver.windowManager.bspwm.configFile = "/home/jb/.config/bspwm/bspwmrc";
+  services.xserver.displayManager.defaultSession = "none+bspwm";
+  services.xserver.videoDrivers = [ "nvidia" ];
+  nixpkgs.config.allowUnfree = true;
+  hardware.opengl.driSupport32Bit = true;
+  services.xserver.libinput.enable = true;
+
+  # gtk/qt themes
+  qt5.enable = true;
+  qt5.platformTheme = "gtk2";
+  qt5.style = "gtk2";
+
+  # picom
+  services.picom = {
+    enable = true;
+    fade = true;
+    inactiveOpacity = 0.9;
+    shadow = true;
+    fadeDelta = 4;
+  };
 
   # Configure keymap in X11
   # services.xserver.layout = "us";
@@ -61,15 +80,55 @@
   # Enable sound.
   # sound.enable = true;
   # hardware.pulseaudio.enable = true;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+    media-session.config.bluez-monitor.rules = [
+    {
+      # Matches all cards
+      matches = [ { "device.name" = "~bluez_card.*"; } ];
+      actions = {
+        "update-props" = {
+          "bluez5.reconnect-profiles" = [ "hfp_hf" "hsp_hs" "a2dp_sink" ];
+          # mSBC is not expected to work on all headset + adapter combinations.
+          "bluez5.msbc-support" = true;
+          # SBC-XQ is not expected to work on all headset + adapter combinations.
+          "bluez5.sbc-xq-support" = true;
+          };
+        };
+      }
+      { matches = [
+          # Matches all sources
+          { "node.name" = "~bluez_input.*"; }
+          # Matches all outputs
+          { "node.name" = "~bluez_output.*"; }
+      ];}
+    ];
+  };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  # bluetooth
+  hardware.bluetooth = {
+    enable = true;
+    # General = {
+      # Enable = "Source,Sink,Media,Socket";
+    # };
+  };
+  services.blueman.enable = true;
+  
+
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.jb = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
-  };
+    extraGroups = ["wheel" "networkmanager"]; # Enable ‘sudo’ for the user.
+    openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMzlS2DsemrWjubPRw5WzqYYJOvWjLzYwBslvUpnzVkX jmbealer11@gmail.com"
+    ];
+   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -94,22 +153,27 @@
   # programs.mtr.enable = true;
   # programs.gnupg.agent = {
     # enable = true;
-    # enableSSHSupport = true;
+    # enableSSHSupport = false;
+    # pinentryFlavor = "qt";
   # };
 
-  # programs.ssh.startAgent = true;
+  programs.ssh.askPassword = "";
+  programs.ssh.startAgent = true;
 
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
+    permitRootLogin = "no";
     passwordAuthentication = false;
-    challengeResponseAuthentication = false;
+    # challengeResponseAuthentication = false;
+    kbdInteractiveAuthentication = false;
   };
-  # users.users.jb = {
-    # ssh-rsa SHA256:gVaesRPzuPptWyX458lVyTjkAtFnj3AgptY9Vk6i7oM jb@nixos
-  # };
+
+  # environment.extraInit = ''
+    # unset -v SSH_ASKPASS
+  # '';
 
 
   # Open ports in the firewall.
@@ -132,7 +196,7 @@
   };
 
 system.autoUpgrade.enable = true;
-system.autoUpgrade.allowReboot = true;
+# system.autoUpgrade.allowReboot = true;
 
 services.emacs.enable = true;
 	

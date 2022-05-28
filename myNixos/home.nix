@@ -3,6 +3,7 @@
 {
   imports = [
     ./vim.nix
+    ./bspwm.nix
   ];
 
   programs.home-manager.enable = true;
@@ -19,6 +20,8 @@
       ripgrep fd bat
       pandoc emacs28Packages.emacsql emacs28Packages.emacsql-sqlite
       xorg.xwininfo xdotool xclip lispPackages.clsql-sqlite3
+      gh
+      helvum qpwgraph qjackctl
     ];
   };
 
