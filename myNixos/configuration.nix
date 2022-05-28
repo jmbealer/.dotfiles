@@ -105,6 +105,7 @@
   services.openssh = {
     enable = true;
     passwordAuthentication = false;
+    challengeResponseAuthentication = false;
   };
   # users.users.jb = {
     # ssh-rsa SHA256:gVaesRPzuPptWyX458lVyTjkAtFnj3AgptY9Vk6i7oM jb@nixos
