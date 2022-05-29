@@ -29,6 +29,7 @@
       tealdeer
       cmake nodePackages.npm shellcheck shellharden nixfmt coreutils-full
       gnumake
+      trash-cli
     ];
   };
 
