@@ -19,6 +19,8 @@
 
   environment.variables = {
     SUDO_EDITOR = "vim";
+    GDK_SCALE = "1";
+    # GDK_DPI_SCALE = "0.5";
   };
 
   # Set your time zone.
@@ -28,7 +30,7 @@
   networking.networkmanager.enable = true;
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.nameservers = [ "10.26.0.1" "104.223.91.195" "104.223.91.210" ]; 
+  networking.nameservers = [ "10.26.0.1" "104.223.91.195" "104.223.91.210" ];
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -56,8 +58,11 @@
   services.xserver.windowManager.bspwm.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   nixpkgs.config.allowUnfree = true;
+  hardware.video.hidpi.enable = true;
+  hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
   services.xserver.libinput.enable = true;
+  services.xserver.dpi = 96;
 
   # gtk/qt themes
   qt5.enable = true;
@@ -121,7 +126,7 @@
     # };
   };
   services.blueman.enable = true;
-  
+  services.udisks2.enable = true;
 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
