@@ -133,14 +133,18 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim_configurable git alacritty stow dmenu lf coreutils arandr iosevka tmux neofetch starship
-    exa 
+    vim_configurable git alacritty stow dmenu lf coreutils-full
+    xdg-utils clang gcc binutils
+    arandr iosevka tmux neofetch starship
+    libcap go
+    exa
     git-crypt gnupg
     # gcc-wrapper gnumake
-    # cope 
+    cope
     wget
     firefox-devedition-bin
     feh sxhkd
+    st
   ];
 
   # add fonts

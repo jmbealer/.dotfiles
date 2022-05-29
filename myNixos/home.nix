@@ -4,6 +4,7 @@
   imports = [
     ./vim.nix
     ./bspwm.nix
+    ./st.nix
   ];
 
   programs.home-manager.enable = true;
