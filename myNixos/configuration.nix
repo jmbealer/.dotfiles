@@ -8,7 +8,9 @@
   imports = [
     ./hardware-configuration.nix
     ./hosts.nix
-    ./st.nix
+    ./dwm.nix
+    # ./st.nix
+    ./dmenu.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -51,6 +53,7 @@
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.defaultSession = "none+bspwm";
   services.xserver.windowManager.bspwm.enable = true;
+  services.xserver.windowManager.dwm.enable = true;
   # services.xserver.windowManager.bspwm.configFile = "/home/jb/.dotfiles/bspwmrc";
   services.xserver.videoDrivers = [ "nvidia" ];
   nixpkgs.config.allowUnfree = true;
