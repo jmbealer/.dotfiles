@@ -8,6 +8,7 @@
   imports = [
     ./hardware-configuration.nix
     ./hosts.nix
+    ./st.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -203,5 +204,5 @@ system.autoUpgrade.enable = true;
 # system.autoUpgrade.allowReboot = true;
 
 services.emacs.enable = true;
-	
+
 }

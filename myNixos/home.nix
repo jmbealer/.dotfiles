@@ -4,7 +4,7 @@
   imports = [
     ./vim.nix
     ./bspwm.nix
-    ./st.nix
+    # ./st.nix
   ];
 
   programs.home-manager.enable = true;
@@ -19,6 +19,7 @@
       themechanger kitty
       anki
       ripgrep fd bat polybar
+      sqlite
       pandoc emacs28Packages.emacsql emacs28Packages.emacsql-sqlite
       emacs28Packages.emacsql-sqlite-module emacs28Packages.emacsql-sqlite-builtin
       xorg.xwininfo xdotool xclip lispPackages.clsql-sqlite3
