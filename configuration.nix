@@ -144,7 +144,7 @@
     vim_configurable git alacritty stow dmenu lf coreutils-full
     xdg-utils clang gcc binutils
     arandr iosevka tmux neofetch starship
-    libcap go
+    libcap go unzip
     exa
     git-crypt gnupg
     # gcc-wrapper gnumake
