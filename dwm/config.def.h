@@ -99,11 +99,11 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_Up,     movethrow,      {.ui = WIN_N  }},
-	{ MODKEY|ShiftMask,             XK_Down,   movethrow,      {.ui = WIN_S  }},
-	{ MODKEY|ShiftMask,             XK_Left,   movethrow,      {.ui = WIN_W  }},
-  { MODKEY|ShiftMask,             XK_Right,  movethrow,      {.ui = WIN_E  }},
-	{ MODKEY|ShiftMask,             XK_m,      movethrow,      {.ui = WIN_C  }},
+	/* { MODKEY|ShiftMask,             XK_Up,     movethrow,      {.ui = WIN_N  }}, */
+	/* { MODKEY|ShiftMask,             XK_Down,   movethrow,      {.ui = WIN_S  }}, */
+	/* { MODKEY|ShiftMask,             XK_Left,   movethrow,      {.ui = WIN_W  }}, */
+  /* { MODKEY|ShiftMask,             XK_Right,  movethrow,      {.ui = WIN_E  }}, */
+	/* { MODKEY|ShiftMask,             XK_m,      movethrow,      {.ui = WIN_C  }}, */
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
