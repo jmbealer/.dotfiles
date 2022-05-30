@@ -107,10 +107,7 @@ with lib.my;
       cmake nodePackages.npm shellcheck shellharden nixfmt coreutils-full
       gnumake
       trash-cli
- 
 
-
-    
   ];
 
   # add fonts
