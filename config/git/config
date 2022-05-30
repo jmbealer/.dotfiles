@@ -1,7 +1,6 @@
 [user]
-	name = Henrik Lissner
-	email = git@henrik.io
-	signingKey = FA1FADD9440B688CAA75A057B60957CA074D39A3
+	name = Justin Bealer
+	email = jmbealer11@gmail.com
 [commit]
 	gpgSign = true
 [tag]
@@ -11,9 +10,7 @@
 [init]
 	defaultBranch = main
 [github]
-	user = hlissner
-[gitlab]
-	user = hlissner
+	user = jmbealer
 [push]
 	autoSquash = true
 [push]

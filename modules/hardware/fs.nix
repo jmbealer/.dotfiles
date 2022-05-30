@@ -24,9 +24,9 @@ in {
       ];
     }
 
-    (mkIf (!cfg.zfs.enable && cfg.ssd.enable) {
-      services.fstrim.enable = true;
-    })
+    # (mkIf (!cfg.zfs.enable && cfg.ssd.enable) {
+      # services.fstrim.enable = true;
+    # })
 
     # (mkIf cfg.zfs.enable (mkMerge [
       # {
@@ -39,8 +39,8 @@ in {
       (mkIf cfg.ssd.enable {
         # Will only TRIM SSDs; skips over HDDs
         services.fstrim.enable = false;
-        services.zfs.trim.enable = true;
+        # services.zfs.trim.enable = true;
       })
-    ]))
+    # ]))
   ]);
 }

@@ -204,6 +204,10 @@ in {
           Name=default
           IsRelative=1
           Path=${cfg.profileName}.default
+          [Profile1]
+          Name=dev-edition-default
+          IsRelative=1
+          Path=${cfg.profileName}.devEdition
           Default=1
 
           [General]

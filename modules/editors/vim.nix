@@ -14,8 +14,12 @@ in {
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
       editorconfig-core-c
+      vimPlugins.gruvbox
+      vimPlugins.vim-gruvbox8
+      vimPlugins.vim-airline
       # unstable.neovim
     ];
+ 
 
     # This is for non-neovim, so it loads my nvim config
     # env.VIMINIT = "let \\$MYVIMRC='\\$XDG_CONFIG_HOME/nvim/init.vim' | source \\$MYVIMRC";

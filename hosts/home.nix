@@ -4,7 +4,7 @@ with lib;
 {
   networking.hosts =
     let hostConfig = if config.time.timeZone == "America/Chicago" then {
-          "192.168.1.2"  = [ "jb" ];
+          "192.168.1.2"  = [ "nixlab" ];
           # "192.168.1.3"  = [ "kiiro" ];
           # "192.168.1.10" = [ "kuro" ];
           # "192.168.1.11" = [ "shiro" ];

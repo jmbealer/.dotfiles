@@ -70,5 +70,69 @@ with lib.my;
     wget
     gnumake
     unzip
+
+    # need move to right place
+	    lf
+      bat
+      exa
+      fasd
+      fd
+      fzf
+      jq
+      ripgrep
+      tldr
+      neofetch
+      starship
+
+    vim_configurable 
+    alacritty 
+    arandr 
+    iosevka 
+    firefox-devedition-bin
+
+      pcmanfm gvfs udisks xarchiver
+      xfce.tumbler poppler ffmpegthumbnailer libgsf gnome.totem evince mcomix3
+      gruvbox-dark-gtk
+      gruvbox-dark-icons-gtk material-design-icons
+      numix-cursor-theme quintom-cursor-theme bibata-cursors
+      themechanger kitty
+      anki
+      ripgrep fd bat polybar
+      sqlite
+      xorg.xwininfo xdotool xclip lispPackages.clsql-sqlite3
+      gh
+      helvum qpwgraph qjackctl
+      bash-completion nix-bash-completions nodePackages.bash-language-server
+      tealdeer
+      cmake nodePackages.npm shellcheck shellharden nixfmt coreutils-full
+      gnumake
+      trash-cli
+ 
+
+
+    
   ];
+
+  # add fonts
+  fonts.fonts = with pkgs; [
+    (nerdfonts.override { fonts = ["FiraCode" "Iosevka"]; })
+  ];
+
+  # X11 windowing system.
+  services.xserver.enable = true;
+  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.displayManager.defaultSession = "none+bspwm";
+  services.xserver.windowManager.dwm.enable = true;
+  services.xserver.windowManager.bspwm.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  nixpkgs.config.allowUnfree = true;
+  hardware.video.hidpi.enable = true;
+  hardware.opengl.enable = true;
+  hardware.opengl.driSupport32Bit = true;
+  services.xserver.libinput.enable = true;
+  services.xserver.dpi = 96;
+
+
+
+
 }

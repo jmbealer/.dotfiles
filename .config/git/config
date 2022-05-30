@@ -1,7 +1,0 @@
-[user]
-  name = Justin Bealer
-	email = 77351757+jmbealer@users.noreply.github.com
-[core]
-	pager = diffr | less -R
-[interactive]
-	diffFilter = diffr
