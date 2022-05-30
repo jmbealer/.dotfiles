@@ -52,7 +52,7 @@ in {
       # :tools lookup & :lang org +roam
       sqlite
       # :lang latex & :lang org (latex previews)
-      # texlive.combined.scheme-medium
+      texlive.combined.scheme-medium
       # :lang beancount
       # beancount
       # unstable.fava  # HACK Momentarily broken on nixos-unstable
@@ -60,7 +60,7 @@ in {
 
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
 
-    modules.shell.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
+    # modules.shell.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
 
     fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
 
