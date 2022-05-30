@@ -1,73 +1,76 @@
+# flake.nix --- the heart of my dotfiles
+# Welcome to ground zero. Where the whole flake gets set up and all its modules
+# are loaded.
+
 {
-  description = "A very basic flake";
+  description = "A grossly incandescent nixos config.";
 
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url  = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
-    utils.url = "github:numtide/flake-utils";
-  };
+  inputs = 
+    {
+      # Core dependencies.
+      nixpkgs.url = "nixpkgs/nixos-unstable";             # primary nixpkgs
+      nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";  # for packages on the edge
+      home-manager.url = "github:rycee/home-manager/master";
+      home-manager.inputs.nixpkgs.follows = "nixpkgs";
+      agenix.url = "github:ryantm/agenix";
+      agenix.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = { self, nixpkgs, home-manager, utils, ... }:
-
-    let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
-      lib = nixpkgs.lib;
-
-    in {
-      nixosConfigurations = {
-        jb = lib.nixosSystem {
-          inherit system;
-          modules = [ 
-            ./configuration.nix 
-            home-manager.nixosModules.home-manager {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.jb = {
-                imports = [ ./home.nix ];
-              };
-            }
-          ];
-        };
-      };
+      # Extras
+      emacs-overlay.url  = "github:nix-community/emacs-overlay";
+      nixos-hardware.url = "github:nixos/nixos-hardware";
     };
 
-    overlays = (final: prev: {
-      dwm = prev.dwm.overrideAttrs
-        (old: rec {
-          name = "dwm-custom";
-          src = ./dwm;
-        });
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, ... }:
+    let
+      inherit (lib.my) mapModules mapModulesRec mapHosts;
 
-      dmenu = prev.dmenu.overrideAttrs (old: rec {
-        name = "dmenu-custom";
-        src = ./dmenu;
-      });
+      system = "x86_64-linux";
 
-      st = prev.st.overrideAttrs (old: rec {
-        name = "st-custom";
-        buildInputs = old.buildInputs ++ [ prev.harfbuzz ];
-        src = ./st;
-      });
+      mkPkgs = pkgs: extraOverlays: import pkgs {
+        inherit system;
+        config.allowUnfree = true;  # forgive me Stallman senpai
+        overlays = extraOverlays ++ (lib.attrValues self.overlays);
+      };
+      pkgs  = mkPkgs nixpkgs [ self.overlay ];
+      pkgs' = mkPkgs nixpkgs-unstable [];
 
-      slstatus = prev.slstatus.overrideAttrs (old: rec {
-        name = "slstatus-custom";
-        src = ./slstatus;
-      });
+      lib = nixpkgs.lib.extend
+        (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
+    in {
+      lib = lib.my;
 
-      slock = prev.slock.overrideAttrs (old: rec {
-        name = "slock-custom";
-        buildInputs = old.buildInputs ++ [
-          prev.xorg.libXinerama
-          prev.xorg.libXft
-        ];
-        src = ./slock;
-      });
-    });
+      overlay =
+        final: prev: {
+          unstable = pkgs';
+          my = self.packages."${system}";
+        };
 
+      overlays =
+        mapModules ./overlays import;
+
+      packages."${system}" =
+        mapModules ./packages (p: pkgs.callPackage p {});
+
+      nixosModules =
+        { dotfiles = import ./.; } // mapModulesRec ./modules import;
+
+      nixosConfigurations =
+        mapHosts ./hosts {};
+
+      devShell."${system}" =
+        import ./shell.nix { inherit pkgs; };
+
+      templates = {
+        full = {
+          path = ./.;
+          description = "A grossly incandescent nixos config";
+        };
+      } // import ./templates;
+      defaultTemplate = self.templates.full;
+
+      defaultApp."${system}" = {
+        type = "app";
+        program = ./bin/hey;
+      };
+    };
 }
