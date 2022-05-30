@@ -36,18 +36,46 @@
       });
     # })
     st = super.st.overrideAttrs (oldAttrs: rec {
+      src = super.fetchFromGitHub {
+      owner = "LukeSmithxyz";
+      repo = "st";
+      rev = "8ab3d03681479263a11b05f7f1b53157f61e8c3b";
+      sha256 = "1brwnyi1hr56840cdx0qw2y19hpr0haw4la9n0rqdn0r2chl8vag";
+    };
+    # Make sure you include whatever dependencies the fork needs to build properly!
+    # buildInputs = oldAttrs.buildInputs ++ [ harfbuzz ];
+
       buildInputs = oldAttrs.buildInputs ++ [ super.harfbuzz ];
-      patches = [
-        # ./path/to/my-dwm-patch.patch
-      (super.fetchpatch {
-        url = "https://st.suckless.org/patches/ligatures/0.8.3/st-ligatures-20200430-0.8.3.diff";
-        sha256 = "02cg54k8g3kyb1r6zz8xbqkp7wcwrrb2c7h38bzwmgvpfv3nidk7";
-      })
-      ];
-      configFile = super.writeText "config.h" (builtins.readFile ./st/config.def.h);
-      postPatch = "${oldAttrs.postPatch}\ncp ${configFile} config.def.h\n";
-      });
-    })
-  ];
+      # patches = [
+      # (super.fetchpatch {
+        # url = "https://st.suckless.org/patches/ligatures/0.8.3/st-ligatures-20200430-0.8.3.diff";
+        # sha256 = "02cg54k8g3kyb1r6zz8xbqkp7wcwrrb2c7h38bzwmgvpfv3nidk7";
+        # url = "https://st.suckless.org/patches/ligatures/0.8.4/st-ligatures-alpha-scrollback-20210824-0.8.4.diff";
+        # sha256 = "1bkyx9aif541ps2hd7yxgsn9qmq77rgb7pjshfkj65wgn4rkk8fv";
+      # })
+      # (super.fetchpatch {
+        # url = "https://st.suckless.org/patches/alpha/st-alpha-20220206-0.8.5.diff";
+        # sha256 = "10gvwnpbjw49212k25pddji08f4flal0g9rkwpvkay56w8y81r22";
+      # })
+      # (super.fetchpatch {
+        # url = "https://st.suckless.org/patches/alpha_focus_highlight/st-focus-20200731-patch_alpha.diff";
+        # sha256 = "1lm02r9zyhdzds7nqh15qnmskcnj20fyxc45f5wnvb1mipb84hmj";
+      # })
+      # (super.fetchpatch {
+        # url = "https://st.suckless.org/patches/blinking_cursor/st-blinking_cursor-20211116-2f6e597.diff";
+        # sha256 = "0nyzaq3wxj5vjpl781v9yagqk5r0maxxa31miczdr915pr6wwqhv";
+      # })
+      # (super.fetchpatch {
+        # url = "https://st.suckless.org/patches/scrollback/st-scrollback-ringbuffer-0.8.5.diff";
+        # sha256 = "0xxwgkgpzc7s8ad0pgcwhm5hqyh2wy56a9yrxid68xm0np2g6m5h";
+      # })
+      # ];
+      # configFile = super.writeText "config.h" (builtins.readFile ./st/config.def.h);
+      # postPatch = "${oldAttrs.postPatch}\ncp ${configFile} config.def.h\n";
+      # });
+    # })
+    });
+  }
+  )];
 
 }
