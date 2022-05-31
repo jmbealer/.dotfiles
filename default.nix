@@ -80,9 +80,9 @@ with lib.my;
       fzf
       jq
       ripgrep
-      tldr
       neofetch
       starship
+
 
     vim_configurable 
     alacritty 
@@ -95,7 +95,7 @@ with lib.my;
       gruvbox-dark-gtk
       gruvbox-dark-icons-gtk material-design-icons
       numix-cursor-theme quintom-cursor-theme bibata-cursors
-      themechanger kitty
+      themechanger
       anki
       ripgrep fd bat polybar
       sqlite
@@ -105,8 +105,10 @@ with lib.my;
       bash-completion nix-bash-completions nodePackages.bash-language-server
       tealdeer
       cmake nodePackages.npm shellcheck shellharden nixfmt coreutils-full
-      gnumake
+      gcc
       trash-cli
+    pandoc siduck76-st redshift xbanish unclutter
+    ttyper klavaro gotypist
 
   ];
 

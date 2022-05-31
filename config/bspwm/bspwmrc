@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
 sxhkd &
+unclutter &
 # pgrep -x sxhkd > /dev/null || sxhkd &
 
 # feh --bg-fill ~/bspwm/FusionA1.png &
 # xsetroot -cursor_name left_ptr
 # xrdb -merge $HOME/.Xresources &
 xset r rate 200 50
-# ~/.screenlayout/myLayout.sh
+~/.screenlayout/myLayout.sh
 
 bspc monitor -d I II III IV V VI VII VIII IX X
 # bspc monitor HDMI-1 -d 1 2 3 4 5
