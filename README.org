@@ -4,6 +4,10 @@
 My repository for my beloved .dotfiles.
 
 Rewriting my config file in org mode.
+Rewrite my configs in org mode.
 
-need to finish setting up guix.
+
+need to finish setting up nixos
+- flakes
+- home-manager
 need to finish install apps.
