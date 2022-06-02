@@ -112,6 +112,7 @@ with lib.my;
     lxappearance
     qbittorrent
     ueberzug
+    dconf
 
     networkmanagerapplet networkmanager-openvpn wireguard-tools
 
@@ -135,9 +136,13 @@ with lib.my;
   hardware.opengl.driSupport32Bit = true;
   services.xserver.libinput.enable = true;
   # services.xserver.dpi = 96;
-  services.xserver.dpi = 70;
-  networking.nameservers = [ "10.26.0.1" "104.223.91.195" "104.223.91.210" ];
+  services.xserver.dpi = 85;
+  networking.nameservers = [ "104.223.91.195" "104.223.91.210" ];
+  services.blueman.enable = true;
 
+  # services.openvpn.servers = {
+    # torguardVPN = { config = '' config /home/jb/Download/14.onc ''; };
+  # };
 
 
 

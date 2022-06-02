@@ -158,6 +158,7 @@ in {
           gtk-xft-hinting=1
           gtk-xft-hintstyle=hintfull
           gtk-xft-rgba=none
+          gtk-cursor-theme-size=20
         '';
         # GTK2 global theme (widget and icon theme)
         "gtk-2.0/gtkrc".text = ''

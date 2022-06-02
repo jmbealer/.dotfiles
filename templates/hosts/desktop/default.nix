@@ -46,7 +46,7 @@
       python.enable = true;
     };
     editors = {
-      default = "nvim";
+      default = "vim";
       emacs.enable = true;
       vim.enable = true;
     };
@@ -73,5 +73,5 @@
   programs.ssh.startAgent = true;
   services.openssh.startWhenNeeded = true;
 
-  networking.networkmanager.enable = true;
+  # networking.networkmanager.enable = true;
 }
