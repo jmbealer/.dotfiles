@@ -16,7 +16,8 @@ st.scratch.font: monospace:pixelsize=16
 
 !! xst
 st.font: monospace:pixelsize=12
-st.borderpx: 1
+! st.borderpx: 1
+st.borderpx: 0
 
 
 !! urxvt

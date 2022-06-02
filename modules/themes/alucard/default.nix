@@ -13,35 +13,55 @@ in {
         theme = {
           wallpaper = mkDefault ./config/wallpaper.jpg;
           gtk = {
-            theme = "Dracula";
-            iconTheme = "Paper";
-            cursorTheme = "Paper";
+            theme = "gruvbox-dark";
+            iconTheme = "oomox-gruvbox-dark";
+            cursorTheme = "Bibata-Oringinal-Classic";
           };
           fonts = {
             sans.name = "Fira Sans";
             mono.name = "Fira Code";
+            # sans.name = "Iosevka Regular Nerd Font Complete";
+            # mono.name = "Iosevka Term Regular Nerd Font Complete";
           };
           colors = {
-            black         = "#1E2029";
-            red           = "#ffb86c";
-            green         = "#50fa7b";
-            yellow        = "#f0c674";
-            blue          = "#61bfff";
-            magenta       = "#bd93f9";
-            cyan          = "#8be9fd";
-            silver        = "#e2e2dc";
-            grey          = "#5B6268";
-            brightred     = "#de935f";
-            brightgreen   = "#0189cc";
-            brightyellow  = "#f9a03f";
-            brightblue    = "#8be9fd";
-            brightmagenta = "#ff79c6";
-            brightcyan    = "#0189cc";
-            white         = "#f8f8f2";
+            # black         = "#1E2029";
+            # red           = "#ffb86c";
+            # green         = "#50fa7b";
+            # yellow        = "#f0c674";
+            # blue          = "#61bfff";
+            # magenta       = "#bd93f9";
+            # cyan          = "#8be9fd";
+            # silver        = "#e2e2dc";
+            # grey          = "#5B6268";
+            # brightred     = "#de935f";
+            # brightgreen   = "#0189cc";
+            # brightyellow  = "#f9a03f";
+            # brightblue    = "#8be9fd";
+            # brightmagenta = "#ff79c6";
+            # brightcyan    = "#0189cc";
+            # white         = "#f8f8f2";
 
-            types.fg      = "#bbc2cf";
-            types.panelbg = "#21242b";
-            types.border  = "#1a1c25";
+            black         = "#1d2021";
+            red           = "#3c3836";
+            green         = "#504945";
+            yellow        = "#665c54";
+            blue          = "#bdae93";
+            magenta       = "#d5c4a1";
+            cyan          = "#ebdbb2";
+            silver        = "#fbf1c7";
+            grey          = "#fb4934";
+            brightred     = "#fe8019";
+            brightgreen   = "#fabd2f";
+            brightyellow  = "#b8bb26";
+            brightblue    = "#8ec07c";
+            brightmagenta = "#83a598";
+            brightcyan    = "#d3869b";
+            white         = "#d65d0e";
+
+
+            types.fg      = "#d5c4a1";
+            types.panelbg = "#1d2021";
+            types.border  = "#504945";
           };
         };
 
@@ -75,6 +95,7 @@ in {
           jetbrains-mono
           siji
           font-awesome
+          (nerdfonts.override { fonts = ["FiraCode" "Iosevka"]; })
         ];
       };
 

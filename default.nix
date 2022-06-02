@@ -109,6 +109,11 @@ with lib.my;
       trash-cli
     pandoc siduck76-st redshift xbanish unclutter
     ttyper klavaro gotypist
+    lxappearance
+    qbittorrent
+    ueberzug
+
+    networkmanagerapplet networkmanager-openvpn wireguard-tools
 
   ];
 
@@ -129,7 +134,9 @@ with lib.my;
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
   services.xserver.libinput.enable = true;
-  services.xserver.dpi = 96;
+  # services.xserver.dpi = 96;
+  services.xserver.dpi = 70;
+  networking.nameservers = [ "10.26.0.1" "104.223.91.195" "104.223.91.210" ];
 
 
 

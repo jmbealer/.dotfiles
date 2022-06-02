@@ -74,7 +74,8 @@
   programs.ssh.startAgent = true;
   services.openssh.startWhenNeeded = true;
 
-  networking.wireless.enable = true;
+  # networking.wireless.enable = true;
+  networking.networkmanager.enable = true;
 
   time.timeZone = "America/Chicago";
 }
