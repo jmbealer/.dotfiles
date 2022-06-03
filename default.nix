@@ -115,6 +115,7 @@ with lib.my;
     dconf
 
     networkmanagerapplet networkmanager-openvpn wireguard-tools
+    libcap go gcc
 
   ];
 
