@@ -96,7 +96,8 @@ with lib.my;
       gruvbox-dark-icons-gtk material-design-icons
       numix-cursor-theme quintom-cursor-theme bibata-cursors
       themechanger
-      anki
+      # anki
+      # anki-bin
       ripgrep fd bat polybar
       sqlite
       xorg.xwininfo xdotool xclip lispPackages.clsql-sqlite3
@@ -116,6 +117,7 @@ with lib.my;
 
     networkmanagerapplet networkmanager-openvpn wireguard-tools
     libcap go gcc
+    xdg-desktop-portal-gtk
 
   ];
 
@@ -140,6 +142,14 @@ with lib.my;
   services.xserver.dpi = 85;
   networking.nameservers = [ "104.223.91.195" "104.223.91.210" ];
   services.blueman.enable = true;
+
+  qt5.enable = true;
+  qt5.platformTheme = "gtk2";
+  qt5.style = "gtk2";
+  services.flatpak.enable = true;
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  # xdg.portal.gtkUsePortal.enable = true;
 
   # services.openvpn.servers = {
     # torguardVPN = { config = '' config /home/jb/Download/14.onc ''; };

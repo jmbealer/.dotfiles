@@ -19,13 +19,33 @@ in {
   config = mkMerge [
     (mkIf cfg.enable {
       user.packages = with pkgs; [
-        python37
-        python37Packages.pip
+        # python37
+        python3Full
+        python39Packages.pip
+        python39Packages.pip-tools
+        # python37Packages.pip
         # python37Packages.ipython
         # python37Packages.black
         python37Packages.setuptools
         python37Packages.pylint
         # python37Packages.poetry
+        python39Packages.beautifulsoup4
+        python39Packages.decorator
+        python39Packages.distro
+        python39Packages.flask
+        python39Packages.flask-cors
+        python39Packages.jsonschema
+        python39Packages.markdown
+        python39Packages.orjson
+        python39Packages.protobuf
+        python39Packages.pyaudio
+        python39Packages.pyqtwebengine
+        # python39Packages.pyqt6-webengine
+        python39Packages.pysocks
+        python39Packages.requests
+        python39Packages.send2trash
+        python39Packages.waitress
+        python39Packages.wheel
       ];
 
       environment.shellAliases = {
