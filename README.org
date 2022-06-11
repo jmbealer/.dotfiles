@@ -10,4 +10,5 @@ Rewrite my configs in org mode.
 need to finish setting up nixos
 - flakes
 - home-manager
+
 need to finish install apps.
