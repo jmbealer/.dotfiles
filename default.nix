@@ -119,6 +119,8 @@ with lib.my;
     libcap go gcc
     xdg-desktop-portal-gtk
 
+  ungoogled-chromium
+
   ];
 
   # add fonts
