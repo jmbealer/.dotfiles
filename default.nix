@@ -122,6 +122,13 @@ with lib.my;
   ungoogled-chromium
 
     lshw
+    flameshot
+
+    graphviz
+    html-tidy
+    nodePackages.stylelint
+    nodePackages.js-beautify
+
 
   ];
 
