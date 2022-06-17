@@ -121,6 +121,8 @@ with lib.my;
 
   ungoogled-chromium
 
+    lshw
+
   ];
 
   # add fonts
