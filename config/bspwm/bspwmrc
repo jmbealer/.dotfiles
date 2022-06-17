@@ -18,17 +18,17 @@ xbanish &
 xset r rate 200 50
 
 
-# export MONITOR=$(xrandr -q | grep primary | cut -d' ' -f1)
-# export MONITORS=( $(xrandr -q | grep ' connected' | cut -d' ' -f1) )
-# MONITOR=${MONITOR:-${MONITORS[0]}}
+export MONITOR=$(xrandr -q | grep primary | cut -d' ' -f1)
+export MONITORS=( $(xrandr -q | grep ' connected' | cut -d' ' -f1) )
+MONITOR=${MONITOR:-${MONITORS[0]}}
 
 # Only have workspaces for primary monitor
-# for monitor in $MONITORS; do
-  # bspc monitor $monitor -d 0
-# done
+for monitor in $MONITORS; do
+  bspc monitor $monitor -d 0
+done
 # bspc monitor $MONITOR -d {"I", "II", III, IV, V, VI, VII, VIII, IX, X}
-MONITOR = { HDMI-0 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ]; };
-# bspc monitor $MONITOR -d {1, 2, 3}
+# MONITOR = { HDMI-0 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ]; };
+bspc monitor $MONITOR -d {1, 2, 3}
 
 bspc config remove_disabled_monitors true
 bspc config remove_unplugged_monitors true
