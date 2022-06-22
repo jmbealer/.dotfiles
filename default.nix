@@ -129,6 +129,7 @@ with lib.my;
     nodePackages.stylelint
     nodePackages.js-beautify
     zoom-us
+    rclone
 
 
   ];
