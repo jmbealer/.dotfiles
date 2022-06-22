@@ -130,10 +130,7 @@ with lib.my;
     nodePackages.js-beautify
     zoom-us
     rclone
-<<<<<<< HEAD
-=======
     discord
->>>>>>> ab7b7b7 (add discord)
 
 
   ];
