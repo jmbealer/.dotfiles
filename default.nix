@@ -129,8 +129,8 @@ with lib.my;
     nodePackages.stylelint
     nodePackages.js-beautify
     rclone
-    # zoom-us
-    # discord
+
+    xdg-utils
 
 
   ];
