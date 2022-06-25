@@ -130,7 +130,6 @@ with lib.my;
     nodePackages.js-beautify
     rclone
 
-    xdg-utils
 
 
   ];
@@ -162,6 +161,7 @@ with lib.my;
   qt5.style = "gtk2";
   services.flatpak.enable = true;
   xdg.portal.enable = true;
+  xdg.mime.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   # xdg.portal.gtkUsePortal.enable = true;
 
