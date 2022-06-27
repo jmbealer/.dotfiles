@@ -130,6 +130,7 @@ with lib.my;
     nodePackages.js-beautify
     rclone
 
+    vscode-fhs
 
 
   ];
