@@ -47,7 +47,7 @@
       python.enable = true;
     };
     editors = {
-      default = "vim";
+      default = "emacs";
       emacs.enable = true;
       vim.enable = true;
     };
@@ -66,13 +66,14 @@
       # Needed occasionally to help the parental units with PC problems
       # teamviewer.enable = true;
     };
-    theme.active = "alucard";
+    # theme.active = "alucard";
   };
 
 
   ## Local config
   programs.ssh.startAgent = true;
   services.openssh.startWhenNeeded = true;
+  programs.dconf.enable = true;
 
   networking.wireless.enable = true;
   # networking.networkmanager.enable = true;
