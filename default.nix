@@ -157,6 +157,8 @@ with lib.my;
   networking.nameservers = [ "104.223.91.195" "104.223.91.210" ];
   services.blueman.enable = true;
 
+  services.dbus.packages = with pkgs; [ gnome3.dconf ];
+
   qt5.enable = true;
   qt5.platformTheme = "gtk2";
   qt5.style = "gtk2";
