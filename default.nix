@@ -173,6 +173,7 @@ with lib.my;
 
 services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
 services.dbus.packages = with pkgs; [ gnome2.GConf ];
+services.accounts-daemon.enable = true;
 
 
 
