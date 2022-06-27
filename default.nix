@@ -132,6 +132,8 @@ with lib.my;
 
     vscode-fhs
 
+    gnome.adwaita-icon-theme
+    gnomeExtensions.appindicator
 
   ];
 
@@ -156,9 +158,6 @@ with lib.my;
   services.xserver.dpi = 85;
   networking.nameservers = [ "104.223.91.195" "104.223.91.210" ];
   services.blueman.enable = true;
-
-  services.dbus.packages = with pkgs; [ gnome3.dconf ];
-
   qt5.enable = true;
   qt5.platformTheme = "gtk2";
   qt5.style = "gtk2";
@@ -171,6 +170,10 @@ with lib.my;
   # services.openvpn.servers = {
     # torguardVPN = { config = '' config /home/jb/Download/14.onc ''; };
   # };
+
+services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
+services.dbus.packages = with pkgs; [ gnome2.GConf ];
+
 
 
 
