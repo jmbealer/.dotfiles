@@ -175,7 +175,8 @@ services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
 services.dbus.packages = with pkgs; [ gnome2.GConf ];
 services.accounts-daemon.enable = true;
 
-
+services.gnome.gnome-settings-daemon.enable = true;
+services.gnome.core-utilities.enable = true;
 
 
 }
