@@ -129,12 +129,16 @@ super + w; super + {_,shift + }f
 ## Desktops
 
 # Switch to numbered desktop
-super + {1-9,0}
-	bspc desktop -f {1-9,10};
+# super + {1-9,0}
+	# bspc desktop -f {1-9,10};
 
 # On shift = move current node to numbered desktop
-super + shift + {1-9,0}
-	bspc node -d {1-9,10};
+# super + shift + {1-9,0}
+	# bspc node -d {1-9,10};
+
+# focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
 
 
 #
