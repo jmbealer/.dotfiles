@@ -64,8 +64,10 @@ module-margin-left = 0
 module-margin-right = 0
 
 font-0 = "Fira Code:pixelsize=9;2"
-font-1 = "Wuncon Siji:pixelsize=12;2"
-font-2 = "Siji:pixelsize=10;2"
+font-1 = "Fira Code:pixelsize=9;2"
+font-2 = "Fira Code:pixelsize=9;2"
+# font-1 = "Wuncon Siji:pixelsize=12;2"
+# font-2 = "Siji:pixelsize=10;2"
 
 ; modules-left = volume pad cpu memory pad pkg mail
 modules-left = pulseaudio pad cpu memory pad fs
@@ -82,15 +84,22 @@ type = internal/bspwm
 pin-workspaces = true
 enable-click = true
 
-ws-icon-0 = 1;
+# ws-icon-0 = 1;
 # ws-icon-0 = 1
 # ws-icon-1 = 2
-ws-icon-1 = 2;
-ws-icon-2 = 3;
-ws-icon-3 = 4;
-ws-icon-4 = 5;
-ws-icon-5 = 6;
-ws-icon-default = 
+# ws-icon-1 = 2;
+# ws-icon-2 = 3;
+# ws-icon-3 = 4;
+# ws-icon-4 = 5;
+# ws-icon-5 = 6;
+# ws-icon-default = 
+
+ws-icon-0 = code;♚
+ws-icon-1 = office;♛
+ws-icon-2 = graphics;♜
+ws-icon-3 = mail;♝
+ws-icon-4 = web;♞
+ws-icon-default = ♟
 
 format = <label-state> <label-mode>
 label-padding = 1
