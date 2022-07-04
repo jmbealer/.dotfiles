@@ -84,10 +84,10 @@ with lib.my;
       starship
 
 
-    vim_configurable 
-    alacritty 
-    arandr 
-    iosevka 
+    vim_configurable
+    alacritty
+    arandr
+    iosevka
     firefox-devedition-bin
 
       pcmanfm gvfs udisks xarchiver
@@ -117,6 +117,7 @@ with lib.my;
 
     networkmanagerapplet networkmanager-openvpn wireguard-tools
     libcap go gcc
+    xdg-utils clang binutils
     xdg-desktop-portal-gtk
 
   ungoogled-chromium
