@@ -136,6 +136,8 @@ with lib.my;
     gnome.adwaita-icon-theme
     gnomeExtensions.appindicator
 
+    zathura-with-plugins
+
   ];
 
   # add fonts
