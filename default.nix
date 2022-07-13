@@ -138,6 +138,7 @@ with lib.my;
 
     # zathura-with-plugins
     zathura
+    postman
   ];
 
   # add fonts
