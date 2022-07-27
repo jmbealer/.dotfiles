@@ -83,7 +83,7 @@
         # psk="bush0705";
 	      # pskRaw="a1f4e83014cec327799cde4c3f2a4bb56b7c023ccbacd2d0ea43a2563b1f200c";
       # };
-      FreeWifi = {};
+      InTown_Guest = {};
       # FreeWifi = {};
     };
   };
