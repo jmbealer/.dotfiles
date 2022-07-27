@@ -115,7 +115,7 @@ with lib.my;
     ueberzug
     dconf
 
-    networkmanagerapplet networkmanager-openvpn wireguard-tools
+    # networkmanagerapplet networkmanager-openvpn wireguard-tools
     libcap go gcc
     xdg-utils clang binutils
     xdg-desktop-portal-gtk
