@@ -39,6 +39,10 @@ with lib.my;
       };
     };
   system.configurationRevision = with inputs; mkIf (self ? rev) self.rev;
+
+  system.autoUpgrade.enable = true;
+  system.autoUpgrade.allowReboot = true;
+
   system.stateVersion = "21.05";
 
   ## Some reasonable, global defaults
@@ -53,7 +57,8 @@ with lib.my;
 
   # Use the latest kernel
   boot = {
-    kernelPackages = mkDefault pkgs.linuxKernel.packages.linux_5_16;
+    # kernelPackages = mkDefault pkgs.linuxKernel.packages.linux_5_16;
+    kernelPackages = mkDefault pkgs.linuxKernel.packages.linux_5_18;
     loader = {
       efi.canTouchEfiVariables = mkDefault true;
       systemd-boot.configurationLimit = 10;
