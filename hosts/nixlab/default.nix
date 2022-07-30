@@ -46,7 +46,7 @@ with lib.my;
     dev = {
       node.enable = true;
       rust.enable = true;
-      python.enable = true;
+      # python.enable = true;
     };
     editors = {
       default = "emacs";

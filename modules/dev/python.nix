@@ -27,7 +27,8 @@ in {
         # python37Packages.ipython
         # python37Packages.black
         python37Packages.setuptools
-        python37Packages.pylint
+        # pylint not working
+        # python37Packages.pylint
         # python37Packages.poetry
         python39Packages.beautifulsoup4
         python39Packages.decorator
