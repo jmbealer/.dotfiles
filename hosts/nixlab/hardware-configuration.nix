@@ -1,4 +1,4 @@
-{ config, lib, modulesPath, ... }:
+{ config, lib, pkgs, modulesPath, ... }:
 # { config, lib, pkgs, inputs, modulesPath, ... }:
 
 {imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
@@ -34,7 +34,8 @@
   };
 
   # CPU
-  nix.settings.max-jobs = lib.mkDefault 10;
+  # nix.settings.max-jobs = lib.mkDefault 10;
+  nix.settings.max-jobs = lib.mkDefault 16;
   hardware.cpu.amd.updateMicrocode = true;
   # hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   # performance gives better battery life/perf than ondemand on sandy bridge and

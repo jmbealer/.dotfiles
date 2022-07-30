@@ -1,6 +1,4 @@
-{ config, lib, pkgs, ... }:
-
-with lib.my;
+{ pkgs, config, lib, ... }:
 {
   imports = [
     ../home.nix
@@ -33,7 +31,7 @@ with lib.my;
         graphics.enable = true;
         mpv.enable = true;
         recording.enable = true;
-        spotify.enable = true;
+        # spotify.enable = true;
       };
       term = {
         default = "xst";
@@ -60,6 +58,7 @@ with lib.my;
       git.enable    = true;
       gnupg.enable  = true;
       tmux.enable   = true;
+      bash.enable   = true;
       # zsh.enable    = true;
     };
     services = {
