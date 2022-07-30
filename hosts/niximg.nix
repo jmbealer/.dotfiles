@@ -13,7 +13,7 @@
 
   environment.systemPackages = with pkgs; [
     nixFlakes
-    zsh
+    # zsh
     git
   ];
 }

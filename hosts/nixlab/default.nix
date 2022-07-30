@@ -58,7 +58,7 @@
       git.enable    = true;
       gnupg.enable  = true;
       tmux.enable   = true;
-      bash.enable   = true;
+      # bash.enable   = true;
       # zsh.enable    = true;
     };
     services = {
