@@ -145,6 +145,8 @@ with lib.my;
     # zathura-with-plugins
     zathura
     postman
+
+    zoom
   ];
 
   # add fonts
