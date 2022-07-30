@@ -5,7 +5,7 @@
 #   shiro) export LAN=wlp3s0 ;;
 # esac
 
-~/.screenlayout/myLayout.sh
+# ~/.screenlayout/myLayout.sh
 pgrep -x sxhkd > /dev/null || sxhkd &
 # sxhkd &
 unclutter &
