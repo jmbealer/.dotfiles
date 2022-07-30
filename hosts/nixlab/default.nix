@@ -1,4 +1,6 @@
-{ ... }:
+{ config, lib, pkgs, ... }:
+
+with lib.my;
 {
   imports = [
     ../home.nix

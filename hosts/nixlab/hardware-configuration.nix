@@ -1,9 +1,7 @@
-{ config, lib, pkgs, inputs, modulesPath, ... }:
+{ config, lib, modulesPath, ... }:
+# { config, lib, pkgs, inputs, modulesPath, ... }:
 
-{
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
+{imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot = {
     initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "sr_mod" "nvme"  "rtsx_pci_sdmmc"];

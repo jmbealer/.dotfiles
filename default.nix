@@ -39,11 +39,11 @@ with lib.my;
       };
     };
   system.configurationRevision = with inputs; mkIf (self ? rev) self.rev;
-
-  system.autoUpgrade.enable = true;
-  system.autoUpgrade.allowReboot = true;
-
   system.stateVersion = "21.05";
+
+  # system.autoUpgrade.enable = true;
+  # system.autoUpgrade.allowReboot = true;
+
 
   ## Some reasonable, global defaults
   # This is here to appease 'nix flake check' for generic hosts with no
