@@ -164,6 +164,70 @@
     firefox-devedition-bin
     feh sxhkd
     st
+
+    # from newer dotfiles
+    bind
+    cached-nix-shell
+    wget
+    gnumake
+
+    # need move to right place
+    bat
+    fasd
+    fd
+    fzf
+    jq
+    ripgrep
+
+    pcmanfm gvfs udisks xarchiver
+    xfce.tumbler poppler ffmpegthumbnailer libgsf gnome.totem evince mcomix3
+    gruvbox-dark-gtk
+    gruvbox-dark-icons-gtk material-design-icons
+    numix-cursor-theme quintom-cursor-theme bibata-cursors
+    themechanger
+    # anki
+    # anki-bin
+    polybar
+    sqlite
+    xorg.xwininfo xdotool xclip lispPackages.clsql-sqlite3
+    gh
+    helvum qpwgraph qjackctl
+    bash-completion nix-bash-completions nodePackages.bash-language-server
+    tealdeer
+    cmake nodePackages.npm shellcheck shellharden nixfmt coreutils-full
+    gcc 
+    trash-cli
+    pandoc siduck76-st redshift xbanish unclutter
+    ttyper klavaro gotypist
+    lxappearance
+    qbittorrent
+    ueberzug
+    dconf
+
+    libcap go gcc
+    xdg-utils clang binutils
+    xdg-desktop-portal-gtk
+
+    ungoogled-chromium
+
+    lshw
+    flameshot
+
+    graphviz
+    html-tidy
+    nodePackages.stylelint
+    nodePackages.js-beautify
+    rclone
+
+    vscode-fhs
+
+    gnome.adwaita-icon-theme
+    gnomeExtensions.appindicator
+
+    zathura
+    postman
+
+    zoom-us
   ];
 
   # add fonts
