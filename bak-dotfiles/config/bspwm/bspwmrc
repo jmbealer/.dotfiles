@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+# case $HOSTNAME in
+#   kuro)  export LAN=eno1   ;;
+#   shiro) export LAN=wlp3s0 ;;
+# esac
+
+# ~/.screenlayout/myLayout.sh
+pgrep -x sxhkd > /dev/null || sxhkd &
+# sxhkd &
+unclutter &
+xbanish &
+# pgrep -x sxhkd > /dev/null || sxhkd &
+
+# feh --bg-fill ~/bspwm/FusionA1.png &
+# xsetroot -cursor_name left_ptr
+# xrdb -merge $HOME/.Xresources &
+xset r rate 200 50
+
+
+export MONITOR=$(xrandr -q | grep primary | cut -d' ' -f1)
+export MONITORS=( $(xrandr -q | grep ' connected' | cut -d' ' -f1) )
+MONITOR=${MONITOR:-${MONITORS[0]}}
+
+# Only have workspaces for primary monitor
+for monitor in $MONITORS; do
+  bspc monitor $monitor -d 0
+done
+# bspc monitor $MONITOR -d {"I", "II", III, IV, V, VI, VII, VIII, IX, X}
+# MONITOR = { HDMI-0 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ]; };
+# bspc monitor $MONITOR -d {0, 1, 2, 3, 4}
+bspc monitor -d I II III IV V VI VII VIII IX X
+
+bspc config remove_disabled_monitors true
+bspc config remove_unplugged_monitors true
+
+
+# Rules
+bspc rule -r '*'
+
+bspc rule -a Pinentry state=floating center=on
+# bspc rule -a Emacs split_ratio=0.28 state=tiled
+# bspc rule -a Firefox split_ratio=0.32
+bspc rule -a feh state=fullscreen
+bspc rule -a 'Emacs:org*' state=floating
+bspc rule -a 'Emacs:scratch' state=floating
+bspc rule -a 'Emacs:emacs-everywhere' state=floating sticky=on
+bspc rule -a '*:scratch' state=floating sticky=on border=off rectangle=1000x460+480+620
+
+
+bspc config border_width        0
+bspc config window_gap          0
+bspc config split_ratio       0.5
+
+bspc config single_monocle      false
+# bspc config focus_follows_pointer true
+bspc config borderless_monocle    true
+bspc config gapless_monocle     true
+
+bspc config focused_border_color  "#BD93F9"
+bspc config normal_border_color   "#282A36"
+bspc config active_border_color   "#8BE9FD"
+bspc config presel_feedback_color "#50FA7B"
+
+# bspc rule -a Emacs state=tiled
+bspc rule -a zatharu state=tiled
+
+
+#
+for file in $XDG_CONFIG_HOME/bspwm/rc.d/*; do
+  source "$file"
+done
