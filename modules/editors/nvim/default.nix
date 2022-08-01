@@ -183,7 +183,7 @@ programs.neovim = {
 
     let mapleader=" "
     noremap <leader>fs :write!<cr>
-    noremap <leader>q :quit!<cr>
+    noremap <leader>qq :quit!<cr>
   '';
 };
 }

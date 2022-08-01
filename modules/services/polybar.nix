@@ -20,8 +20,8 @@ in
         config = {
           "bar/main" = {                          # Bar name = Top
             # monitor = "HDMI-A-1";
-            # monitor = "DP-2";
-            monitor = "${env:MONITOR}";
+            monitor = "DP-3";
+            # monitor = ''${env:MONITOR:fallback-value}'';
             width = "100%";
             height = 15;
             background = "#00000000";
@@ -49,7 +49,7 @@ in
             wm-restack = "bspwm";
           };
           "bar/sec" = {
-            monitor = "DP-3";
+            monitor = "DP-2";
             width = "100%";
             height = 15;
             background = "#00000000";
