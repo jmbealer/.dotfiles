@@ -34,7 +34,7 @@ programs.neovim = {
     vim-nix 
   ];
 
-  settings = { ignorecase = true; };
+  # settings = { ignorecase = true; };
   extraConfig = ''
   
     colorscheme gruvbox-material

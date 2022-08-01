@@ -272,6 +272,26 @@
         "type": "github"
       }
     },
+    "nixgl": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1656321324,
+        "narHash": "sha256-Sz0uWspqvshGFbT+XmRVVayuW514rNNLLvrre8jBLLU=",
+        "owner": "guibou",
+        "repo": "nixGL",
+        "rev": "047a34b2f087e2e3f93d43df8e67ada40bf70e5c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "guibou",
+        "repo": "nixGL",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1659072678,
@@ -316,6 +336,21 @@
       "original": {
         "owner": "emacsattic",
         "repo": "nose",
+        "type": "github"
+      }
+    },
+    "nur": {
+      "locked": {
+        "lastModified": 1659306584,
+        "narHash": "sha256-zFJfqrwVgPDizVSv+tbNoJk+7aCK6YktKBHQkn3T+CI=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "640aaf9e74fbdc840c69e9ff09bb0eac47c6487a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
         "type": "github"
       }
     },
@@ -419,7 +454,9 @@
       "inputs": {
         "home-manager": "home-manager",
         "nix-doom-emacs": "nix-doom-emacs",
-        "nixpkgs": "nixpkgs_2"
+        "nixgl": "nixgl",
+        "nixpkgs": "nixpkgs_2",
+        "nur": "nur"
       }
     },
     "rotate-text": {

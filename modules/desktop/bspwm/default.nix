@@ -29,7 +29,7 @@
               };
             };
           };
-          defaultSession = "none+bspwm"
+          defaultSession = "none+bspwm";
         };
         windowManager = {
           bspwm = {

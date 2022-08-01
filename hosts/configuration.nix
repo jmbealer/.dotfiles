@@ -48,8 +48,8 @@
   environment = {
     variables = {
       TERMINAL = "alacritty";
-      # EDITOR = "nvim";
-      # VISUAL = "nvim";
+      EDITOR = "nvim";
+      VISUAL = "nvim";
     };
     systemPackages = with pkgs; [
       vim
@@ -110,6 +110,6 @@
       enable = true;
       channel = "https://nixos.org/channels/nixos-unstable";
     };
-    stateVersion = "21.11"
-  }
+    stateVersion = "21.11";
+  };
 }

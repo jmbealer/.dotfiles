@@ -1,4 +1,4 @@
-{ config, pkgs, lib, user, ... }
+{ config, pkgs, lib, user, ... }:
 
 {
   imports = 
@@ -10,18 +10,20 @@
     kernelPackages = pkgs.linuxPackages_latest;
 
     loader = {
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot";
-      };
-      grub = {
-        enable = true;
-        verison = 2;
-        devices = [ "nodev" ];
-        efiSupport = true;
-        useOSProber = true;
-        configurationLimit = 2;
-      };
+      efi.canTouchEfiVariables = true;
+      systemd-boot.enable = true;
+      # efi = {
+        # canTouchEfiVariables = true;
+        # efiSysMountPoint = "/boot";
+      # };
+      # grub = {
+        # enable = true;
+        # version = 2;
+        # devices = [ "nodev" ];
+        # efiSupport = true;
+        # useOSProber = true;
+        # configurationLimit = 5;
+      # };
       timeout = 1;
     };
   };
@@ -41,17 +43,17 @@
     logind.lidSwitch = "ignore";
     auto-cpufreq.enable = true;
     blueman.enable = true;
-    samba = {
-      enable = true;
-      shares = {
-        share = {
-          "path" = "/home/${user}";
-          "guest ok" = "yes";
-          "read only" = "no";
-        };
-      };
-      openFirewall = true
-    };
+    # samba = {
+      # enable = true;
+      # shares = {
+        # share = {
+          # "path" = "/home/${user}";
+          # "guest ok" = "yes";
+          # "read only" = "no";
+        # };
+      # };
+      # openFirewall = true;
+    # };
   };
 
 }

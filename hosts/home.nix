@@ -26,7 +26,8 @@
       gruvbox-dark-icons-gtk material-design-icons
       numix-cursor-theme quintom-cursor-theme bibata-cursors
       themechanger kitty
-      ripgrep fd bat polybar
+      ripgrep fd bat
+      # polybar
       sqlite
       pandoc emacs28Packages.emacsql emacs28Packages.emacsql-sqlite
       emacs28Packages.emacsql-sqlite-module emacs28Packages.emacsql-sqlite-builtin
@@ -36,29 +37,34 @@
       bash-completion nix-bash-completions nodePackages.bash-language-server
       tealdeer
       cmake nodePackages.npm shellcheck shellharden nixfmt coreutils-full
-      gnumake
+      # gnumake
       trash-cli
 
 
+    anki-bin
+    sqlite
+    gcc 
+
 
     vim_configurable git alacritty stow dmenu lf coreutils-full
-    xdg-utils clang gcc binutils
+    xdg-utils 
+    # clang 
+    gcc binutils
     arandr iosevka tmux neofetch starship
     libcap go unzip
     exa
     git-crypt gnupg
-    # gcc-wrapper gnumake
+    # gcc-wrapper 
     cope
-    wget
+    # wget
     firefox-devedition-bin
     feh sxhkd
-    st
+    # st
 
     # from newer dotfiles
     bind
     cached-nix-shell
-    wget
-    gnumake
+     
 
     # need move to right place
     bat
@@ -68,24 +74,7 @@
     jq
     ripgrep
 
-    pcmanfm gvfs udisks xarchiver
-    xfce.tumbler poppler ffmpegthumbnailer libgsf gnome.totem evince mcomix3
-    gruvbox-dark-gtk
-    gruvbox-dark-icons-gtk material-design-icons
-    numix-cursor-theme quintom-cursor-theme bibata-cursors
-    themechanger
-    # anki
-    anki-bin
-    polybar
-    sqlite
-    xorg.xwininfo xdotool xclip lispPackages.clsql-sqlite3
-    gh
-    helvum qpwgraph qjackctl
-    bash-completion nix-bash-completions nodePackages.bash-language-server
-    tealdeer
-    cmake nodePackages.npm shellcheck shellharden nixfmt coreutils-full
-    gcc 
-    trash-cli
+
     pandoc siduck76-st redshift xbanish unclutter
     ttyper klavaro gotypist
     lxappearance
@@ -94,7 +83,8 @@
     dconf
 
     libcap go gcc
-    xdg-utils clang binutils
+    xdg-utils 
+    binutils
     xdg-desktop-portal-gtk
 
     ungoogled-chromium
@@ -144,20 +134,20 @@
     };
   };
 
-  programs.git = {
-    enable = true;
-    userName = "Justin Bealer";
-    userEmail = "jmbealer11@gmail.com";
-    extraConfig = {
-      init.defaultBranch = "main";
-      pull.ff = "only";
-      url."https://github.com/".insteadOf = "git://github.com";
-    };
+  # programs.git = {
+    # enable = true;
+    # userName = "Justin Bealer";
+    # userEmail = "jmbealer11@gmail.com";
+    # extraConfig = {
+      # init.defaultBranch = "main";
+      # pull.ff = "only";
+      # url."https://github.com/".insteadOf = "git://github.com";
+    # };
     # extraConfig = {
       # credential.helper = "${
         # pkgs.git.override { withLibsecret = true; }
       # }/bin/git-credential-libsecret";
     # };
-  };
+  # };
 
 }

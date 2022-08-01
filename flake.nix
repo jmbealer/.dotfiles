@@ -8,6 +8,10 @@
     inputs.nixpkgs.follows = "nixpkgs";
     };
     nur.url = "github:nix-community/NUR";
+    nixgl = {
+      url = "github:guibou/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
   };
 
@@ -26,8 +30,8 @@
     in {
       nixosConfigurations = (
         import ./hosts {
-          inhert (nixpkgs) lib;
-          inhert inputs nixpkgs home-manager nur user location protocol;
+          inherit (nixpkgs) lib;
+          inherit inputs nixpkgs home-manager nur user location protocol;
         }
       );
         # jb = lib.nixosSystem {
@@ -46,8 +50,8 @@
       # };
       homeConfigurations = ( 
         import ./nix {
-          inhert (nixpkgs) lib;
-          inhert inputs nixpkgs home-manager user;
+          inherit (nixpkgs) lib;
+          inherit inputs nixpkgs home-manager user;
         }
       );
     };

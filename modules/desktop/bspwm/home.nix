@@ -1,4 +1,4 @@
-{ config, lib, pkgs, protocol, ... }
+{ config, lib, pkgs, protocol, ... }:
 
 { 
   config = lib.mkIf ( protocol == "X" ) {
@@ -37,7 +37,7 @@
             "feh --bg-tile $HOME/.config/wall"
             # "sxhkd"
 
-            "killall -q polybar &"
+            "killall -q polybar"
             "while pgrep -u $UID -x polybar >/dev/null; do sleep 1;done"
             "polybar main & #2>~/log &"
             # "$HOME/.config/polybar/launch.sh"
