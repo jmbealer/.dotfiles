@@ -1,0 +1,5 @@
+[
+  ./bspwm
+  ./sway
+  #./hyprland
+]
