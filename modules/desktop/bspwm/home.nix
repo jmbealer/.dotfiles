@@ -8,8 +8,10 @@
         bspwm = {
           enable = true;
           monitors = { 
-            DP-2 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ]; 
-            DP-3 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ]; 
+            # DP-2 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ]; 
+            DP-2 = [ "1" "2" "3" "4" "5" ]; 
+            DP-3 = [ "1" "2" "3" "4" "5" ]; 
+            # DP-3 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ]; 
           };
           settings = {
             # -- THEME -- #
@@ -40,7 +42,7 @@
 
             "killall -q polybar"
             "while pgrep -u $UID -x polybar >/dev/null; do sleep 1;done"
-            "polybar main & #2>~/log "
+            "polybar main & #2>~/log"
             # "$HOME/.config/polybar/launch.sh"
             # Terminate already running polybar instances
             # "polybar -q -r top"
