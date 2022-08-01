@@ -9,8 +9,9 @@
           enable = true;
           monitors = { 
             # DP-2 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ]; 
-            DP-2 = [ "1" "2" "3" "4" "5" ]; 
-            DP-3 = [ "1" "2" "3" "4" "5" ]; 
+            "focused" = [ "1" "2" "3" "4" "5" ]; 
+            # DP-2 = [ "1" "2" "3" "4" "5" ]; 
+            # DP-3 = [ "1" "2" "3" "4" "5" ]; 
             # DP-3 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ]; 
           };
           settings = {
@@ -35,10 +36,16 @@
           rules = {
             "Emacs" = { state = "tiled"; };
           };
+          # extraConfig = ''
+          # '';
           startupPrograms = [
             # "feh --bg-fill $HOME/.config/bspwm-bak/FusionA1.png"
             "feh --bg-tile $HOME/.config/wall"
             # "sxhkd"
+
+            "unclutter"
+            "xbanish"
+            "xset r rate 200 50"
 
             "killall -q polybar"
             "while pgrep -u $UID -x polybar >/dev/null; do sleep 1;done"
@@ -58,35 +65,8 @@
 
 
 
-  # xsession.windowManager.bspwm = {
-  # enable = true;
-
-  # monitors = { HDMI-0 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ]; };
   # monitors = { HDMI-0 = [ "" "" "" "" "" "" "" "" "" "" ]; };
 
-  # settings = {
-    # -- THEME -- #
-    # border_width = 1;
-    # window_gap = 0;
-    # top_padding = 20;
-    # bottom_padding = 0;
-
-    # gapless_monocle = false;
-    # borderless_monocle = true;
-    # split_ratio = 0.5;
-
-    # focused_border_color = "#65b2ff";
-    # normal_border_color = "#3b4252";
-
-      # -- MOUSE -- #
-    # pointer_modifier = "mod1";
-    # pointer_action1 = "move";
-    # pointer_action2 = "resize_side";
-  # };
-
-  # rules = {
-    # "Emacs" = { state = "tiled"; };
-  # };
 
   # startupPrograms = [
     # "feh --bg-fill $HOME/.config/bspwm-bak/FusionA1.png"

@@ -19,7 +19,9 @@ in
         package = mypolybar;
         config = {
           "bar/main" = {                          # Bar name = Top
-            #monitor = "HDMI-A-1";
+            # monitor = "HDMI-A-1";
+            # monitor = "DP-2";
+            monitor = "${env:MONITOR}";
             width = "100%";
             height = 15;
             background = "#00000000";
@@ -47,7 +49,7 @@ in
             wm-restack = "bspwm";
           };
           "bar/sec" = {
-            monitor = "DisplayPort-1";
+            monitor = "DP-3";
             width = "100%";
             height = 15;
             background = "#00000000";
