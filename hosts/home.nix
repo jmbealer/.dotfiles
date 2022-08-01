@@ -28,10 +28,9 @@
       themechanger kitty
       ripgrep fd bat
       # polybar
-      sqlite
-      pandoc emacs28Packages.emacsql emacs28Packages.emacsql-sqlite
-      emacs28Packages.emacsql-sqlite-module emacs28Packages.emacsql-sqlite-builtin
-      xorg.xwininfo xdotool xclip lispPackages.clsql-sqlite3
+
+
+      xorg.xwininfo xdotool xclip
       gh
       helvum qpwgraph qjackctl
       bash-completion nix-bash-completions nodePackages.bash-language-server

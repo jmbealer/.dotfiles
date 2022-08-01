@@ -23,10 +23,18 @@
   };
 
   environment.systemPackages = with pkgs; [
-    emacs
+    # emacs
     ripgrep
     coreutils
     fd
+
+    sqlite
+    pandoc
+    emacs28Packages.emacsql
+    emacs28Packages.emacsql-sqlite
+    emacs28Packages.emacsql-sqlite-module
+    emacs28Packages.emacsql-sqlite-builtin
+    lispPackages.clsql-sqlite3
   ];
 
 }
