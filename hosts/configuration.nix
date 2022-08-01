@@ -2,7 +2,7 @@
 
 {
   imports = [
-    # ../modules/editors/emacs
+    ../modules/editors/emacs
     ./hostsBlock.nix
   ];
   users.users.${user} = {

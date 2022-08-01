@@ -43,13 +43,20 @@
   networking = {
     useDHCP = false;
     hostName = "nixLaptop";
-    networkmanager.enable = true;
+    # networkmanager.enable = true;
     interfaces = {
       enp4s0f1= {
         useDHCP = true;
       };
       wlp5s0 = {
         useDHCP = true;
+      };
+    };
+    wireless = {
+      enable = true;
+      userControlled.enable = true;
+      networks = {
+        InTown_Guest = {};
       };
     };
     # defaultGateway = "192.168.0.1";

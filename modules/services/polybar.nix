@@ -1,6 +1,4 @@
-#
 # Bar
-#
 
 { config, lib, pkgs, ... }:
 
