@@ -10,6 +10,7 @@
 
         layout = "us";
         libinput.enable = true;
+        dpi = 96;
 
         displayManager = {
           lightdm = {
@@ -36,10 +37,7 @@
             enable = true;
           };
         };
-        videoDrivers = [
-          # "amdgpu"
-          "nvidia"
-        ];
+        videoDrivers = ["nvidia"];
 
         # displayManager.SessionCommands = '' '';
 
@@ -53,6 +51,14 @@
       };
     };
     # programs.zsh.enable = true;
+    
+    hardware = {
+      video.hidpi.enable = true;
+      opengl = {
+        enable = true;
+        driSupport32Bit = true;
+      };
+    };
 
     environment.systemPackages = with pkgs; [
       xclip

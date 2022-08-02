@@ -26,7 +26,9 @@
       gruvbox-dark-icons-gtk material-design-icons
       numix-cursor-theme quintom-cursor-theme bibata-cursors
       themechanger kitty
-      ripgrep fd bat
+      # ripgrep 
+      fd bat
+
       # polybar
 
 

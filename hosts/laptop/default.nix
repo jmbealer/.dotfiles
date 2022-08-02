@@ -3,6 +3,7 @@
 {
   imports = 
     [(import ./hardware-configuration.nix)] ++
+    # [(import ../../modules/desktop/bspwm/default.nix)] ++
     (import ../../modules/desktop) ++
     (import ../../modules/hardware);
 

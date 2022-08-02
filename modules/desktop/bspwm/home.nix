@@ -50,8 +50,8 @@
 
             "killall -q polybar"
             "while pgrep -u $UID -x polybar >/dev/null; do sleep 1;done"
-            "polybar main & #2>~/log"
-            # "$HOME/.config/polybar/launch.sh"
+            # "polybar main & #2>~/log"
+            "$HOME/.config/polybar/launch.sh"
             # Terminate already running polybar instances
             # "polybar -q -r top"
           ];

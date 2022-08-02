@@ -1,6 +1,4 @@
-#
 # Keyboard shortcuts
-#
 
 { config, lib, pkgs, ... }:
 
@@ -11,17 +9,30 @@
         enable = true;
         keybindings = {
           # Apps
-          "super + Return" = "alacritty";                       # Open Terminal
+          # Open Terminal
+          # "super + Return" = "alacritty";
+          "super + Return" = ''xst -e bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"'';
+          "super + ctrl + Return" = "xst";
+          "super + ctrl + alt + Return" = "xterm";
+
           # "super + space" = "rofi -show drun";                  # Open Rofi (custom theme " -theme theme.rasi")
           "super + Tab" = "rofi -show drun";                  # Open Rofi (custom theme " -theme theme.rasi")
           "super + e" = "pcmanfm";                              # File Manager
 
+          "super + w" = "firefox-devedition";
+
           "Print" = "flameshot gui";                            # Start flameshot gui
 
           # Bspwm
-          "super + {q,k}" = "bspc node -{c,k}";                 # Close or Kill
-          "super + Escape" = "bspc quit";                       # Exit WM
-          "super + r" = "bspc wm -r";                           # Reload WM
+          "super + Escape" = "pkill -USR1 -x sxhkd";
+          "super + alt + Escape" = "bspc quit";
+
+          "super + alt + {q,r}" = "bspc {quit,wm -r}";
+
+          "super + {_,shift +}c" = "bspc node -{c,k}";
+          # "super + {q,k}" = "bspc node -{c,k}";                 # Close or Kill
+          # "super + Escape" = "bspc quit";                       # Exit WM
+          # "super + r" = "bspc wm -r";                           # Reload WM
 
           # Super - Nodes
           "super + {_,shift +}{Left,Right,Up,Down}" = "bspc node -{f,s} {west,east,north,south}";  # Focus or move node in given direction
@@ -35,7 +46,8 @@
 
           # Alt - Move workspaces
           "alt + {Left,Right}" = "bspc desktop -f {prev,next}.local"; # Focus the next/previous desktop in the current monitor
-          "super + {_,alt +}{s,b}" = "bspc desktop -f {prev,next}.local"; # Focus the next/previous desktop in the current monitor
+          # "super + {_,alt +}{s,b}" = "bspc desktop -f {prev,next}.local"; # Focus the next/previous desktop in the current monitor
+          "super + alt +{s,b}" = "bspc desktop -f {prev,next}.local"; # Focus the next/previous desktop in the current monitor
           "alt + {_,shift +}{1-9,0}" = "bspc {desktop -f,node -d} '{1-9,10}'";
           "alt + shift + {Left,Right}" = "bspc node -d {prev,next}.local --follow"; # Send and follow to previous or next desktop
             #"alt + {_,shift +}{ampersand,eacute,quotedbl,apostrophe,parenleft,section,egrave,exclam,ccedilla,agrave}" = "bspc {desktop -f,node -d} '{1-9,10}'"; # Focus or send to the given desktop for azerty
