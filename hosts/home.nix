@@ -43,7 +43,7 @@
 
 
     anki-bin
-    sqlite
+    # sqlite
     gcc 
 
 

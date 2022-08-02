@@ -32,8 +32,9 @@
     coreutils
     fd
 
-    emacsGcc
-    # emacsNativeComp
+    # emacsGcc
+    # emacsPgtkGcc
+    emacsNativeComp
     sqlite
     pandoc
     emacs28Packages.emacsql

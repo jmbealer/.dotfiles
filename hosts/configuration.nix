@@ -47,13 +47,13 @@
 
   environment = {
     variables = {
-      TERMINAL = "alacritty";
+      # TERMINAL = "alacritty";
       EDITOR = "nvim";
       VISUAL = "nvim";
     };
     systemPackages = with pkgs; [
-      vim
-      git
+      # vim
+      # git
       killall
       pciutils
       usbutils
