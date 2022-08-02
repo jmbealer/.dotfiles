@@ -40,33 +40,5 @@
     [ { device = "/dev/disk/by-uuid/bc5b3d46-51ea-47e9-a15a-a8bade508619"; }
     ];
 
-  networking = {
-    useDHCP = false;
-    hostName = "nixLaptop";
-    # networkmanager.enable = true;
-    interfaces = {
-      enp4s0f1= {
-        useDHCP = true;
-      };
-      wlp5s0 = {
-        useDHCP = true;
-      };
-    };
-    wireless = {
-      enable = true;
-      userControlled.enable = true;
-      networks = {
-        InTown_Guest = {};
-      };
-    };
-    # defaultGateway = "192.168.0.1";
-    nameservers = [ "10.26.0.1" "104.223.91.195" "104.223.91.210" ];
-    # nameservers  = "192.168.0.51";
-    # firewall = {
-      # allowedUDPPorts = [53 67];
-      # allowedTCPPorts = [53 80 443 9443];
-    # };
-  };
-
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

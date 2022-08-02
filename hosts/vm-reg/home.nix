@@ -7,16 +7,9 @@
 
   home = {
     packages = with pkgs; [
-
+      firefox
     ];
   };
 
-  programs = {
-    alacritty.settings.font.size = 11;
-  };
-
-  services = {
-    blueman-applet.enable = true;
-  };
 
 }
