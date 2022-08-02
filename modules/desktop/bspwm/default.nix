@@ -50,7 +50,7 @@
         # resolutions = [];
       };
     };
-    # programs.zsh.enable = true;
+    programs.zsh.enable = true;
     
     hardware = {
       video.hidpi.enable = true;
