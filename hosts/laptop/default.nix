@@ -9,10 +9,15 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
+    initrd.kernelModules = [ "nvidia" ];
 
     loader = {
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 10;
+      };
       efi.canTouchEfiVariables = true;
-      systemd-boot.enable = true;
+      # systemd-boot.enable = true;
       # efi = {
         # canTouchEfiVariables = true;
         # efiSysMountPoint = "/boot";
@@ -56,5 +61,10 @@
       # openFirewall = true;
     # };
   };
+
+  systemd.tmpfiles.rules = [
+    "d /var/lib/bluetooth 700 root root - -"
+  ];
+  systemd.targets."bluetooth".after = ["systemd-tmpfiles-setup.service"];
 
 }
