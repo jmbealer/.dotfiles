@@ -11,7 +11,8 @@
           # Apps
           # Open Terminal
           # "super + Return" = "alacritty";
-          "super + Return" = ''xst -e bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"'';
+          "super + Return" = ''alacritty -e bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"'';
+          # "super + Return" = ''xst -e bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"'';
           "super + ctrl + Return" = "xst";
           "super + ctrl + alt + Return" = "xterm";
 
