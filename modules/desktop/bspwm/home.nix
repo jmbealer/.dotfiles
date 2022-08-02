@@ -7,14 +7,12 @@
       windowManager = {
         bspwm = {
           enable = true;
-          monitors = { 
+          # monitors = { 
             # DP-2 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ]; 
-            # "focused" = [ "1" "2" "3" "4" "5" ]; 
-            "focused" = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ]; 
+            # "focused" = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ]; 
             # DP-2 = [ "1" "2" "3" "4" "5" ]; 
             # DP-3 = [ "1" "2" "3" "4" "5" ]; 
-            # DP-3 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ]; 
-          };
+          # };
           settings = {
             # -- THEME -- #
             border_width = 2;
@@ -37,24 +35,36 @@
           rules = {
             "Emacs" = { state = "tiled"; };
           };
-          # extraConfig = ''
-          # '';
-          startupPrograms = [
-            # "feh --bg-fill $HOME/.config/bspwm-bak/FusionA1.png"
-            "feh --bg-tile $HOME/.config/wall"
+          extraConfig = ''
+            bspc monitor -d 1 2 3 4 5
+
+            feh --bg-tile $HOME/.config/wall
+
+            unclutter &
+            xbanish &
+            xset r rate 200 50 &
+
+            killall -q polybar &
+            while pgrep -u $UID -x polybar >/dev/null; do sleep 1;done
+            polybar main & #2>~/log &
+          '';
+          # startupPrograms = [
+            # "feh --bg-tile $HOME/.config/wall"
+
             # "sxhkd"
 
-            "unclutter"
-            "xbanish"
-            "xset r rate 200 50"
+            # "unclutter"
+            # "xbanish"
+            # "xset r rate 200 50"
 
-            "killall -q polybar"
-            "while pgrep -u $UID -x polybar >/dev/null; do sleep 1;done"
+            # "killall -q polybar"
+            # "while pgrep -u $UID -x polybar >/dev/null; do sleep 1;done"
             # "polybar main & #2>~/log"
-            "$HOME/.config/polybar/launch.sh"
+            # "$HOME/.config/polybar/launch.sh"
             # Terminate already running polybar instances
             # "polybar -q -r top"
-          ];
+          # ];
+
         };
       };
     };
