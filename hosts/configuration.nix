@@ -81,9 +81,18 @@
 
   };
 
-  xdg.portal = {
+  qt5 = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    platformTheme = "gtk2";
+    style = "gtk2";
+  };
+
+  xdg = {
+    portal = {
+      enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    };
+    mime.enable = true;
   };
 
   nix = {
