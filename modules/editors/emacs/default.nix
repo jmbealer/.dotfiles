@@ -22,12 +22,18 @@
     };
   };
 
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball https://github.com/nix-community/emacs-overlay/archive/master.tar.gz))
+  ];
+
   environment.systemPackages = with pkgs; [
     # emacs
     ripgrep
     coreutils
     fd
 
+    emacsGcc
+    # emacsNativeComp
     sqlite
     pandoc
     emacs28Packages.emacsql
@@ -36,23 +42,23 @@
     emacs28Packages.emacsql-sqlite-builtin
     lispPackages.clsql-sqlite3
 
-    emacsNativeComp
 
       ## Emacs itself
-      binutils       # native-comp needs 'as', provided by this
+      # binutils       # native-comp needs 'as', provided by this
       # 29 + pgtk + native-comp
       # ((emacsPackagesFor emacsPgtkGcc).emacsWithPackages (epkgs: [
-      ((emacsPackagesFor emacsNativeComp).emacsWithPackages (epkgs: [
-        epkgs.vterm
-      ]))
+
+      # ((emacsPackagesFor emacsNativeComp).emacsWithPackages (epkgs: [
+        # epkgs.vterm
+      # ]))
 
       ## Doom dependencies
       git
-      (ripgrep.override {withPCRE2 = true;})
+      # (ripgrep.override {withPCRE2 = true;})
       gnutls              # for TLS connectivity
 
       ## Optional dependencies
-      fd                  # faster projectile indexing
+      # fd                  # faster projectile indexing
       imagemagick         # for image-dired
       # (mkIf (config.programs.gnupg.agent.enable)
         # pinentry_emacs)   # in-emacs gnupg prompts
@@ -66,7 +72,7 @@
       # :tools editorconfig
       editorconfig-core-c # per-project style config
       # :tools lookup & :lang org +roam
-      sqlite
+      # sqlite
       # :lang latex & :lang org (latex previews)
       texlive.combined.scheme-medium
       # :lang beancount
