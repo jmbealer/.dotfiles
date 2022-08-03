@@ -36,9 +36,12 @@
 
       gh
       helvum qpwgraph qjackctl
-      bash-completion nix-bash-completions nodePackages.bash-language-server
+      bash-completion nix-bash-completions 
+      # nodePackages.bash-language-server
       tealdeer
-      cmake nodePackages.npm shellcheck shellharden nixfmt 
+      cmake 
+      # nodePackages.npm 
+      shellcheck shellharden nixfmt 
       # gnumake
       trash-cli
 
@@ -47,7 +50,8 @@
     gcc 
 
 
-    vim_configurable git alacritty stow dmenu lf 
+    vim_configurable 
+    git alacritty stow dmenu lf 
     coreutils-full
     # clang 
     gcc 
@@ -82,7 +86,7 @@
 
     libcap go gcc
     xdg-utils 
-    binutils
+    # binutils
     xdg-desktop-portal-gtk
 
     ungoogled-chromium
@@ -92,8 +96,8 @@
 
     graphviz
     html-tidy
-    nodePackages.stylelint
-    nodePackages.js-beautify
+    # nodePackages.stylelint
+    # nodePackages.js-beautify
     rclone
 
     vscode-fhs
