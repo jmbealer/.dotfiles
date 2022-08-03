@@ -29,27 +29,26 @@
       gruvbox-dark-icons-gtk material-design-icons
       numix-cursor-theme quintom-cursor-theme bibata-cursors
       themechanger kitty
-      fd 
+      # fd 
 
       # polybar
 
 
-      xorg.xwininfo xdotool xclip
       gh
       helvum qpwgraph qjackctl
       bash-completion nix-bash-completions nodePackages.bash-language-server
       tealdeer
-      cmake nodePackages.npm shellcheck shellharden nixfmt coreutils-full
+      cmake nodePackages.npm shellcheck shellharden nixfmt 
       # gnumake
       trash-cli
 
 
-    anki-bin
-    # sqlite
+    # anki-bin
     gcc 
 
 
-    vim_configurable git alacritty stow dmenu lf coreutils-full
+    vim_configurable git alacritty stow dmenu lf 
+    coreutils-full
     # clang 
     gcc 
     arandr iosevka tmux neofetch starship
@@ -72,10 +71,9 @@
     fasd
     fzf
     jq
-    ripgrep
 
 
-    pandoc siduck76-st redshift xbanish unclutter
+    siduck76-st redshift xbanish unclutter
     ttyper klavaro gotypist
     lxappearance
     qbittorrent

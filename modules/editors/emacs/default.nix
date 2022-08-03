@@ -29,7 +29,8 @@
   environment.systemPackages = with pkgs; [
     # emacs
     ripgrep
-    coreutils
+    # coreutils
+    coreutils-full
     fd
 
     # emacsGcc

@@ -92,6 +92,8 @@
       xorg.xkill
       xorg.xrandr
       xterm
+      xorg.xwininfo
+      xdotool
       #alacritty
       #sxhkd
     ];
