@@ -50,9 +50,9 @@
       # 29 + pgtk + native-comp
       # ((emacsPackagesFor emacsPgtkGcc).emacsWithPackages (epkgs: [
 
-      # ((emacsPackagesFor emacsNativeComp).emacsWithPackages (epkgs: [
-        # epkgs.vterm
-      # ]))
+      ((emacsPackagesFor emacsNativeComp).emacsWithPackages (epkgs: [
+        epkgs.vterm
+      ]))
 
       ## Doom dependencies
       git
@@ -84,5 +84,6 @@
   ];
 
     fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
+    services.emacs.package = with pkgs; ((emacsPackagesFor emacsPgtkGcc).emacsWithPackages (epkgs: [ epkgs.vterm ]));
 
 }
