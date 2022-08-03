@@ -12,11 +12,11 @@
     initrd.kernelModules = [ "nvidia" ];
 
     loader = {
+      efi.canTouchEfiVariables = true;
       systemd-boot = {
         enable = true;
         configurationLimit = 10;
       };
-      efi.canTouchEfiVariables = true;
       # systemd-boot.enable = true;
       # efi = {
         # canTouchEfiVariables = true;
@@ -36,6 +36,7 @@
 
   environment = {
     systemPackages = with pkgs; [
+      nixFlakes
       discord
     ];
   };

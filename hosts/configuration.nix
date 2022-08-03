@@ -5,6 +5,7 @@
     ../modules/editors/emacs
     ./hostsBlock.nix
   ];
+
   users.users.${user} = {
     isNormalUser = true;
     extraGroups = ["wheel" "video" "audio" "camera" "networkmanager" "lp" "scanner" "kvm" "libvirtd"];
@@ -12,6 +13,7 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMzlS2DsemrWjubPRw5WzqYYJOvWjLzYwBslvUpnzVkX jmbealer11@gmail.com"
     ];
   };
+
   security.sudo.wheelNeedsPassword = false;
 
   time.timeZone = "America/Chicago";
@@ -47,7 +49,7 @@
 
   environment = {
     variables = {
-      # TERMINAL = "alacritty";
+      TERMINAL = "alacritty";
       EDITOR = "nvim";
       VISUAL = "nvim";
     };
@@ -72,7 +74,7 @@
     };
     openssh = {
       enable = true;
-      allowSFTP = true;
+      # allowSFTP = true;
       extraConfig = ''
         HostKeyAlgorithms +ssh-rsa
       '';
@@ -81,11 +83,11 @@
 
   };
 
-  qt5 = {
-    enable = true;
-    platformTheme = "gtk2";
-    style = "gtk2";
-  };
+  # qt5 = {
+    # enable = true;
+    # platformTheme = "gtk2";
+    # style = "gtk2";
+  # };
 
   xdg = {
     portal = {

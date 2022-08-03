@@ -9,6 +9,7 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
+    initrd.kernelModules = ["nvidia"]
 
     loader = {
       efi.canTouchEfiVariables = true;
@@ -31,6 +32,7 @@
 
   environment = {
     systemPackages = with pkgs; [
+      nixFlakes
       discord
     ];
   };

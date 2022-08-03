@@ -5,11 +5,11 @@
     ../../modules/desktop/bspwm/home.nix
   ];
 
-  home = {
-    packages = with pkgs; [
+  # home = {
+    # packages = with pkgs; [
 
-    ];
-  };
+    # ];
+  # };
 
   programs = {
     alacritty.settings.font.size = 11;
