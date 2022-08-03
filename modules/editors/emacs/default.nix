@@ -35,7 +35,9 @@
 
     # emacsGcc
     # emacsPgtkGcc
-    emacsNativeComp
+    emacsPgtkNativeComp 
+    # emacsNativeComp
+    # emacsNativeComp
     sqlite
     pandoc
     emacs28Packages.emacsql
@@ -50,7 +52,7 @@
       # 29 + pgtk + native-comp
       # ((emacsPackagesFor emacsPgtkGcc).emacsWithPackages (epkgs: [
 
-      ((emacsPackagesFor emacsNativeComp).emacsWithPackages (epkgs: [
+      ((emacsPackagesFor emacsPgtkNativeComp).emacsWithPackages (epkgs: [
         epkgs.vterm
       ]))
 
@@ -84,6 +86,6 @@
   ];
 
     fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
-    services.emacs.package = with pkgs; ((emacsPackagesFor emacsPgtkGcc).emacsWithPackages (epkgs: [ epkgs.vterm ]));
+    services.emacs.package = with pkgs; ((emacsPackagesFor emacsPgtkNativeComp).emacsWithPackages (epkgs: [ epkgs.vterm ]));
 
 }
