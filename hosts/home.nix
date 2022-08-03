@@ -20,14 +20,16 @@
     homeDirectory = "/home/${user}";
 
     packages = with pkgs; [
-      pcmanfm gvfs udisks xarchiver
+      pcmanfm 
+      gvfs 
+      udisks 
+      xarchiver
       xfce.tumbler poppler ffmpegthumbnailer libgsf gnome.totem evince mcomix3
       gruvbox-dark-gtk
       gruvbox-dark-icons-gtk material-design-icons
       numix-cursor-theme quintom-cursor-theme bibata-cursors
       themechanger kitty
-      # ripgrep 
-      fd bat
+      fd 
 
       # polybar
 
@@ -48,16 +50,14 @@
 
 
     vim_configurable git alacritty stow dmenu lf coreutils-full
-    xdg-utils 
     # clang 
-    gcc binutils
+    gcc 
     arandr iosevka tmux neofetch starship
     libcap go unzip
     exa
     git-crypt gnupg
     # gcc-wrapper 
     cope
-    # wget
     firefox-devedition-bin
     feh sxhkd
     # st
@@ -70,7 +70,6 @@
     # need move to right place
     bat
     fasd
-    fd
     fzf
     jq
     ripgrep
