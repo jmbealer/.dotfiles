@@ -61,7 +61,9 @@
       usbutils
       wget
 
+      nodejs
       nodePackages.npm
+      nodePackages.bash-language-server
     ];
   };
 

@@ -3,6 +3,8 @@
 {
   imports = [
     ../../modules/desktop/bspwm/home.nix
+    # ../../modules/editors/emacs/default.nix
+    # ../../modules/editors/emacs/home.nix
   ];
 
   # home = {

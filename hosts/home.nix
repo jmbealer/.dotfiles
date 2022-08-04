@@ -20,6 +20,7 @@
     homeDirectory = "/home/${user}";
 
     packages = with pkgs; [
+      # doom-emacs
       pcmanfm 
       gvfs 
       udisks 
