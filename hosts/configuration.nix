@@ -60,6 +60,8 @@
       pciutils
       usbutils
       wget
+
+      nodePackages.npm
     ];
   };
 
