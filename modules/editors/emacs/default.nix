@@ -1,7 +1,8 @@
 { config, pkgs, callPackage, ... }:
 { 
 
-  services.emacs.package = pkgs.emacsUnstable;
+  # services.emacs.package = pkgs.emacsUnstable;
+  services.emacs.package = pkgs.emacsGit;
 
   nixpkgs.overlays = [
     (import (builtins.fetchTarball {
@@ -25,10 +26,10 @@
     # filenotify-recursive
     (emacsWithPackagesFromUsePackage { 
       config = ./doom.d/config.el;
-      # package = pkgs.emacsGit;
-      package = pkgs.emacsNativeComp;
+      package = pkgs.emacsGit;
+      # package = pkgs.emacsNativeComp;
       # package = pkgs.emacsGitNativeComp;
-      # alwaysEnsure = true;
+      alwaysEnsure = true;
       alwaysTangle = true;
       # extraEmacsPackages = epkgs: [
         # epkgs.cask

@@ -11,8 +11,9 @@
   imports = 
     (import ../modules/editors) ++
     (import ../modules/programs) ++
-    (import ../modules/services) ++
-    (import ../modules/shell);
+    # (import ../modules/services) ++
+    (import ../modules/services);
+    # (import ../modules/shell);
 
 
   home = {
@@ -110,6 +111,7 @@
     postman
 
     zoom-us
+    perl534Packages.FileMimeInfo
     ];
     # file.".config/wall".source = ../modules/themes/wall;
     pointerCursor = {
