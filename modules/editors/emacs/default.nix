@@ -25,14 +25,16 @@
     # filenotify-recursive
     (emacsWithPackagesFromUsePackage { 
       config = ./doom.d/config.el;
+      # package = pkgs.emacsGit;
+      package = pkgs.emacsNativeComp;
       # package = pkgs.emacsGitNativeComp;
-      # package = pkgs.emacsGitNativeComp;
-      alwaysEnsure = true;
+      # alwaysEnsure = true;
       alwaysTangle = true;
-      extraEmacsPackages = epkgs: [
-        epkgs.cask
-        epkgs.org-roam
-      ];
+      # extraEmacsPackages = epkgs: [
+        # epkgs.cask
+        # epkgs.org-roam
+      # ];
+
     })
   ];
 
