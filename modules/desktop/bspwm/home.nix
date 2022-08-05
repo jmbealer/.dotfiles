@@ -36,7 +36,7 @@
             "Emacs" = { state = "tiled"; };
           };
           extraConfig = ''
-            bspc monitor -d 1 2 3 4 5
+            bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 
             feh --bg-tile $HOME/.config/wall
 
