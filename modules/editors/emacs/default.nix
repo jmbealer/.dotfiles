@@ -53,9 +53,15 @@
     ripgrep
     coreutils
     fd
+    gcc
+
     # sqlite
     # emacs28Packages.emacsql
+    # emacs28Packages.emacsql-sqlite-builtin
+    # emacs28Packages.emacsql-sqlite-module
     # emacs28Packages.sqlite
+    # emacs28Packages.sqlite3
+
     # emacs28Packages.magit-section
     # filenotify-recursive
     # (emacsWithPackagesFromUsePackage { 
@@ -71,6 +77,6 @@
     # })
   ];
 
-    # fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
+    fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
 
 }

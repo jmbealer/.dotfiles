@@ -48,7 +48,7 @@
       trash-cli
 
 
-    # anki-bin
+    anki-bin
     gcc 
 
 
