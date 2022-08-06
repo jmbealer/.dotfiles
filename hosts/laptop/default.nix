@@ -13,23 +13,25 @@
 
     loader = {
       efi.canTouchEfiVariables = true;
-      systemd-boot = {
-        enable = true;
-        configurationLimit = 10;
-      };
+      efi.efiSysMountPoint = "/boot";
+      # systemd-boot = {
+        # enable = true;
+        # configurationLimit = 10;
+      # };
+
       # systemd-boot.enable = true;
       # efi = {
         # canTouchEfiVariables = true;
         # efiSysMountPoint = "/boot";
       # };
-      # grub = {
-        # enable = true;
-        # version = 2;
-        # devices = [ "nodev" ];
-        # efiSupport = true;
-        # useOSProber = true;
-        # configurationLimit = 5;
-      # };
+      grub = {
+        enable = true;
+        version = 2;
+        devices = [ "nodev" ];
+        efiSupport = true;
+        useOSProber = true;
+        configurationLimit = 10;
+      };
       timeout = 1;
     };
   };

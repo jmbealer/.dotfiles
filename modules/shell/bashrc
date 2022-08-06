@@ -1,0 +1,115 @@
+# source '.aliases'
+# source '~/.bash_aliases'
+
+# export SHELL
+
+# Write the following line near the top of .bashrc
+[[ $- == *i* ]] &&
+  # source ~/.local/share/blesh/ble.sh --noattach
+  source "$HOME/.local/share/blesh/ble.sh" --rcfile "$HOME/.blerc"
+ble-face auto_complete=fg=238,bg=transparent
+ble-face region_insert=fg=blue,bg=transarent
+
+
+
+
+# Normal settings can be placed in between.
+set -o vi
+# export EDITOR="em"
+# export EDITOR="emacs"
+# export EDITOR="emacs -nw"
+# export PAGER="emacs -nw"
+# export PAGER='emacs -nw -e "(view-mode)"'
+
+source $HOME/.aliases.sh
+
+# source $HOME/.bash_completion/alacritty.sh
+# eval "$(zoxide init --cmd cd bash)"
+command -v zoxide > /dev/null 2>&1 && eval "$(zoxide init bash)"
+
+shopt -s autocd
+
+# export PATH="$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/.config/emacs-configs/doom-emacs/bin:$PATH"
+
+# export PATH=$PATH:/usr/bin/hla
+# export hlalib=/usr/bin/hla/hlalib
+# export hlainc=/usr/bin/hla/include
+
+if [ -n "$PS1"  ] && [ -z "$TMUX"  ]; then
+  # Create session 'main' or attach to 'main' if already exists.
+  tmux new-session -A -s main
+fi
+
+neofetch
+eval "$(starship init bash)"
+
+LF_ICONS=$(sed ~/.config/diricons \
+            -e '/^[ \t]*#/d'       \
+            -e '/^[ \t]*$/d'       \
+            -e 's/[ \t]\+/=/g'     \
+            -e 's/$/ /')
+LF_ICONS=${LF_ICONS//$'\n'/:}
+export LF_ICONS
+
+use_color=true
+
+# Set colorful PS1 only on colorful terminals.
+# dircolors --print-database uses its own built-in database
+# instead of using /etc/DIR_COLORS.  Try to use the external file
+# first to take advantage of user additions.  Use internal bash
+# globbing instead of external grep binary.
+safe_term=${TERM//[^[:alnum:]]/?}   # sanitize TERM
+match_lhs=""
+[[ -f ~/.dir_colors   ]] && match_lhs="${match_lhs}$(<~/.dir_colors)"
+[[ -f /etc/DIR_COLORS ]] && match_lhs="${match_lhs}$(</etc/DIR_COLORS)"
+[[ -z ${match_lhs}    ]] \
+    && type -P dircolors >/dev/null \
+    && match_lhs=$(dircolors --print-database)
+[[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
+
+if ${use_color} ; then
+    # Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
+    if type -P dircolors >/dev/null ; then
+        if [[ -f ~/.dir_colors ]] ; then
+            eval $(dircolors -b ~/.dir_colors)
+        elif [[ -f /etc/DIR_COLORS ]] ; then
+            eval $(dircolors -b /etc/DIR_COLORS)
+        fi
+    fi
+
+    if [[ ${EUID} == 0 ]] ; then
+        PS1='\[\033[01;31m\][\h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '
+    else
+        PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\] '
+    fi
+
+    alias ls='ls --color=auto'
+    alias grep='grep --colour=auto'
+    alias egrep='egrep --colour=auto'
+    alias fgrep='fgrep --colour=auto'
+else
+    if [[ ${EUID} == 0 ]] ; then
+        # show root@ when we don't have colors
+        PS1='\u@\h \W \$ '
+    else
+        PS1='\u@\h \w \$ '
+    fi
+fi
+
+unset use_color safe_term match_lhs sh
+
+
+
+# Write the following line at the bottom of .bashrc
+[[ ${BLE_VERSION-} ]] && ble-attach
+
+# Note: In ble-0.2 or before, use the following instead:
+#((_ble_bash)) && ble-attach
+# source ~/.local/share/blesh/ble.sh
+
+
+# BEGIN_KITTY_SHELL_INTEGRATION
+# if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
+# END_KITTY_SHELL_INTEGRATION
+

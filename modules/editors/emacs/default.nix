@@ -13,7 +13,8 @@
 # }
 
 
-{ config, pkgs, callPackage, ... }:
+# { config, pkgs, callPackage, ... }:
+{ config, pkgs, location, ... }:
 { 
 
   # services.emacs.package = pkgs.emacsUnstable;
