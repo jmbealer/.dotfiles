@@ -9,6 +9,7 @@
   users.users.${user} = {
     isNormalUser = true;
     extraGroups = ["wheel" "video" "audio" "camera" "networkmanager" "lp" "scanner" "kvm" "libvirtd"];
+    shell = pkgs.bash;
     openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMzlS2DsemrWjubPRw5WzqYYJOvWjLzYwBslvUpnzVkX jmbealer11@gmail.com"
     ];

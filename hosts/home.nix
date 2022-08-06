@@ -11,9 +11,9 @@
   imports = 
     (import ../modules/editors) ++
     (import ../modules/programs) ++
-    # (import ../modules/services) ++
-    (import ../modules/services);
-    # (import ../modules/shell);
+    (import ../modules/services) ++
+    # (import ../modules/services);
+    (import ../modules/shell);
 
 
   home = {
@@ -122,7 +122,9 @@
 		stateVersion = "21.11";
   };
 
-  programs.home-manager.enable = true;
+  programs = {
+    home-manager.enable = true;
+  };
 
   gtk = {
     enable = true;
