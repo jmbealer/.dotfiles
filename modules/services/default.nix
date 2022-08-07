@@ -2,7 +2,7 @@
 [
   ./dunst.nix
   ./flameshot.nix
-  ./picom.nix
+  # ./picom.nix
   ./polybar.nix
   ./sxhkd.nix
   ./udiskie.nix
