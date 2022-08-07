@@ -10,6 +10,7 @@
           # monitors = { 
             # DP-2 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ]; 
             # "focused" = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ]; 
+            # "focused" = [ "I" "II" "III" "IV" "V" "VI" "VII" "VIII" "IX" "X"];
             # DP-2 = [ "1" "2" "3" "4" "5" ]; 
             # DP-3 = [ "1" "2" "3" "4" "5" ]; 
           # };
@@ -28,15 +29,16 @@
             normal_border_color = "#3b4252";
 
             # -- MOUSE -- #
-            pointer_modifier = "mod1";
-            pointer_action1 = "move";
-            pointer_action2 = "resize_side";
+            # pointer_modifier = "mod1";
+            # pointer_action1 = "move";
+            # pointer_action2 = "resize_side";
           };
           rules = {
             "Emacs" = { state = "tiled"; };
           };
           extraConfig = ''
-            bspc monitor -d 1 2 3 4 5 6 7 8 9 10
+            # bspc monitor -d 1 2 3 4 5 6 7 8 9 10
+            bspc monitor -d I II III IV V VI VII VIII IX X
 
             feh --bg-tile $HOME/.config/wall
 
