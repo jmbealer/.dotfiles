@@ -8,7 +8,7 @@ let
     pulseSupport = true;
   };
 in
-{ 
+{
   config = lib.mkIf (config.xsession.enable) {    # Only evaluate code if using X11
     services = {
       polybar = {
@@ -197,28 +197,28 @@ in
             pin-workspace = true;
             #label-monitor = "%name%";
 
-            # ws-icon-0 = "1;";                    # Needs to be the same amount and same name as bswmrc
-            # ws-icon-1 = "2;";
-            # ws-icon-2 = "3;";
-            # ws-icon-3 = "4;";
-            # ws-icon-4 = "5;";
-            # ws-icon-5 = "6;";
-            # ws-icon-6 = "7;";
-            # ws-icon-7 = "8;";
-            # ws-icon-8 = "9;";
-            # ws-icon-9 = "10;";
+            ws-icon-0 = "1;";                    # Needs to be the same amount and same name as bswmrc
+            ws-icon-1 = "2;";
+            ws-icon-2 = "3;";
+            ws-icon-3 = "4;";
+            ws-icon-4 = "5;";
+            ws-icon-5 = "6;";
+            ws-icon-6 = "7;";
+            ws-icon-7 = "8;";
+            ws-icon-8 = "9;";
+            ws-icon-9 = "10;";
 
 
-            ws-icon-0 = "I;I";
-            ws-icon-1 = "II;II";
-            ws-icon-2 = "III;III";
-            ws-icon-3 = "IV;IV";
-            ws-icon-4 = "V;V";
-            ws-icon-5 = "VI;VI";
-            ws-icon-6 = "VII;VII";
-            ws-icon-7 = "VIII;VIII";
-            ws-icon-8 = "IX;IX";
-            ws-icon-9 = "X;X";
+            # ws-icon-0 = "I;I";
+            # ws-icon-1 = "II;II";
+            # ws-icon-2 = "III;III";
+            # ws-icon-3 = "IV;IV";
+            # ws-icon-4 = "V;V";
+            # ws-icon-5 = "VI;VI";
+            # ws-icon-6 = "VII;VII";
+            # ws-icon-7 = "VIII;VIII";
+            # ws-icon-8 = "IX;IX";
+            # ws-icon-9 = "X;X";
 
             ws-icon-default = "";               # Can have more workspaces availabe but enable default icon
 

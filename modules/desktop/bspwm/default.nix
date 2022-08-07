@@ -52,7 +52,7 @@
     };
     # programs.zsh.enable = true;
     # programs.bash.enable = true;
-    
+
     hardware = {
       video.hidpi.enable = true;
       opengl = {

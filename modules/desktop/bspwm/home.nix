@@ -1,18 +1,18 @@
 { config, lib, pkgs, protocol, ... }:
 
-{ 
+{
   config = lib.mkIf ( protocol == "X" ) {
     xsession = {
       enable = true;
       windowManager = {
         bspwm = {
           enable = true;
-          # monitors = { 
-            # DP-2 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ]; 
-            # "focused" = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ]; 
+          # monitors = {
+            # DP-2 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ];
+            # "focused" = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ];
             # "focused" = [ "I" "II" "III" "IV" "V" "VI" "VII" "VIII" "IX" "X"];
-            # DP-2 = [ "1" "2" "3" "4" "5" ]; 
-            # DP-3 = [ "1" "2" "3" "4" "5" ]; 
+            # DP-2 = [ "1" "2" "3" "4" "5" ];
+            # DP-3 = [ "1" "2" "3" "4" "5" ];
           # };
           settings = {
             # -- THEME -- #
@@ -25,8 +25,10 @@
             borderless_monocle = true;
             split_ratio = 0.5;
 
-            focused_border_color = "#65b2ff";
-            normal_border_color = "#3b4252";
+            # focused_border_color = "#65b2ff";
+            # normal_border_color = "#3b4252";
+            focused_border_color = "#928374";
+            normal_border_color = "#282828";
 
             # -- MOUSE -- #
             # pointer_modifier = "mod1";
@@ -35,10 +37,27 @@
           };
           rules = {
             "Emacs" = { state = "tiled"; };
+            "Zathura" = {
+              state = "tiled";
+              follow = true;
+              focus = true;
+            };
+            "mpv" = {
+              state = "floating";
+              sticky = true;
+              follow = false;
+              focus = true;
+            };
+            "*:Toolkit:Picture-in-Picture" = {
+              state = "floating";
+              sticky = true;
+              follow = false;
+              focus = true;
+            };
           };
           extraConfig = ''
-            # bspc monitor -d 1 2 3 4 5 6 7 8 9 10
-            bspc monitor -d I II III IV V VI VII VIII IX X
+            bspc monitor -d 1 2 3 4 5 6 7 8 9 10
+            # bspc monitor -d I II III IV V VI VII VIII IX X
 
             feh --bg-tile $HOME/.config/wall
 
