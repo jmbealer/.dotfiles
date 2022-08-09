@@ -59,6 +59,10 @@
     xdotool
     nodePackages.stylelint
     nodePackages.js-beautify
+    # nodePackages.eslint
+    nodePackages.vscode-html-languageserver-bin
+    nodePackages.vscode-css-languageserver-bin
+    nodePackages.vscode-json-languageserver-bin
     enchant
     sqlite
     wordnet
