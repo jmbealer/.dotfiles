@@ -39,7 +39,7 @@
   environment = {
     systemPackages = with pkgs; [
       # nixFlakes
-      discord
+      # discord
     ];
   };
 

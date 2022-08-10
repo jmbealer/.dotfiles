@@ -112,6 +112,9 @@
 
     zoom-us
     perl534Packages.FileMimeInfo
+    ueberzug
+    wkhtmltopdf
+    python310Packages.pdftotext
     ];
     # file.".config/wall".source = ../modules/themes/wall;
     pointerCursor = {
