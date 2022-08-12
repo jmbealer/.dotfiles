@@ -57,7 +57,9 @@
     coreutils-full
     # clang 
     gcc 
-    arandr iosevka tmux neofetch starship
+    arandr 
+    # iosevka 
+    tmux neofetch starship
     libcap go unzip
     exa
     git-crypt gnupg
