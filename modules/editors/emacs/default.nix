@@ -55,6 +55,14 @@
     coreutils
     fd
     gcc
+    binutils
+    imagemagick
+    zstd
+    ((emacsPackagesFor emacs28NativeComp).emacsWithPackages (epkgs: [ epkgs.vterm ]))
+
+    (aspellWithDicts (ds: with ds; [
+      en en-computers en-science
+    ]))
     xorg.xwininfo
     xdotool
     nodePackages.stylelint
