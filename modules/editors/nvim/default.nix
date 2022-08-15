@@ -32,6 +32,8 @@ programs.neovim = {
     vim-lsp
     vim-polyglot
     vim-nix 
+
+    vim-ghost
   ];
 
   # settings = { ignorecase = true; };
@@ -184,6 +186,19 @@ programs.neovim = {
     let mapleader=" "
     noremap <leader>fs :write!<cr>
     noremap <leader>qq :quit!<cr>
+
+
+    function! s:SetupGhostBuffer()
+        if match(expand("%:a"), '\v/ghost-(github|reddit)\.com-')
+            set ft=markdown
+        endif
+    endfunction
+
+    augroup vim-ghost
+        au!
+        au User vim-ghost#connected call s:SetupGhostBuffer()
+    augroup END
+
   '';
 };
 }
