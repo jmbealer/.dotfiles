@@ -18,7 +18,6 @@ mkShell {
     nodePackages.npm
     nodePackages.stylelint
     nodePackages.js-beautify
-    nodePackages.vercel
 
   ];
   ELECTRON_OVERRIDE_DIST_PATH = "${electron}/bin/"; #NEEDED to not get errors on npm start

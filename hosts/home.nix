@@ -117,6 +117,9 @@
     ueberzug
     wkhtmltopdf
     python310Packages.pdftotext
+    # nodePackages.vercel
+    nodePackages.vercel
+    heroku
     ];
     # file.".config/wall".source = ../modules/themes/wall;
     pointerCursor = {
