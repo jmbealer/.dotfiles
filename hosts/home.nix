@@ -120,6 +120,8 @@
     # nodePackages.vercel
     nodePackages.vercel
     heroku
+    wally-cli
+    zsa-udev-rules
     ];
     # file.".config/wall".source = ../modules/themes/wall;
     pointerCursor = {
