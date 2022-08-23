@@ -122,6 +122,7 @@
     heroku
     wally-cli
     zsa-udev-rules
+    thunderbird-bin
     ];
     # file.".config/wall".source = ../modules/themes/wall;
     pointerCursor = {
