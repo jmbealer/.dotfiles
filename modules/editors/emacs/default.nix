@@ -50,7 +50,11 @@
   };
 
   environment.systemPackages = with pkgs; [
-    emacs28NativeComp
+    # emacs28NativeComp
+    # ((emacsPackagesFor emacs28NativeComp).emacsWithPackages (epkgs: [ epkgs.vterm ]))
+    ((emacsPackagesFor emacs28NativeComp).emacsWithPackages (epkgs: [
+      epkgs.vterm
+    ]))
     ripgrep
     coreutils
     fd
@@ -58,7 +62,9 @@
     binutils
     imagemagick
     zstd
-    ((emacsPackagesFor emacs28NativeComp).emacsWithPackages (epkgs: [ epkgs.vterm ]))
+    cmake
+
+
 
     (aspellWithDicts (ds: with ds; [
       en en-computers en-science
@@ -96,6 +102,7 @@
     # })
   ];
 
+  services.emacs.package = with pkgs; ((emacsPackagesFor emacs28NativeComp).emacsWithPackages (epkgs: [ epkgs.vterm ]));
     fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
 
 }
