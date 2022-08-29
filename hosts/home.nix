@@ -122,6 +122,7 @@
     wally-cli
     zsa-udev-rules
     thunderbird-bin
+    mpv
     ];
     # file.".config/wall".source = ../modules/themes/wall;
     pointerCursor = {
