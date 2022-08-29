@@ -22,48 +22,48 @@
 
     packages = with pkgs; [
       # doom-emacs
-      pcmanfm 
-      gvfs 
-      udisks 
+      pcmanfm
+      gvfs
+      udisks
       xarchiver
       xfce.tumbler poppler ffmpegthumbnailer libgsf gnome.totem evince mcomix3
       gruvbox-dark-gtk
       gruvbox-dark-icons-gtk material-design-icons
       numix-cursor-theme quintom-cursor-theme bibata-cursors
       themechanger kitty
-      # fd 
+      # fd
 
       # polybar
 
 
       gh
       helvum qpwgraph qjackctl
-      bash-completion nix-bash-completions 
+      bash-completion nix-bash-completions
       # nodePackages.bash-language-server
       tealdeer
-      cmake 
-      # nodePackages.npm 
-      shellcheck shellharden nixfmt 
+      cmake
+      # nodePackages.npm
+      shellcheck shellharden nixfmt
       # gnumake
       trash-cli
 
 
     anki-bin
-    gcc 
+    gcc
 
 
-    vim_configurable 
-    git alacritty stow dmenu lf 
+    vim_configurable
+    git alacritty stow dmenu lf
     coreutils-full
-    # clang 
-    gcc 
-    arandr 
-    # iosevka 
+    # clang
+    gcc
+    arandr
+    # iosevka
     tmux neofetch starship
     libcap go unzip
     exa
     git-crypt gnupg
-    # gcc-wrapper 
+    # gcc-wrapper
     cope
     firefox-devedition-bin
     feh sxhkd
@@ -72,7 +72,7 @@
     # from newer dotfiles
     bind
     cached-nix-shell
-     
+
 
     # need move to right place
     bat
@@ -89,7 +89,7 @@
     dconf
 
     libcap go gcc
-    xdg-utils 
+    xdg-utils
     # binutils
     xdg-desktop-portal-gtk
 
@@ -117,7 +117,6 @@
     ueberzug
     wkhtmltopdf
     python310Packages.pdftotext
-    # nodePackages.vercel
     nodePackages.vercel
     heroku
     wally-cli
