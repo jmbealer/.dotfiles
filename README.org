@@ -13,5 +13,3 @@ need to finish setting up nixos
 - home-manager
 
 need to finish install apps.
-
-sigh
