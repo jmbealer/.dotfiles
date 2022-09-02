@@ -7,7 +7,6 @@ Rewriting my config file in org mode.
 Rewrite my configs in org mode.
 Also check backup dotfiles
 
-
 need to finish setting up nixos
 - flakes
 - home-manager
