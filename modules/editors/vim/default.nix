@@ -2,7 +2,7 @@
 programs.vim = {
   enable = true;
   viAlias = true;
-  vimAlias = true;
+  # vimAlias = true;
 
   plugins = with pkgs.vimPlugins; [ 
     gruvbox
