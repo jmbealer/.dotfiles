@@ -123,6 +123,8 @@
     zsa-udev-rules
     thunderbird-bin
     mpv
+
+    blesh
     ];
     # file.".config/wall".source = ../modules/themes/wall;
     pointerCursor = {
