@@ -1,5 +1,5 @@
 [
-  # ./nvim
-  ./vim
+  ./nvim
+  # ./vim
   # ./emacs
 ]

@@ -1,7 +1,7 @@
 {pkgs, ...}: {
 programs.vim = {
   enable = true;
-  viAlias = true;
+  # viAlias = true;
   # vimAlias = true;
 
   plugins = with pkgs.vimPlugins; [ 
