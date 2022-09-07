@@ -125,6 +125,7 @@
     mpv
 
     blesh
+    dbeaver
     ];
     # file.".config/wall".source = ../modules/themes/wall;
     pointerCursor = {
