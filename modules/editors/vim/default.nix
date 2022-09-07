@@ -1,13 +1,10 @@
-{pkgs, ...}: {
-programs.vim = {
+{pkgs, ...}: { programs.vim = {
   enable = true;
-  # viAlias = true;
-  # vimAlias = true;
 
-  plugins = with pkgs.vimPlugins; [ 
+  plugins = with pkgs.vimPlugins; [
     gruvbox
     vim-gruvbox8
-    gruvbox-material 
+    gruvbox-material
 
     vim-airline
     vim-airline-themes
@@ -29,14 +26,13 @@ programs.vim = {
     
     vim-lsp
     vim-polyglot
-    vim-nix 
+    vim-nix
 
-    vim-ghost
   ];
 
   # settings = { ignorecase = true; };
   extraConfig = ''
-  
+
     colorscheme gruvbox-material
     let g:gruvbox_material_background = 'hard'
     let g:gruvbox_material_enable_bold = 1

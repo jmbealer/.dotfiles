@@ -52,7 +52,7 @@
     gcc
 
 
-    vim_configurable
+    # vim_configurable
     git alacritty stow dmenu lf
     coreutils-full
     # clang

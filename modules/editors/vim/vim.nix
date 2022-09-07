@@ -1,7 +1,7 @@
 {config, pkgs, ...}:
 
 {
-programs.vim = {
+programs.vim_configurable = {
   enable = true;
   plugins = with pkgs.vimPlugins; [ 
     gruvbox
