@@ -1,8 +1,5 @@
 # Keyboard shortcuts
-
-{ config, lib, pkgs, ... }:
-
-{
+{ config, lib, pkgs, ... }: {
   config = lib.mkIf (config.xsession.enable) {                  # Only evaluate code if using X11 
     services = {
       sxhkd = {
@@ -11,13 +8,14 @@
           # Apps
           # Open Terminal
           # "super + Return" = "alacritty";
-          "super + Return" = ''alacritty -e bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"'';
+          "hyper + Return" = ''alacritty -e bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"'';
           # "super + Return" = ''xst -e bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"'';
-          "super + ctrl + Return" = "xst";
-          "super + ctrl + alt + Return" = "xterm";
+          # "super + ctrl + Return" = "xst";
+          # "super + ctrl + alt + Return" = "xterm";
 
           # "super + space" = "rofi -show drun";                  # Open Rofi (custom theme " -theme theme.rasi")
           "super + Tab" = "rofi -show drun";                  # Open Rofi (custom theme " -theme theme.rasi")
+          "hyper + Tab" = "rofi -show drun";                  # Open Rofi (custom theme " -theme theme.rasi")
           "super + e" = "pcmanfm";                              # File Manager
 
           "super + w" = "firefox-devedition";
