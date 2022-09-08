@@ -9,13 +9,20 @@
           # Open Terminal
           # "super + Return" = "alacritty";
           "hyper + Return" = ''alacritty -e bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"'';
+          "alt + shift + control + super + Return" = ''alacritty -e bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"'';
+          "alt + shift + control + meta + Return" = ''alacritty -e bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"'';
+          # "mod4 + Return" = ''alacritty -e bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"'';
           # "super + Return" = ''xst -e bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"'';
           # "super + ctrl + Return" = "xst";
           # "super + ctrl + alt + Return" = "xterm";
 
           # "super + space" = "rofi -show drun";                  # Open Rofi (custom theme " -theme theme.rasi")
+          # "super + space" = "rofi -show drun";                  # Open Rofi (custom theme " -theme theme.rasi")
+          "alt + shift + control + Tab" = "rofi -show drun";
+          "alt + shift + control + super + Tab" = "rofi -show drun";
           "super + Tab" = "rofi -show drun";                  # Open Rofi (custom theme " -theme theme.rasi")
           "hyper + Tab" = "rofi -show drun";                  # Open Rofi (custom theme " -theme theme.rasi")
+          "control + shift + meta + super + Tab" = "rofi -show drun";                  # Open Rofi (custom theme " -theme theme.rasi")
           "super + e" = "pcmanfm";                              # File Manager
 
           "super + w" = "firefox-devedition";

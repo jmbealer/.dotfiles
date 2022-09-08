@@ -126,6 +126,8 @@
 
     blesh
     dbeaver
+
+    xorg.xmodmap
     ];
     # file.".config/wall".source = ../modules/themes/wall;
     pointerCursor = {
