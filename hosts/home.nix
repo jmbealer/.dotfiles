@@ -21,7 +21,7 @@
     homeDirectory = "/home/${user}";
 
     packages = with pkgs; [
-      # doom-emacs
+      gnumake
       pcmanfm
       gvfs
       udisks
@@ -31,21 +31,21 @@
       gruvbox-dark-icons-gtk material-design-icons
       numix-cursor-theme quintom-cursor-theme bibata-cursors
       themechanger kitty
-      # fd
 
-      # polybar
 
 
       gh
       helvum qpwgraph qjackctl
       bash-completion nix-bash-completions
+
       # nodePackages.bash-language-server
+
       tealdeer
       cmake
-      # nodePackages.npm
       shellcheck shellharden nixfmt
-      # gnumake
       trash-cli
+
+      # nodePackages.npm
 
 
     anki-bin
@@ -53,20 +53,28 @@
 
 
     # vim_configurable
+
     git alacritty stow dmenu lf
     coreutils-full
+
     # clang
+
     gcc
     arandr
+
     # iosevka
+
     tmux neofetch starship
     libcap go unzip
     exa
     git-crypt gnupg
+
     # gcc-wrapper
-    cope
+
+    # cope
     firefox-devedition-bin
     feh sxhkd
+
     # st
 
     # from newer dotfiles
@@ -90,28 +98,26 @@
 
     libcap go gcc
     xdg-utils
+
     # binutils
+
     xdg-desktop-portal-gtk
-
     ungoogled-chromium
-
     lshw
     flameshot
-
     graphviz
     html-tidy
+
     # nodePackages.stylelint
+
     # nodePackages.js-beautify
+
     rclone
-
     vscode-fhs
-
     gnome.adwaita-icon-theme
     gnomeExtensions.appindicator
-
     zathura
     postman
-
     zoom-us
     perl534Packages.FileMimeInfo
     ueberzug
@@ -123,11 +129,21 @@
     zsa-udev-rules
     thunderbird-bin
     mpv
-
     blesh
     dbeaver
-
     xorg.xmodmap
+
+    exiftool
+    chafa
+    atool
+    unrar
+    jq
+    python310Packages.pdf2image
+    delta
+    highlight
+    sourceHighlight
+    python3Full
+    
     ];
     # file.".config/wall".source = ../modules/themes/wall;
     pointerCursor = {

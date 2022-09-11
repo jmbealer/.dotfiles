@@ -56,7 +56,9 @@
             };
           };
           extraConfig = ''
-            bspc monitor -d 1 2 3 4 5 6 7 8 9 10
+            bspc monitor DP-2 -d 1 2 3 4 5 6 7 8 9 10
+            bspc monitor DP-3 -d 1 2 3 4 5 6 7 8 9 10
+            # bspc monitor -d 1 2 3 4 5 6 7 8 9 10
             # bspc monitor -d I II III IV V VI VII VIII IX X
 
             feh --bg-tile $HOME/.config/wall
@@ -65,9 +67,12 @@
             xbanish &
             xset r rate 200 50 &
 
-            killall -q polybar &
-            while pgrep -u $UID -x polybar >/dev/null; do sleep 1;done
-            polybar main & #2>~/log &
+            launch_polybar.sh
+
+            # killall -q polybar &
+            # while pgrep -u $UID -x polybar >/dev/null; do sleep 1;done
+            # polybar main & #2>~/log &
+            # polybar sec & #2>~/log &
           '';
           # startupPrograms = [
             # "feh --bg-tile $HOME/.config/wall"

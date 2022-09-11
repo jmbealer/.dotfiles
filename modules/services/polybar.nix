@@ -1,5 +1,4 @@
 # Bar
-
 { config, lib, pkgs, ... }:
 
 let
@@ -19,8 +18,47 @@ in
         package = mypolybar;
         config = {
           "bar/main" = {                          # Bar name = Top
+            enable-ipc = true;
             # monitor = "HDMI-A-1";
             monitor = "DP-3";
+            # monitor = "MONITOR";
+            # monitor-fallback = "DP-3";
+            # monitor = "focused";
+            # monitor = ''${env:MONITOR:fallback-value}'';
+            width = "100%";
+            height = 15;
+            background = "#00000000";
+            foreground = "#ccffffff";
+
+            offset-y = 2;
+            #spacing = "1.5";
+            padding-right = 2;
+
+            module-margin-left = 1;
+            #module-margin-right = "0.5";
+
+            font-0 = "SourceCodePro:size=10";     # Icons
+            font-1 = "FontAwesome6Free:style=Solid:size=8";
+            font-2 = "FontAwesome6Free:style=Regular:size=8";
+            font-3 = "FontAwesome6Brands:style=Regular:size=8";
+            font-4 = "FiraCodeNerdFont:size=10";
+            modules-left = "logo bspwm";
+            modules-right = "backlight pad memory cpu pad mic sink volume pad battery date"; #wired-network wireless-network bluetooth";
+
+            tray-position = "right";
+            tray-detached = "false";
+
+            #override-redirect = "true";
+            wm-restack = "bspwm";
+          };
+
+          "bar/sec" = {                          # Bar name = Top
+            enable-ipc = true;
+            # monitor = "HDMI-A-1";
+            monitor = "DP-2";
+            monitor-fallback = "DP-2";
+            # monitor = ''${env:MONITOR:DP-3}'';
+            # monitor = "MONITOR";
             # monitor = "focused";
             # monitor = ''${env:MONITOR:fallback-value}'';
             width = "100%";
@@ -415,7 +453,5 @@ in
       '';
       executable = true;
     };
-  };  
+  };
 }
-
-
