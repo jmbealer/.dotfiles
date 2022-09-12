@@ -29,7 +29,7 @@
     vim-polyglot
     vim-nix
 
-    vimspector
+    # vimspector
 
   ];
 
@@ -186,9 +186,37 @@
     let mapleader=" "
     noremap <leader>fs :write!<cr>
     noremap <leader>qq :quit!<cr>
+    noremap <leader>qa :quitall!<cr>
+
+    noremap <leader>ot :term<cr>
+
+    noremap <leader>ws <c-w>h
+    noremap <leader>wt <c-w>j
+    noremap <leader>wn <c-w>k
+    noremap <leader>wb <c-w>l
+
+    noremap <leader>wd <c-w>q
+    noremap <leader>wv <c-w>v
+    noremap <leader>wh <c-w>s
+
+    noremap <leader>wrs :vertical resize -2<cr>
+    noremap <leader>wrt :resize +2<cr>
+    noremap <leader>wrn :resize -2<cr>
+    noremap <leader>wrb :vertical resize +2<cr>
+
 
     source ~/dotfiles/modules/editors/vim/vimrc
 
+    packadd! vimspector
+
+    let g:vimspector_enable_mappings = 'HUMAN'
+    nmap <leader>dd :call vimspector#Launch()<cr>
+    nmap <leader>dx :VimspectorReset<cr>
+    nmap <leader>de :VimspectorEval
+    nmap <leader>dw :VimspectorWatch
+    nmap <leader>do :VimspectorShowOutput
+
+let g:vimspector_base_dir='/home/jb/.vim/pack/vimspector/opt/vimspector'
 let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools', 'CodeLLDB' ]
 
   '';
