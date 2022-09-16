@@ -148,6 +148,7 @@
     # python310Packages.setuptools
     # python310Packages.debugpy
     python310Packages.pip
+    file
     ];
     # file.".config/wall".source = ../modules/themes/wall;
     pointerCursor = {
