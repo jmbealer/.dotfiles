@@ -29,6 +29,9 @@
     vim-polyglot
     vim-nix
 
+    lf-vim
+    vim-floaterm
+
     # vimspector
 
   ];
@@ -218,6 +221,8 @@
 
 let g:vimspector_base_dir='/home/jb/.vim/pack/vimspector/opt/vimspector'
 let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools', 'CodeLLDB' ]
+
+let g:lf_replace_netrw = 1 " Open lf when vim opens a directory
 
   '';
 };
