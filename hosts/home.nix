@@ -149,6 +149,9 @@
     # python310Packages.debugpy
     python310Packages.pip
     file
+
+    texlive.combined.scheme-basic
+
     ];
     # file.".config/wall".source = ../modules/themes/wall;
     pointerCursor = {

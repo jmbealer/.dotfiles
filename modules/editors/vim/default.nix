@@ -32,6 +32,8 @@
     lf-vim
     vim-floaterm
 
+    indentLine
+
     # vimspector
 
   ];
