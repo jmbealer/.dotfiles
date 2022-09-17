@@ -61,7 +61,8 @@
             # bspc monitor -d 1 2 3 4 5 6 7 8 9 10
             # bspc monitor -d I II III IV V VI VII VIII IX X
 
-            feh --bg-tile $HOME/.config/wall
+            # feh --bg-tile $HOME/.config/wall
+            feh --bg-scale $HOME/.wallpapers/wallhaven-qd7xkr.png
 
             unclutter &
             xbanish &
@@ -75,7 +76,7 @@
             # polybar sec & #2>~/log &
           '';
           # startupPrograms = [
-            # "feh --bg-tile $HOME/.config/wall"
+            # "feh --bg-tile $HOME/.wallpapers/wallhaven-83z85y.jpg"
 
             # "sxhkd"
 

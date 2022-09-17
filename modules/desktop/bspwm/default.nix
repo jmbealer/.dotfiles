@@ -15,8 +15,8 @@
         displayManager = {
           lightdm = {
             enable = true;
-            # background = pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
-            background = "/home/jb/.wallpapers/wallhaven-013jqv.jpg";
+            background = pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
+            # background = "/home/jb/.wallpapers/wallhaven-6krmxw.jpg";
             greeters = {
               gtk = {
                 theme = {
