@@ -151,6 +151,7 @@
     file
 
     texlive.combined.scheme-basic
+    nodePackages.gulp
 
     ];
     # file.".config/wall".source = ../modules/themes/wall;
