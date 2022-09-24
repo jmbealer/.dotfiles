@@ -153,6 +153,8 @@
     texlive.combined.scheme-basic
     nodePackages.gulp
 
+    cpu-x
+
     ];
     # file.".config/wall".source = ../modules/themes/wall;
     pointerCursor = {
