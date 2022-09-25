@@ -154,6 +154,7 @@
     nodePackages.gulp
 
     cpu-x
+    polkit_gnome
 
     ];
     # file.".config/wall".source = ../modules/themes/wall;
