@@ -25,6 +25,8 @@
     keyMap = "us";
   };
 
+  security.polkit.enable = true;
+
   security.rtkit.enable = true;
   sound = {
     enable = true;
