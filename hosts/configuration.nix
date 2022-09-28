@@ -1,20 +1,32 @@
-{ config, lib, pkgs, inputs, user, location, ...}:
+# Main system configuration.
+# More information available configuration.nix(5) man page.
+#  flake.nix
+#   ├─ ./hosts
+#   │   └─ configuration.nix *
+#   └─ ./modules
+#       └─ ./editors
+#           └─ ./emacs
+#               └─ default.nix
+{ config, lib, pkgs, inputs, user, location, ...}: {
 
-{
+  # Import window or display manager.
   imports = [
     ../modules/editors/emacs
     ./hostsBlock.nix
   ];
 
+  # System User
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = ["wheel" "video" "audio" "camera" "networkmanager" "lp" "scanner" "kvm" "libvirtd"];
+    extraGroups = [ "wheel" "video" "audio" "camera" "networkmanager" "lp" "scanner" "kvm" "libvirtd" ];
+    # Default shell
     shell = pkgs.bash;
     openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMzlS2DsemrWjubPRw5WzqYYJOvWjLzYwBslvUpnzVkX jmbealer11@gmail.com"
     ];
   };
 
+  # User does not need to give password when using sudo.
   security.sudo.wheelNeedsPassword = false;
 
   time.timeZone = "America/Chicago";
@@ -26,7 +38,6 @@
   };
 
   security.polkit.enable = true;
-
   security.rtkit.enable = true;
   sound = {
     enable = true;
@@ -35,6 +46,7 @@
     };
   };
 
+  # Fonts
   fonts.fonts = with pkgs; [
     carlito
     vegur
@@ -42,6 +54,7 @@
     jetbrains-mono
     font-awesome
     corefonts
+    # Nerdfont Icons override
     (nerdfonts.override {
       fonts = [
         "FiraCode"
@@ -53,11 +66,10 @@
   environment = {
     variables = {
       TERMINAL = "alacritty";
-      # EDITOR = "nvim";
       EDITOR = "vim";
       VISUAL = "vim";
-      # VISUAL = "nvim";
     };
+    # Default packages install system-wide
     systemPackages = with pkgs; [
       # vim
       # git
@@ -73,6 +85,7 @@
   };
 
   services = {
+    # Sound
     pipewire = {
       enable = true;
       alsa = {
@@ -106,16 +119,21 @@
     mime.enable = true;
   };
 
+  # Nix Package Manager settings
   nix = {
     settings = {
+      # Optimise syslinks
       auto-optimise-store = true;
+      experimental-features = [ "nix-command" "flakes"];
     };
+    # Automatic garbage collection
     gc = {
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 7d";
     };
-    package = pkgs.nixFlakes;
+    # Enable nixFlakes on system
+    # package = pkgs.nixFlakes;
     registry.nixpkgs.flake = inputs.nixpkgs;
     extraOptions = ''
       experimental-features = nix-command flakes
@@ -123,9 +141,12 @@
       keep-derivations = true
     '';
   };
+  # Allow proprietary software.
   nixpkgs.config.allowUnfree = true;
 
+  # NixOS settings
   system = {
+    # Allow auto update
     autoUpgrade = {
       enable = true;
       channel = "https://nixos.org/channels/nixos-unstable";
