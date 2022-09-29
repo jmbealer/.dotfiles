@@ -1,6 +1,14 @@
-{ config, lib, pkgs, protocol, ... }:
-
-{
+#  Bspwm configuration
+#
+#  flake.nix
+#   ├─ ./hosts
+#   │   └─ ./<host>
+#   │       └─ default.nix
+#   └─ ./modules
+#       └─ ./desktop
+#           └─ ./bspwm
+#               └─ bspwm.nix *
+{ config, lib, pkgs, protocol, ... }: {
   config = lib.mkIf ( protocol == "X" ) {
     programs.dconf.enable = true;
 

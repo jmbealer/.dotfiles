@@ -1,11 +1,24 @@
-{ lib, inputs, nixpkgs, home-manager, nur, user, location, protocol, ... }:
+#  These are the different profiles that can be used when building NixOS.
 
-let 
-  system = "x86_64-linux"; # System architecture
+#  flake.nix 
+#   └─ ./hosts  
+#       ├─ default.nix *
+#       ├─ configuration.nix
+#       ├─ home.nix
+#       └─ ./desktop OR ./laptop OR ./vm
+#            ├─ ./default.nix
+#            └─ ./home.nix 
+
+{ lib, inputs, nixpkgs, home-manager, nur, user, location, doom-emacs, protocol, ... }:
+
+let
+  # System architecture
+  system = "x86_64-linux";
 
   pkgs = import nixpkgs {
     inherit system;
-    config.allowUnfree = true; # Allow proprietary software
+    # Allow proprietary software
+    config.allowUnfree = true; 
   };
 
   lib = nixpkgs.lib;
@@ -30,7 +43,8 @@ in {
     # ];
   # };
 
-  laptop = lib.nixosSystem { # Laptop profile
+  # Laptop profile
+  laptop = lib.nixosSystem { 
     inherit system;
     specialArgs = { inherit inputs user location protocol; };
     modules = [

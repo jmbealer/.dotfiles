@@ -156,6 +156,8 @@
     cpu-x
     polkit_gnome
 
+    jackett
+
     ];
     # file.".config/wall".source = ../modules/themes/wall;
     pointerCursor = {
