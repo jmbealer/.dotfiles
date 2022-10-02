@@ -102,7 +102,7 @@
       '';
     };
     flatpak.enable = true;
-
+    gvfs.enable = true;
   };
 
   # qt5 = {

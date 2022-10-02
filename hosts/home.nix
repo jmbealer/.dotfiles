@@ -158,6 +158,9 @@
 
     jackett
 
+    lxde.lxmenu-data
+    shared-mime-info
+
     ];
     # file.".config/wall".source = ../modules/themes/wall;
     pointerCursor = {
