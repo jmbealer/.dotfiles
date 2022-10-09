@@ -164,6 +164,7 @@
     # wineWowPackages.stable
     wineWowPackages.staging
     winetricks
+    lutris
 
     ];
 
