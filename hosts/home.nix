@@ -161,7 +161,12 @@
     lxde.lxmenu-data
     shared-mime-info
 
+    # wineWowPackages.stable
+    wineWowPackages.staging
+    winetricks
+
     ];
+
     # file.".config/wall".source = ../modules/themes/wall;
     pointerCursor = {
       name = "Numix-Cursor-Light";
