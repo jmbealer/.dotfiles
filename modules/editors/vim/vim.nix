@@ -1,12 +1,11 @@
 {config, pkgs, ...}:
-
 {
 programs.vim_configurable = {
   enable = true;
-  plugins = with pkgs.vimPlugins; [ 
+  plugins = with pkgs.vimPlugins; [
     gruvbox
     vim-gruvbox8
-    gruvbox-material 
+    gruvbox-material
 
     vim-airline
     vim-airline-themes
@@ -25,10 +24,11 @@ programs.vim_configurable = {
     # sleuth
     targets-vim
     delimitMate
-    
+
     vim-lsp
     vim-polyglot
-    # vim-nix 
+    # vim-nix
+    # vimspector
   ];
   settings = { ignorecase = true; };
   extraConfig = ''
