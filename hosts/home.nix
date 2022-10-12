@@ -166,6 +166,9 @@
     winetricks
     lutris
 
+    gdb
+    # lldb
+
     ];
 
     # file.".config/wall".source = ../modules/themes/wall;
