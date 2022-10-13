@@ -169,6 +169,8 @@
     gdb
     # lldb
 
+    rename
+
     ];
 
     # file.".config/wall".source = ../modules/themes/wall;
