@@ -54,6 +54,9 @@
     set autoindent
     set autowrite
     set number
+    set relativenumber
+    " set norelativenumber
+    set cursorline
     set ruler " see ruf for formatting
     set showmode
     set tabstop=2
@@ -69,7 +72,6 @@
     endif
     set textwidth=72
     set expandtab
-    set norelativenumber
     " makes ~ effectively invisible
     "highlight NonText guifg=bg
     "set spell
