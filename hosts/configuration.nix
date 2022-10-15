@@ -69,6 +69,7 @@
       EDITOR = "vim";
       VISUAL = "vim";
     };
+    etc."dict.conf".text = "server dict.org";
     # Default packages install system-wide
     systemPackages = with pkgs; [
       # vim

@@ -1,20 +1,17 @@
 # { config, pkgs, nixpkgs, lib, ... }:
-{ config, lib, pkgs, user, ... }:
-
-{
+{ config, lib, pkgs, user, ... }: {
   # imports = [
     # ./vim.nix
     # ./bspwm.nix
     # ./st.nix
   # ];
 
-  imports = 
+  imports =
     (import ../modules/editors) ++
     (import ../modules/programs) ++
     (import ../modules/services) ++
     # (import ../modules/services);
     (import ../modules/shell);
-
 
   home = {
     username = "${user}";
@@ -48,129 +45,132 @@
       # nodePackages.npm
 
 
-    anki-bin
-    gcc
+      anki-bin
+      gcc
 
 
-    # vim_configurable
+      # vim_configurable
 
-    git alacritty stow dmenu lf
-    coreutils-full
+      git alacritty stow dmenu lf
+      coreutils-full
 
-    # clang
+      # clang
 
-    gcc
-    arandr
+      gcc
+      arandr
 
-    # iosevka
+      # iosevka
 
-    tmux neofetch starship
-    libcap go unzip
-    exa
-    git-crypt gnupg
+      tmux neofetch starship
+      libcap go unzip
+      exa
+      git-crypt gnupg
 
-    # gcc-wrapper
+      # gcc-wrapper
 
-    # cope
-    firefox-devedition-bin
-    feh sxhkd
+      # cope
+      firefox-devedition-bin
+      feh sxhkd
 
-    # st
+      # st
 
-    # from newer dotfiles
-    bind
-    cached-nix-shell
-
-
-    # need move to right place
-    bat
-    fasd
-    fzf
-    jq
+      # from newer dotfiles
+      bind
+      cached-nix-shell
 
 
-    siduck76-st redshift xbanish unclutter
-    ttyper klavaro gotypist
-    lxappearance
-    qbittorrent
-    ueberzug
-    dconf
+      # need move to right place
+      bat
+      fasd
+      fzf
+      jq
 
-    libcap go gcc
-    xdg-utils
 
-    # binutils
+      siduck76-st redshift xbanish unclutter
+      ttyper klavaro gotypist
+      lxappearance
+      qbittorrent
+      ueberzug
+      dconf
 
-    xdg-desktop-portal-gtk
-    ungoogled-chromium
-    lshw
-    flameshot
-    graphviz
-    html-tidy
+      libcap go gcc
+      xdg-utils
 
-    # nodePackages.stylelint
+      # binutils
 
-    # nodePackages.js-beautify
+      xdg-desktop-portal-gtk
+      ungoogled-chromium
+      lshw
+      flameshot
+      graphviz
+      html-tidy
 
-    rclone
-    vscode-fhs
-    gnome.adwaita-icon-theme
-    gnomeExtensions.appindicator
-    zathura
-    postman
-    zoom-us
-    perl534Packages.FileMimeInfo
-    ueberzug
-    wkhtmltopdf
-    python310Packages.pdftotext
-    nodePackages.vercel
-    heroku
-    wally-cli
-    zsa-udev-rules
-    thunderbird-bin
-    mpv
-    blesh
-    dbeaver
-    xorg.xmodmap
+      # nodePackages.stylelint
 
-    exiftool
-    chafa
-    atool
-    unrar
-    jq
-    python310Packages.pdf2image
-    delta
-    highlight
-    sourceHighlight
-    python3Full
+      # nodePackages.js-beautify
 
-    # python39Packages.setuptools
-    # python310Packages.setuptools
-    # python310Packages.debugpy
-    python310Packages.pip
-    file
+      rclone
+      vscode-fhs
+      gnome.adwaita-icon-theme
+      gnomeExtensions.appindicator
+      zathura
+      postman
+      zoom-us
+      perl534Packages.FileMimeInfo
+      ueberzug
+      wkhtmltopdf
+      python310Packages.pdftotext
+      nodePackages.vercel
+      heroku
+      wally-cli
+      zsa-udev-rules
+      thunderbird-bin
+      mpv
+      blesh
+      dbeaver
+      xorg.xmodmap
 
-    texlive.combined.scheme-basic
-    nodePackages.gulp
+      exiftool
+      chafa
+      atool
+      unrar
+      jq
+      python310Packages.pdf2image
+      delta
+      highlight
+      sourceHighlight
+      python3Full
 
-    cpu-x
-    polkit_gnome
+      # python39Packages.setuptools
+      # python310Packages.setuptools
+      # python310Packages.debugpy
+      python310Packages.pip
+      file
 
-    jackett
+      texlive.combined.scheme-basic
+      nodePackages.gulp
 
-    lxde.lxmenu-data
-    shared-mime-info
+      cpu-x
+      polkit_gnome
 
-    # wineWowPackages.stable
-    wineWowPackages.staging
-    winetricks
-    lutris
+      jackett
 
-    gdb
-    # lldb
+      lxde.lxmenu-data
+      shared-mime-info
 
-    rename
+      # wineWowPackages.stable
+      wineWowPackages.staging
+      winetricks
+      lutris
 
+      gdb
+      # lldb
+
+      rename
+
+      dict
+      goldendict
+      artha
     ];
 
     # file.".config/wall".source = ../modules/themes/wall;
