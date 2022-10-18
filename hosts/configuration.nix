@@ -70,6 +70,16 @@
       VISUAL = "vim";
     };
     etc."dict.conf".text = "server dict.org";
+    etc."xdg/user-dirs.defaults".text = ''
+      DESKTOP=desktop
+      DOCUMENTS=documents
+      DOWNLOAD=downloads
+      MUSIC=music
+      PICTURES=pictures
+      PUBLICSHARE=public
+      TEMPLATES=templates
+      VIDEOS=videos
+    '';
     # Default packages install system-wide
     systemPackages = with pkgs; [
       # vim
