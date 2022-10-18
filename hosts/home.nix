@@ -171,6 +171,9 @@
       dict
       goldendict
       artha
+
+      brave
+      slack
     ];
 
     # file.".config/wall".source = ../modules/themes/wall;
