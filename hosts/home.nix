@@ -174,6 +174,8 @@
 
       brave
       slack
+
+      xdg-user-dirs
     ];
 
     # file.".config/wall".source = ../modules/themes/wall;
