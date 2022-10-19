@@ -26,6 +26,8 @@
     ];
   };
 
+  documentation.nixos.enable = false;
+
   # User does not need to give password when using sudo.
   security.sudo.wheelNeedsPassword = false;
 
