@@ -89,9 +89,12 @@
       usbutils
       wget
 
+      # nodejs-slim-14_x
       nodejs
       nodePackages.npm
       nodePackages.bash-language-server
+
+      nodePackages.vscode-langservers-extracted
 
     ];
   };

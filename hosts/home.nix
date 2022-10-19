@@ -148,7 +148,7 @@
       file
 
       texlive.combined.scheme-basic
-      nodePackages.gulp
+      # nodePackages.gulp
 
       cpu-x
       polkit_gnome
