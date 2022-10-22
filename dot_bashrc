@@ -16,8 +16,10 @@ ble-face region_insert=fg=blue,bg=transarent
 # Normal settings can be placed in between.
 set -o vi
 export ALTERNATE_EDITOR=""
-export EDITOR="emacsclient -t"
-export VISUAL="emacsclient -c -a emacs"
+# export EDITOR="emacsclient -t"
+export EDITOR="vi"
+export VISUAL="vi"
+# export VISUAL="emacsclient -c -a emacs"
 # export EDITOR="emacs"
 # export EDITOR="emacs -nw"
 # export PAGER="emacs -nw"
