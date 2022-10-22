@@ -3,6 +3,7 @@
 
 My repository for my beloved .dotfiles.
 
+moving away from nixos heading towards fedora
 Rewriting my config file in org mode.
 Rewrite my configs in org mode.
 Also check backup dotfiles
@@ -13,4 +14,3 @@ need to finish setting up nixos
 
 need to finish install apps.
 testing echo
-testing 123
