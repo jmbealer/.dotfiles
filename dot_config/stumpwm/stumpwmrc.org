@@ -1,0 +1,95 @@
+#+TITLE: Stumpwm Configuration
+#+PROPERTY: header-args:lisp :tangle ~/.dotfiles/.config/stumpwm/config
+
+#+begin_src lisp
+;; -*-lisp-*-
+(in-package :stumpwm)
+
+;; (run-shell-command "/home/jb/.screenlayout/myLayout.sh")
+
+(setf *message-window-gravity* :center
+	,*input-window-gravity* :center
+	)
+
+;; Mouse
+(setf *mouse-focus-policy* :sloppy)
+
+;;; Window borders
+(set-focus-color "#6F9D7F")
+(setf *normal-border-width* 1)
+(setf *window-border-style* :tight)
+
+(set-fg-color "#F7DC75")
+(set-border-color "#6F9D7F")
+
+;; turn on/off the mode line for the current head only.
+;; (stumpwm:toggle-mode-line (stumpwm:current-screen)
+                          ;; (stumpwm:current-head))
+;; (setf stumpwm:*screen-mode-line-format*
+      ;; (list "%w | "
+            ;; '(:eval (stumpwm:run-shell-command "date" t))))
+
+
+;; (run-shell-command "/home/jb/.screenlayout/myLayout.sh")
+
+;;(run-shell-command "xmodmap -e 'clear mod4'" t)
+;;(run-shell-command "xmodmap -e \'keycode 133 = F20\'" t)
+;;(set-prefix-key (kbd "F20"))
+;; (set-prefix-key (kbd "C-e"))
+(set-prefix-key (kbd "S-SPC"))
+(which-key-mode)
+
+(define-key *root-map* (kbd "a") '*my-applications-keymap*)
+(defvar *my-applications-keymap*
+  (let ((m (make-sparse-keymap)))
+    (define-key m (kbd "b") "exec firefox")
+    ;; (define-key m (kbd "B") "exec qutebrowser")
+    ;; (define-key m (kbd "d") "exec discord")
+    (define-key m (kbd "a") "exec flatpak run net.ankiweb.Anki")
+    ;; (define-key m (kbd "e") "exec emacsclient -c -a emacs")
+    (define-key m (kbd "e") "exec em")
+    ;; (define-key m (kbd "e") "exec emacsclient --eval '(emacs-everywhere)'")
+    ;; (define-key m (kbd "e") "exec /usr/bin/env emacsclient --eval '(emacs-everywhere)'")
+    (define-key m (kbd "t") "exec blueman-manager")
+    ;; (define-key m (kbd "g") "exec gimp")
+    ;; (define-key m (kbd "n") "exec nemo")
+    ;; (define-key m (kbd "r") '*my-rofi-keymap*)
+    ;; (define-key m (kbd "s") '*my-screenshot-keymap*)
+    ;; (define-key m (kbd "w") "exec select-pape")
+    m))
+
+(define-key *root-map* (kbd "q") '*my-end-session-keymap*)
+(defvar *my-end-session-keymap*
+  (let ((m (make-sparse-keymap)))
+    (define-key m (kbd "q") "end-session")
+    (define-key m (kbd "l") "logout")
+    (define-key m (kbd "s") "suspend-computer")
+    (define-key m (kbd "S") "shutdown-computer")
+    (define-key m (kbd "r") "loadrc")
+    (define-key m (kbd "R") "restart-hard")
+    (define-key m (kbd "C-r") "restart-computer")
+    m))
+
+(define-key *root-map* (kbd "RET") "exec alacritty")
+(define-key *root-map* (kbd "e") "exec /usr/bin/env emacsclient --eval '(emacs-everywhere)'")
+
+;; (define-key *root-map* (kbd "s") "move-focus left")
+(define-key *root-map* (kbd "s") "fprev")
+(define-key *root-map* (kbd "t") "move-focus down")
+(define-key *root-map* (kbd "n") "move-focus up")
+;; (define-key *root-map* (kbd "b") "move-focus right")
+(define-key *root-map* (kbd "b") "fnext")
+
+(define-key *root-map* (kbd "S") "move-window left")
+(define-key *root-map* (kbd "T") "move-window down")
+(define-key *root-map* (kbd "N") "move-window up")
+(define-key *root-map* (kbd "B") "move-window right")
+
+(define-key *root-map* (kbd "|") "hsplit")
+(define-key *root-map* (kbd "-") "vsplit")
+
+;; s vsplit
+;; S hsplit
+;; n pull-hidden-next
+;; b banish
+#+end_src
