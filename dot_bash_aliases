@@ -1,0 +1,9 @@
+Aliases
+
+/* remove pervious aliases */
+/* unalias -a */
+
+alias vi='nvim -0'
+alias vim='nvim -0'
+alias nvim='nvim -0'
+alias ls='ls -h --color=auto --group-directories-first --sort=extension'
