@@ -3,7 +3,10 @@
 
 My repository for my beloved .dotfiles.
 
+started using chezmoi
+
 moving away from nixos heading towards fedora
+
 Rewriting my config file in org mode.
 Rewrite my configs in org mode.
 Also check backup dotfiles
@@ -13,4 +16,3 @@ need to finish setting up nixos
 - home-manager
 
 need to finish install apps.
-testing echo
