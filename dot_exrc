@@ -1,0 +1,13 @@
+map s h
+map t j
+map n k
+map b w
+
+
+set showmode
+set autoindent
+set flash
+set ignorecase
+set list
+set ruler
+set showmatch

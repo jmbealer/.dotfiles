@@ -1,0 +1,10 @@
+#!/bin/sh
+
+/usr/bin/xset b off
+/usr/bin/xsetroot -solid slaegrey
+# use feh
+# /usr/bin/feh --bg-center 'image path here'
+# use xautolocal
+/usr/bin/xautolock -locker /usr/local/bin/slock -detectsleep -secure -time 10 &
+/usr/local/bin/slstatus &
+/usr/local/bin/dwm

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+[[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
+
+# while type dwm > /dev/null ; do dwm && continue || break ; done
+
+sxhkd &
+exec bspwm &

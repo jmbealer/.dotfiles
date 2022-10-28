@@ -1,0 +1,513 @@
+vim9script
+
+# better use of arrow keys, number increment/decrement
+nnoremap <up> <C-a>
+nnoremap <down> <C-x>
+
+# Better page down and page up
+noremap <C-n> <C-d>
+noremap <C-p> <C-b>
+
+
+#mappings
+noremap s b
+noremap t j
+noremap n k
+noremap b w
+
+noremap w s
+noremap j t
+noremap k n
+
+noremap S B
+noremap T }
+noremap N {
+noremap B W
+
+noremap B B
+noremap W S
+noremap J T
+noremap K N
+
+g:mapleader = " "
+noremap <leader>fs :write!<cr>
+noremap <leader>qq :quit!<cr>
+noremap <leader>qa :quitall!<cr>
+
+noremap <leader>ot :term<cr>
+
+noremap <leader>ws <c-w>h
+noremap <leader>wt <c-w>j
+noremap <leader>wn <c-w>k
+noremap <leader>wb <c-w>l
+
+noremap <leader>wd <c-w>q
+noremap <leader>wv <c-w>v
+noremap <leader>wh <c-w>s
+
+noremap <leader>wrs :vertical resize -2<cr>
+noremap <leader>wrt :resize +2<cr>
+noremap <leader>wrn :resize -2<cr>
+noremap <leader>wrb :vertical resize +2<cr>
+
+
+
+
+
+call plug#begin()
+# The default plugin directory will be as follows:
+  #   - Vim (Linux/macOS): '~/.vim/plugged'
+  #   - Vim (Windows): '~/vimfiles/plugged'
+  #   - Neovim (Linux/macOS/Windows): stdpath('data') . '/plugged'
+  # You can specify a custom plugin directory by passing it as the
+# argument
+  #   - e.g. `call plug#begin('~/.vim/plugged')`
+  #   - Avoid using standard Vim directory names like 'plugin'
+
+  # Make sure you use single quotes
+
+  # Shorthand notation; fetches
+# https://github.com/junegunn/vim-easy-align
+ Plug 'junegunn/vim-easy-align'
+
+ Plug 'lifepillar/vim-gruvbox8'
+ Plug 'ukyouz/onedark.vim'
+
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'enricobacis/vim-airline-clock'
+  Plug 'blueyed/vim-diminactive'
+  Plug 'farmergreg/vim-lastplace'
+  Plug 'mhinz/vim-signify'
+  Plug 'mhinz/vim-startify'
+  Plug 'liuchengxu/vim-which-key'
+  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-unimpaired'
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-eunuch'
+  Plug 'wellle/targets.vim'
+  Plug 'Raimondi/delimitMate'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'prabirshrestha/vim-lsp'
+  Plug 'sheerun/vim-polyglot'
+  Plug 'thezeroalpha/vim-lf'
+  Plug 'voldikss/vim-floaterm'
+  Plug 'puremourning/vimspector'
+
+  Plug 'ryanoasis/vim-devicons'
+
+  # Any valid git URL is allowed
+ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+
+  # Multiple Plug commands can be written in a single line using |
+# separators
+ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+  # On-demand loading
+ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+ Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
+  # Using a non-default branch
+ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+
+  # Using a tagged release; wildcard allowed (requires git 1.9.2 or
+# above)
+ Plug 'fatih/vim-go', { 'tag': '*' }
+
+  # Plugin options
+ Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+
+  # Plugin outside ~/.vim/plugged with post-update hook
+ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+  # Unmanaged plugin (manually installed and updated)
+ Plug '~/my-prototype-plugin'
+
+  # Initialize plugin system
+  # - Automatically executes `filetype plugin indent on` and `syntax
+# enable`.
+ call plug#end()
+  # You can revert the settings after the call like so:
+ #   filetype indent off   # Disable file-type-specific indentation
+ #   syntax off            # Disable syntax highlighting
+
+
+
+
+
+
+
+
+
+
+
+
+
+    colorscheme gruvbox8_hard
+
+    set autoindent
+    set autowrite
+    set number
+    set relativenumber
+    set cursorline
+    set ruler # see ruf for formatting
+    set showmode
+    set tabstop=2
+    set softtabstop=2
+    set shiftwidth=2
+    set smartindent
+    set smarttab
+    # better ascii friendly listchars
+    set listchars=space:*,trail:*,nbsp:*,extends:>,precedes:<,tab:\|>
+    # mark trailing spaces as errors
+    if has("match")
+      match ErrorMsg '\s\+$'
+    endif
+    set textwidth=72
+    set expandtab
+    # makes ~ effectively invisible
+    #highlight NonText guifg=bg
+    #set spell
+    # more risky, but cleaner
+    # set nobackup
+    # set noswapfile
+    # set nowritebackup
+    set icon
+    # center the cursor always on the screen
+    set scrolloff=999
+    # highlight search hits
+    set hlsearch
+    set incsearch
+    set linebreak
+    # avoid most of the 'Hit Enter ...' messages
+    set shortmess=aoOtTI
+    # prevents truncated yanks, deletes, etc.
+    set viminfo='20,<1000,s1000
+    # wrap around when searching
+    set wrapscan
+    # Just the defaults, these are changed per filetype by plugins.
+    # Most of the utility of all of this has been superceded by the use of
+    # modern simplified pandoc for capturing knowledge source instead of
+    # arbitrary raw text files.
+    set fo+=t   # don't auto-wrap text using text width
+    set fo+=c   # autowrap comments using textwidth with leader
+    set fo+=r   # don't auto-insert comment leader on enter in insert
+    set fo+=o   # don't auto-insert comment leader on o/O in normal
+    set fo+=q   # allow formatting of comments with gq
+    set fo+=j   # delete comment prefix when joining
+    set fo+=l   # long lines not broken in insert mode
+    set fo+=1   # don't break a line after a one-letter word
+
+    # stop complaints about switching buffer with changes
+    set hidden
+    # command history
+    set history=1000
+    # here because plugins and stuff need it
+    if has("syntax")
+      syntax enable
+    endif
+    # faster scrolling
+    set ttyfast
+    # allow sensing the filetype
+    filetype plugin on
+    # high contrast for streaming, etc.
+    set background=dark
+
+    au FileType bash set sw=2
+    # Edit/Reload vimr configuration file
+    nnoremap confe :e $HOME/.vimrc<CR>
+    nnoremap confr :source $HOME/.vimrc<CR>
+
+    set ruf=%30(%=%#LineNr#%.50F\ [%{strlen(&ft)?&ft:'none'}]\ %l:%c\ %p%%%)
+
+
+    # make Y consitent with D and C (yank til end)
+    map Y y$
+
+    # better command-line completion
+    set wildmenu
+
+    # disable search highlighting with <C-L> when refreshing screen
+    nnoremap <C-L> :nohl<CR><C-L>
+
+    # enable omni-completion
+    set omnifunc=syntaxcomplete#Complete
+
+
+
+
+
+    g:vimspector_enable_mappings = 'HUMAN'
+    nmap <leader>da :call vimspector#Launch()<cr>
+    nmap <leader>dx :VimspectorReset<cr>
+    nmap <leader>de :VimspectorEval
+    nmap <leader>dw :VimspectorWatch
+    nmap <leader>do :VimspectorShowOutput
+
+    g:vimspector_base_dir = expand('$HOME/.config/vimspector-config')
+    # g:vimspector_base_dir = '/home/jb/.vim/pack/vimspector/opt/vimspector'
+    # g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools', 'CodeLLDB' ]
+
+    g:lf_replace_netrw = 1 #Open lf when vim opens a directory
+
+
+
+
+
+## General
+set number  # Show line numbers
+set linebreak   # Break lines at word (requires Wrap lines)
+set showbreak=+++   # Wrap-broken line prefix
+set textwidth=72    # Line wrap (number of cols)
+set showmatch   # Highlight matching brace
+set spell   # Enable spell-checking
+set visualbell  # Use visual bell (no beeping)
+
+set hlsearch    # Highlight all search results
+set smartcase   # Enable smart-case search
+set ignorecase  # Always case-insensitive
+set incsearch   # Searches for strings incrementally
+
+set autoindent  # Auto-indent new lines
+set cindent # Use 'C' style program indenting
+set expandtab   # Use spaces instead of tabs
+set shiftwidth=2    # Number of auto-indent spaces
+set smartindent # Enable smart-indent
+set smarttab    # Enable smart-tabs
+set softtabstop=2   # Number of spaces per Tab
+
+## Advanced
+set ruler   # Show row and column ruler information
+
+set undolevels=1000 # Number of undo levels
+set backspace=indent,eol,start  # Backspace behaviour
+
+
+filetype plugin indent on  # Load plugins according to detected filetype.
+syntax on                  # Enable syntax highlighting.
+
+set shiftround             # >> indents to next multiple of 'shiftwidth'.
+
+set backspace=indent,eol,start  # Make backspace work as you would expect.
+set hidden                 # Switch between buffers without having to save first.
+set laststatus=2         # Always show statusline.
+set display=lastline  # Show as much as possible of the last line.
+
+set showmode               # Show current mode in command-line.
+set showcmd                # Show already typed keys when more are expected.
+
+set incsearch              # Highlight while searching with / or ?.
+set hlsearch               # Keep matches highlighted.
+
+set ttyfast                # Faster redrawing.
+set lazyredraw             # Only redraw when necessary.
+
+set splitbelow             # Open new windows below the current window.
+set splitright             # Open new windows right of the current window.
+
+set cursorline             # Find the current line quickly.
+set wrapscan               # Searches wrap around end-of-file.
+set report=0         # Always report changed lines.
+set synmaxcol=200       # Only highlight the first 200 columns.
+
+set list                   # Show non-printable characters.
+
+
+# Put all temporary files under the same directory.
+# https://github.com/mhinz/vim-galore#temporary-files
+# backup files
+set backup
+set backupdir=$HOME/.vim/files/backup/
+set backupext=-vimbackup
+set backupskip=
+# swap files
+set directory=$HOME/.vim/files/swap//
+set updatecount=100
+# undo files
+set undofile
+set undodir=$HOME/.vim/files/undo/
+set viminfo='100,n$HOME/.vim/files/info/viminfo'
+
+set clipboard=unnamed
+set colorcolumn=72
+set formatoptions+=croqlt
+
+
+# for cursor
+    &t_SI = "\<Esc>[6 q"
+    &t_SR = "\<Esc>[4 q"
+    &t_EI = "\<Esc>[2 q"
+
+
+if &term =~ "xterm\\|rxvt"
+    # use an orange cursor in insert mode
+    &t_SI = "\<Esc>]12;orange\x7"
+    # use a red cursor otherwise
+    &t_EI = "\<Esc>]12;red\x7"
+    silent !echo -ne "\033]12;red\007"
+    # reset cursor when vim exits
+    autocmd VimLeave * silent !echo -ne "\033]112\007"
+    # use \003]12;gray\007 for gnome-terminal and rxvt up to version 9.21
+endif
+
+
+if has('multi_byte') && &encoding ==# 'utf-8'
+  &listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:±,trail:⣿'
+  &fillchars = 'vert: ,diff: '  # ▚
+  &showbreak = '↪ '
+  highlight VertSplit ctermfg=242
+  # augroup vimrc
+  #   autocmd InsertEnter * set listchars-=trail:⣿
+  #   autocmd InsertLeave * set listchars+=trail:⣿
+  # augroup END
+else
+  &listchars = 'tab:> ,extends:>,precedes:<,nbsp:.'
+  &fillchars = 'vert: ,stlnc:#'
+  &showbreak = '-> '
+  augroup vimrc
+    autocmd InsertEnter * set listchars-=trail:.
+    autocmd InsertLeave * set listchars+=trail:.
+  augroup END
+endif
+
+
+
+# Use tab for trigger completion with characters ahead and navigate.
+# NOTE: There's always complete item selected by default, you may want to enable
+# no select by `"suggest.noselect": true` in your configuration file.
+# NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+# other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+# Make <CR> to accept selected completion item or notify coc.nvim to format
+# <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+# Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+# Use `[g` and `]g` to navigate diagnostics
+# Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+# GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+# Use K to show documentation in preview window.
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+# Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+# Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+# Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  # Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  # Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+# Applying codeAction to the selected region.
+# Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+# Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+# Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+# Run the Code Lens action on the current line.
+nmap <leader>cl  <Plug>(coc-codelens-action)
+
+# Map function and class text objects
+# NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+# Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
+# Use CTRL-S for selections ranges.
+# Requires 'textDocument/selectionRange' support of language server.
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+# Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocActionAsync('format')
+
+# Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+# Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
+
+# Add (Neo)Vim's native statusline support.
+# NOTE: Please see `:h coc-status` for integrations with external plugins that
+# provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+# Mappings for CoCList
+# Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+# Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+# Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+# Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+# Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+# Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+# Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+# Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
