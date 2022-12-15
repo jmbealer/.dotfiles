@@ -7,6 +7,7 @@
 export PATH=$HOME/.bin:$PATH
 export PATH="$HOME/.emacs.d/bin:$PATH"
 export PATH=${XDG_DATA_HOME}/npm/bin:$PATH
+export PATH="$HOME/.local/share/cargo/bin:$PATH"
 
 # Where user-specific configurations should be written (analogous to /etc).
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=$HOME/.config}

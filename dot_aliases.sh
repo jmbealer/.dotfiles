@@ -34,8 +34,8 @@ alias em="emacsclient -c -a emacs" # cli emacs
 alias et="emacsclient -t" # cli emacs
 # alias et="emacs -nw" # cli emacs
 # alias emacs="em"
-alias etn="et ~/Documents/org/20220401030216-main-idx.org"
-alias emn="em ~/Documents/org/20220401030216-main-idx.org"
+alias etn="et ~/documents/org/20220401030216-main-idx.org"
+alias emn="em ~/documents/org/20220401030216-main-idx.org"
 
 
 # alias nv="nvim -O --startuptime /tmp/nvim-startuptime"

@@ -1,7 +1,16 @@
 [user]
-  name = Justin Bealer
+	name = Justin Bealer
 	email = 77351757+jmbealer@users.noreply.github.com
+	user = jmbealer
 [core]
 	pager = diffr | less -R
 [interactive]
 	diffFilter = diffr
+[github]
+	user = jmbealer
+[include]
+	path = ~/.gitalias
+[init]
+	defaultBranch = main
+[color]
+	ui = auto
