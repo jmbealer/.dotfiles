@@ -1,14 +1,17 @@
 [user]
-  email = jmbealer11@gmail.com
+	email = jmbealer11@gmail.com
 	name = Justin Bealer
-  user = jmbealer
+	user = jmbealer
+
+[color]
+	ui = auto
 
 [github]
-  user = jmbealer
+	user = jmbealer
 
 [include]
 	path = ~/.gitalias
+
 [init]
 	defaultBranch = main
-[color]
-	ui = auto
+

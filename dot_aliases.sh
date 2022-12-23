@@ -13,6 +13,8 @@ alias rmg="rclone mount --daemon gdrive: /home/jb/gdrive/"
 # remove pervious aliases
 # unalias -a
 
+alias vi='vimx'
+alias vim='vimx'
 # alias vi='nvim -0'
 # alias vim='nvim -0'
 # alias nvim='nvim -0'
