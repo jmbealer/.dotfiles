@@ -332,3 +332,5 @@
  "⭠ now ─────────────────────────────────────────────────")
 
 (global-org-modern-mode)
+
+(add-hook 'before-save-hook 'time-stamp)
