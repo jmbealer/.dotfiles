@@ -13,3 +13,5 @@ Also check backup dotfiles
 
 
 need to finish install apps.
+
+my newest old dotfiles.
