@@ -2,4 +2,5 @@ result*
 .cache/
 .direnv/
 secrets/*
+.sops.yml
 *.swp
