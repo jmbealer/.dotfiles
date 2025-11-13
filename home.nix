@@ -245,6 +245,7 @@
       ai.avante = {
         enable = true;
         installDependencies = true;
+        # installRuntimeDependencies = true;
       };
     };
     # Additional packages (optional)

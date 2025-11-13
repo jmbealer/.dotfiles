@@ -1,6 +1,6 @@
 result*
 .cache/
 .direnv/
-secrets/*
+# secrets/*
 .sops.yml
 *.swp
