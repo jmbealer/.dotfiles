@@ -11,10 +11,10 @@
       url = "github:DreamMaoMao/mango";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    lazyvim = {
-      url = "github:pfassina/lazyvim-nix";
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # lazyvim = {
+    #   url = "github:pfassina/lazyvim-nix";
+    #   # inputs.nixpkgs.follows = "nixpkgs";
+    # };
     hosts = {
       url = "github:StevenBlack/hosts";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -41,6 +41,17 @@
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    Akari = {
+      url = "github:spector700/Akari";
+    };
+    nvf = {
+      url = "github:NotAShelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # nixvim = {
+    # url = "github:nix-community/nixvim";
+    # inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs =
@@ -64,6 +75,8 @@
           inputs.mango.nixosModules.mango
           inputs.stylix.nixosModules.stylix
           inputs.sops-nix.nixosModules.sops
+          # inputs.nixvim.nixosModules.nixvim
+          # inputs.Akari.nixosModules.Akari
           inputs.hosts.nixosModule
           {
             # networking.stevenBlackHosts.enable = true;
@@ -86,9 +99,10 @@
               users."0xjb" = {
                 imports = [
                   ./home.nix
-                  inputs.lazyvim.homeManagerModules.default
+                  # inputs.lazyvim.homeManagerModules.default
                   inputs.dankMaterialShell.homeModules.dankMaterialShell.default
                   inputs.sops-nix.homeManagerModules.sops
+                  inputs.nvf.homeManagerModules.default
                 ];
               };
               backupFileExtension = "backup";

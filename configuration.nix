@@ -238,6 +238,9 @@
     libadwaita
     adwaita-icon-theme
 
+    # inputs.Akari.packages.${system}.default
+    github-copilot-cli
+
     # gnome runtime services
     dconf
     gnome-keyring
@@ -269,6 +272,7 @@
     #
     #
     gh
+    codex
 
     # dircolors
     # maybes

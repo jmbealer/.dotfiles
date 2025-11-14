@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs,
   sops,
   ...
 }:
@@ -10,6 +11,10 @@
   # imports = [
   # # "${pkgs.lazyvim-nix}/homeManagerModules/default"
   # lazyvim.homeManagerModules.lazyvim
+  # ];
+
+  # home.packages = with pkgs; [
+  # inputs.Akari.packages.x86_64-linux.default
   # ];
 
   home.username = "0xjb";
@@ -212,87 +217,128 @@
   #   ];
   # };
 
-  programs.vim.defaultEditor = true;
+  # programs.vim.defaultEditor = true;
+  #
+  # programs.lazyvim = {
+  #   enable = true;
+  #   # defaultEditor = true;
+  #   # configFiles = "/home/0xjb/.config/nvim";
+  #
+  #   extras = {
+  #     lang.nix = {
+  #       enable = true;
+  #       installDependencies = true;
+  #     };
+  #     lang.python = {
+  #       enable = true;
+  #       installDependencies = true; # Install ruff
+  #       # installRuntimeDependencies = true; # Install python3
+  #     };
+  #     lang.go = {
+  #       enable = true;
+  #       installDependencies = true; # Install gopls, gofumpt, etc.
+  #       installRuntimeDependencies = true; # Install go compiler
+  #     };
+  #     dap.core = {
+  #       enable = true;
+  #       installDependencies = true;
+  #     };
+  #     util.dot = {
+  #       enable = true;
+  #       installDependencies = true;
+  #     };
+  #     ai.avante = {
+  #       enable = true;
+  #       installDependencies = true;
+  #       # installRuntimeDependencies = true;
+  #     };
+  #     ai.copilot = {
+  #       enable = true;
+  #       installDependencies = true;
+  #       installRuntimeDependencies = true;
+  #     };
+  #   };
+  #   # Additional packages (optional)
+  #   extraPackages = with pkgs; [
+  #     tree-sitter
+  #     nixd # Nix LSP
+  #     alejandra # Nix formatter
+  #     ripgrep
+  #     fd
+  #     lazygit
+  #     fzf
+  #     curl
+  #     # pip
+  #     # ruff
+  #   ];
+  #
+  #   # Only needed for languages not covered by LazyVim
+  #   # treesitterParsers = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
+  #   # treesitterParsers = with pkgs.tree-sitter-grammars; [
+  #   # # tree-sitter-wgsl      # WebGPU Shading Language
+  #   #   tree-sitter-templ     # Go templ files
+  #   # ];
+  #
+  #   config = {
+  #     options = ''
+  #       vim.opt.relativenumber = false
+  #       vim.opt.cursorcolumn = true
+  #       vim.opt.scrolloff = 7
+  #     '';
+  #     keymaps = ''
+  #       vim.keymap.set("n", "<leader>w", "<cmd>w<cr", { desc = "Save"})
+  #     '';
+  #   };
+  #   plugins = {
+  #     # "catppuccin/nvim",
+  #     # flavour = "mocha"
+  #     colorscheme = ''
+  #         return {
+  #         { "miikanissi/modus-themes.nvim" },
+  #         { "RRethy/base16-nvim" },
+  #           {
+  #             "LazyVim/LazyVim",
+  #             opts = {
+  #               colorscheme = "base16-3024",
+  #             },
+  #           }
+  #       }
+  #     '';
+  #     avante = ''
+  #       return {
+  #         "yetone/avante.nvim",
+  #         opts = {
+  #           provider = "openai",
+  #         }
+  #       }
+  #     '';
+  #   };
+  # };
 
-  programs.lazyvim = {
+  programs.nvf = {
     enable = true;
-    # defaultEditor = true;
-    # configFiles = "/home/0xjb/.config/nvim";
 
-    extras = {
-      lang.nix = {
+    settings = {
+      vim.viAlias = true;
+      vim.vimAlias = true;
+      vim.lsp = {
         enable = true;
-        installDependencies = true;
       };
-      lang.python = {
-        enable = true;
-        installDependencies = true; # Install ruff
-        # installRuntimeDependencies = true; # Install python3
+      vim.assistant.avante-nvim.enable = true;
+      vim.assistant.avante-nvim.setupOpts.prodider = "codex";
+      vim.assistant.avante-nvim.setupOpts.prodiders = {
+        gpt_5_codex = {
+          __inherited_from = "openai";
+          mode = "gpt-5-codex";
+        };
       };
-      lang.go = {
-        enable = true;
-        installDependencies = true; # Install gopls, gofumpt, etc.
-        installRuntimeDependencies = true; # Install go compiler
-      };
-      dap.core = {
-        enable = true;
-        installDependencies = true;
-      };
-      util.dot = {
-        enable = true;
-        installDependencies = true;
-      };
-      ai.avante = {
-        enable = true;
-        installDependencies = true;
-        # installRuntimeDependencies = true;
-      };
-    };
-    # Additional packages (optional)
-    extraPackages = with pkgs; [
-      tree-sitter
-      nixd # Nix LSP
-      alejandra # Nix formatter
-      ripgrep
-      fd
-      # pip
-      # ruff
-    ];
-
-    # Only needed for languages not covered by LazyVim
-    # treesitterParsers = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
-    # treesitterParsers = with pkgs.tree-sitter-grammars; [
-    # # tree-sitter-wgsl      # WebGPU Shading Language
-    #   tree-sitter-templ     # Go templ files
-    # ];
-
-    config = {
-      options = ''
-        vim.opt.relativenumber = false
-        vim.opt.cursorcolumn = true
-        vim.opt.scrolloff = 7
-      '';
-      keymaps = ''
-        vim.keymap.set("n", "<leader>w", "<cmd>w<cr", { desc = "Save"})
-      '';
-    };
-    plugins = {
-      # "catppuccin/nvim",
-      # flavour = "mocha"
-      colorscheme = ''
-          return {
-          { "miikanissi/modus-themes.nvim" },
-          { "RRethy/base16-nvim" },
-            { 
-              "LazyVim/LazyVim",
-              opts = { 
-                colorscheme = "base16-3024",
-              },
-            }
-        }
-      '';
     };
   };
+
+  # programs.nixvim = {
+  #   enable = true;
+  #   imports = [ ./nixvim.nix ];
+  # };
 
   programs.foot = {
     enable = true;
