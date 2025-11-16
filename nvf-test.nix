@@ -1,146 +1,171 @@
-{ pkgs, ... }:
-let
-  lazySpec = pkgs.writeText "lazyvim-spec.lua" ''
-    return {
-      { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-      { import = "lazyvim.plugins.extras.lang.typescript" },
-      { import = "lazyvim.plugins.extras.lang.json" },
-      { import = "lazyvim.plugins.extras.lang.python" },
-      { import = "lazyvim.plugins.extras.lang.rust" },
-      { import = "lazyvim.plugins.extras.coding.copilot" },
-      { import = "lazyvim.plugins.extras.editor.mini-files" },
-      { import = "lazyvim.plugins.extras.util.project" },
-      { import = "lazyvim.plugins.extras.ui.edgy" }
-    }
-  '';
+{ pkgs, lib, ... }: let
+inherit (lib.generators) mkLuaInline;
 in {
   programs.nvf = {
     enable = true;
+    
+    # settings.vim.luaConfigRC.base16-nvim = "vim.cmd('colorscheme base16-3024')";
+    # settings.vim.extraPlugins = {
+      # base16-nvim = {
+        # package = pkgs.vimPlugins.base16-nvim;
+        # setup = "require('base16-nvim').setup {}";
+      # };
+    # };
+
+    settings.vim.treesitter ={
+      enable = true;
+      # addDefaultGrammars = true;
+      autotagHtml = true;
+      fold = true;
+      grammars = [
+        pkgs.vimPlugins.nvim-treesitter.withAllGrammars
+      ];
+
+      # context.enable = false;
+      textobjects.enable = true;
+      highlight.enable = true;
+      indent.enable = true;
+    };
 
     settings = {
       vim = {
         viAlias = true;
         vimAlias = true;
+        # theme.enable = true;
+        # theme.name = lib.mkForce "gruvbox";
+        # theme.style = "dark";
+        # lsp.enable = true;
+        # lsp.lspconfig.enable = true;
+        diagnostics.enable = true;
 
         globals = {
           mapleader = " ";
-          maplocalleader = ",";
+          # maplocalleader = ",";
+          maplocalleader = "\\";
+          autoformat = true;
         };
 
         options = {
-          number = true;
-          relativenumber = true;
+          autowrite = true;
+          # clipboard = ''vim.env.SSH_CONNECTION and "" or "unnamedplus"'';
+          completeopt = "menu,menuone,noselect";
+          conceallevel = 2;
+          confirm = true;
+          cursorcolumn = true;
           cursorline = true;
-          signcolumn = "yes";
-          shiftwidth = 2;
-          tabstop = 2;
           expandtab = true;
+          # fillchars = ''
+		  # foldopen = "",
+		  # foldclose = "",
+		  # fold = " ",
+		  # foldsep = " ",
+		  # diff = "╱",
+		  # eob = " ",
+		# '';
+          foldlevel = 99;
+          foldmethod = "indent";
+          foldtext = "";
+          # formatexpr = "";
+          formatoptions = "jcroqlnt";
+          grepformat = "%f:%l:%c:%m";
+          grepprg = "rg --vimgrep";
+          ignorecase = true;
+          inccommand = "nosplit";
+          jumpoptions = "view";
+          laststatus = 3;
+          linebreak = true;
+          list = true;
+          mouse = "a";
+          number = true;
+          pumblend = 10;
+          pumheight = 10;
+          relativenumber = true;
+          ruler = false;
+          scrolloff = 7;
+          # sessionoptions = 
+          shiftround = true;
+          shiftwidth = 2;
+          # shortmess
+          # showmode = false;
+          # sidesscrolloff = 8;
+          signcolumn = "yes";
+          smartcase = true;
+          smartindent = true;
+          smoothscroll = true;
+          # spelllang = { "en" };
+          splitbelow = true;
+          splitkeep = "screen";
+          splitright = true;
+          # statuscolumn
+          tabstop = 2;
           termguicolors = true;
+          # timeoutlen
+          undofile = true;
+          undolevels = 10000;
+          updatetime = 200;
+          virtualedit = "block";
+          wildmode = "longest:full,full";
+          winminwidth = 5;
+          wrap = false;
         };
 
-        lazy = {
-          enable = true;
-          install = {
-            colorscheme = [ "tokyonight" "catppuccin" "kanagawa" ];
-            missing = true;
+        # lazy = {
+          # enable = true;
+          # };
+
+        languages = {
+          enableTreesitter = true;
+          enableDAP = true;
+          enableExtraDiagnostics = true;
+          enableFormat = true;
+          # nix = {
+            # enable = true;
+            # lsp.enable = true;
+            # treesitter.enable = true;
+            # format.enable = true;
+            # extraDiagnostics.enable = true;
+            # };
           };
-          opts = {
-            defaults = {
-              lazy = false;
-              version = false;
-            };
-            checker = {
-              enabled = true;
-              notify = false;
-            };
-            change_detection = {
-              enabled = true;
-              notify = false;
-            };
-            performance = {
-              rtp = {
-                disabled_plugins = [
-                  "gzip"
-                  "matchit"
-                  "matchparen"
-                  "netrwPlugin"
-                  "tarPlugin"
-                  "tohtml"
-                  "tutor"
-                  "zipPlugin"
-                ];
-              };
-            };
-            colorscheme = "tokyonight";
-          };
-          plugins = {
-            spec = lazySpec;
-          };
+
+        lsp.servers.nixd = {
+          capabilities = mkLuaInline "capabilities";
+          on_attach = mkLuaInline "default_on_attach";
+          cmd = ["${pkgs.nixd}/bin/nixd"];
+          settings.nixd.formatting.command = ["${pkgs.alejandra}/bin/alejandra" "--quiet"];
         };
 
-        lsp = {
-          enable = true;
-          inlayHints = true;
-          formatOnSave = true;
-          servers = {
-            lua-ls.enable = true;
-            tsserver.enable = true;
-            pyright.enable = true;
-            rust-analyzer.enable = true;
-          };
+        terminal.toggleterm.lazygit.enable = true;
+        autopairs.nvim-autopairs.enable = true;
+        comments.comment-nvim.enable = true;
+        autocomplete.blink-cmp.enable = true;
+        autocomplete.enableSharedCmpSources = true;
+
+        ui = {
+          borders.enable = true;
+          colorizer.enable = true;
+          illuminate.enable = true;
+          modes-nvim.enable = true;
+          smartcolumn.enable = true;
         };
 
-        treesitter = {
+        terminal.toggleterm = {
           enable = true;
-          ensureInstalled = [
-            "bash"
-            "css"
-            "html"
-            "javascript"
-            "json"
-            "lua"
-            "markdown"
-            "nix"
-            "python"
-            "rust"
-            "tsx"
-            "typescript"
-            "yaml"
-          ];
         };
 
-        formatter = {
-          enable = true;
-          formatOnSave = "file";
+
         };
 
-        diagnostic = {
-          enable = true;
-          virtualText = true;
-          underline = true;
-        };
 
-        git = {
-          enable = true;
-          gitsigns = {
-            enable = true;
-            currentLineBlame = true;
-          };
-        };
-
-        assistant.avante-nvim = {
-          enable = true;
-          setupOpts = {
-            provider = "codex";
-            providers = {
-              gpt_5_codex = {
-                __inherited_from = "openai";
-                mode = "gpt-5-codex";
-              };
-            };
-          };
-        };
       };
-    };
+    # config.vim.lazy.plugins = {
+      # aerial.nvim = {
+        # package = aerial-nvim;
+
+        # setupModule = "aerial";
+        # setupOpts = {option_name = false;};
+
+        # after = "print('aerial loaded')";
+        # };
+        # };
   };
 }

@@ -216,9 +216,13 @@
     adwaita-qt
     adwaita-icon-theme
     lm_sensors
-    nixfmt-rfc-style
-    nixd
+    # nixfmt-rfc-style
+    alejandra
+    # nixd
     nil
+    tree-sitter
+    lua-language-server
+    nodejs
     unrar
     usbutils
     nwg-displays
@@ -374,7 +378,10 @@
 
   stylix = {
     enable = true;
+    # autoEnable = false;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/3024.yaml";
+    
+    # neovim.plugin = "base16-nvim";
 
     # gtk = {
     #   enable = true;
@@ -385,7 +392,8 @@
     targets = {
       gtk.enable = true;
       qt.enable = true;
-      # neovim.enable = true;
+      # neovim.plugin = "base16-nvim";
+      # neovim.enable = false;
       # bash.enable = true;
       # floorp.profileNames = [ "default" ];
     };

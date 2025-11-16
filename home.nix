@@ -8,10 +8,11 @@
 # { lazyvim, ... }: { config, pkgs, ... }:
 
 {
-  # imports = [
+   imports = [
   # # "${pkgs.lazyvim-nix}/homeManagerModules/default"
   # lazyvim.homeManagerModules.lazyvim
-  # ];
+./nvf-test.nix
+   ];
 
   # home.packages = with pkgs; [
   # inputs.Akari.packages.x86_64-linux.default
@@ -20,6 +21,9 @@
   home.username = "0xjb";
   home.homeDirectory = "/home/0xjb";
   home.stateVersion = "25.05";
+
+  stylix.targets.neovim.plugin = "base16-nvim";
+
   programs.bash = {
     enable = true;
     bashrcExtra = ''
@@ -315,25 +319,25 @@
   #   };
   # };
 
-  programs.nvf = {
-    enable = true;
+  # programs.nvf = {
+    # enable = true;
 
-    settings = {
-      vim.viAlias = true;
-      vim.vimAlias = true;
-      vim.lsp = {
-        enable = true;
-      };
-      vim.assistant.avante-nvim.enable = true;
-      vim.assistant.avante-nvim.setupOpts.prodider = "codex";
-      vim.assistant.avante-nvim.setupOpts.prodiders = {
-        gpt_5_codex = {
-          __inherited_from = "openai";
-          mode = "gpt-5-codex";
-        };
-      };
-    };
-  };
+    # settings = {
+      # vim.viAlias = true;
+      # vim.vimAlias = true;
+      # vim.lsp = {
+        # enable = true;
+      # };
+      # vim.assistant.avante-nvim.enable = true;
+      # vim.assistant.avante-nvim.setupOpts.prodider = "codex";
+      # vim.assistant.avante-nvim.setupOpts.prodiders = {
+        # gpt_5_codex = {
+          # __inherited_from = "openai";
+          # mode = "gpt-5-codex";
+        # };
+      # };
+    # };
+  # };
 
   # programs.nixvim = {
   #   enable = true;
