@@ -75,7 +75,7 @@ in {
           ignorecase = true;
           inccommand = "nosplit";
           jumpoptions = "view";
-          # laststatus = 3;
+          # lasttatus = 3;
           linebreak = true;
           list = true;
           mouse = "a";
@@ -89,7 +89,7 @@ in {
           shiftround = true;
           shiftwidth = 2;
           # shortmess
-          # showmode = false;
+          showmode = false;
           # sidesscrolloff = 8;
           signcolumn = "yes";
           smartcase = true;
@@ -170,6 +170,14 @@ in {
 
         terminal.toggleterm = {
           enable = true;
+        };
+
+        utility = {
+          yazi-nvim = {
+            enable = true;
+            mappings.yaziToggle = "<c-n>";
+            setupOpts.open_for_directories = true;
+          };
         };
 
 
