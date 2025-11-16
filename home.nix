@@ -22,7 +22,10 @@
   home.homeDirectory = "/home/0xjb";
   home.stateVersion = "25.05";
 
-  stylix.targets.neovim.plugin = "base16-nvim";
+  stylix.targets = {
+    neovim.plugin = "base16-nvim";
+    floorp.profileNames = [ "default-release" ];
+  };
 
   programs.bash = {
     enable = true;
@@ -482,7 +485,7 @@
 
   programs.git = {
     enable = true;
-    extraConfig = {
+    settings = {
       user.name = "jmbealer";
       user.email = "jmbealer11@gmail.com";
       init.defaultBranch = "main";
