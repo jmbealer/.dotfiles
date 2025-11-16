@@ -31,6 +31,9 @@ in {
       vim = {
         viAlias = true;
         vimAlias = true;
+        enableLuaLoader = true;
+        syntaxHighlighting = true;
+        preventJunkFiles = true;
         # theme.enable = true;
         # theme.name = lib.mkForce "gruvbox";
         # theme.style = "dark";
@@ -72,7 +75,7 @@ in {
           ignorecase = true;
           inccommand = "nosplit";
           jumpoptions = "view";
-          laststatus = 3;
+          # laststatus = 3;
           linebreak = true;
           list = true;
           mouse = "a";
@@ -107,6 +110,23 @@ in {
           wildmode = "longest:full,full";
           winminwidth = 5;
           wrap = false;
+        };
+
+        clipboard = {
+          enable = true;
+          providers.wl-copy.enable = true;
+          registers = "unnamedplus";
+        };
+
+        binds = {
+          cheatsheet.enable = true;
+          whichKey.enable = true;
+        };
+
+        statusline.lualine = {
+          enable = true;
+          globalStatus = true;
+          icons.enable = true;
         };
 
         # lazy = {
