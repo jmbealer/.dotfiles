@@ -18,6 +18,7 @@
   sops.age.keyFile = "/home/0xjb/.config/sops/age/keys.txt";
   sops.secrets.msmtp-password = {
     owner = config.users.users."0xjb".name;
+    neededForUsers = true;
   };
 
   # imports = [ lazyvim.nixosModules.lazyvim ];
