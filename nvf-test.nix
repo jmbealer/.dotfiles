@@ -88,7 +88,7 @@ in {
           pumheight = 10;
           relativenumber = true;
           ruler = false;
-          scrolloff = 7;
+          scrolloff = 10;
           # sessionoptions = 
           shiftround = true;
           shiftwidth = 2;
@@ -202,6 +202,22 @@ enableSharedCmpSources = true;
           enable = true;
           # ui.enable = true;
         };
+
+        keymaps = [
+          {
+            key = "<leader>qq";
+            mode = "n";
+            silent = true;
+            action = ":q<cr>";
+            desc = "quiting";
+          }
+          {
+            key = "<c-s>";
+            mode = "n";
+            silent = true;
+            action = ":w<cr>";
+          }
+        ];
 
 
         };
