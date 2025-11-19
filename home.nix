@@ -11,7 +11,7 @@
    imports = [
   # # "${pkgs.lazyvim-nix}/homeManagerModules/default"
   # lazyvim.homeManagerModules.lazyvim
-./nvf-test.nix
+    ./nvf.nix
    ];
 
   # home.packages = with pkgs; [
