@@ -81,7 +81,10 @@ in {
           # lasttatus = 3;
           linebreak = true;
           list = true;
-# listchars = {tab = "» " trail = "·" nbsp = "␣"};
+          listchars = "tab:»·,trail:·,nbsp:␣";
+          # listchars = ''
+          # tab:»·,trail:·,nbsp:␣,"extends:..."
+          # '';
           mouse = "a";
           number = true;
           pumblend = 10;
@@ -140,17 +143,11 @@ in {
           # };
 
         languages = {
-          enableTreesitter = true;
-          enableDAP = true;
-          enableExtraDiagnostics = true;
           enableFormat = true;
-          # nix = {
-            # enable = true;
-            # lsp.enable = true;
-            # treesitter.enable = true;
-            # format.enable = true;
-            # extraDiagnostics.enable = true;
-            # };
+          enableTreesitter = true;
+          enableExtraDiagnostics = true;
+          enableDAP = true;
+          bash.enable = true;
           };
 
         lsp.servers.nixd = {
