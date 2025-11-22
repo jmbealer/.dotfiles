@@ -160,7 +160,7 @@ in {
 formatter.conform-nvim.enable = true;
 dashboard.alpha.enable = true;
         # autopairs.nvim-autopairs.enable = true;
-        comments.comment-nvim.enable = true;
+        # comments.comment-nvim.enable = true;
         autocomplete = {
           blink-cmp.enable = true;
 enableSharedCmpSources = true;
@@ -216,7 +216,14 @@ enableSharedCmpSources = true;
           }
         ];
 
-        mini.basics.enable = true;
+        mini = {
+          basics.enable = true;
+          pairs.enable = true;
+          icons.enable = true;
+          ai.enable = true;
+          surround.enable = true;
+          operators.enable = true;
+        };
 
 
         };
