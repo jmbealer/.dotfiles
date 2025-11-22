@@ -159,7 +159,7 @@ in {
 
 formatter.conform-nvim.enable = true;
 dashboard.alpha.enable = true;
-        autopairs.nvim-autopairs.enable = true;
+        # autopairs.nvim-autopairs.enable = true;
         comments.comment-nvim.enable = true;
         autocomplete = {
           blink-cmp.enable = true;
@@ -187,7 +187,7 @@ enableSharedCmpSources = true;
         utility = {
           motion.precognition.enable = true;
           leetcode-nvim.enable = true;
-          surround.enable = true;
+          # surround.enable = true;
           yazi-nvim = {
             enable = true;
             mappings.yaziToggle = "<c-n>";
@@ -215,6 +215,8 @@ enableSharedCmpSources = true;
             action = ":w<cr>";
           }
         ];
+
+        mini.basics.enable = true;
 
 
         };
