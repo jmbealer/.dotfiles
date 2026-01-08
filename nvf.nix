@@ -12,6 +12,23 @@ in {
       # };
     # };
 
+    settings.vim.extraPlugins = {
+      nvim-dap-virtual-text = {
+        package = pkgs.vimPlugins.nvim-dap-virtual-text;
+        after = [ "nvim-dap" ];
+        setup = ''
+          require("nvim-dap-virtual-text").setup({
+            only_first_definiton = false,
+            all_references = true,
+          })
+        '';
+      };
+    };
+    settings.vim.extraLuaFiles = [
+      # ./test.lua
+      ./nvim/test.lua
+      # "$HOME/.dotfiles/test.lua"
+    ];
     settings.vim.treesitter ={
       enable = true;
       # addDefaultGrammars = true;
@@ -37,7 +54,7 @@ in {
         # theme.enable = lib.mkForce false;
         # theme.name = lib.mkForce "gruvbox";
         # theme.style = "dark";
-        # lsp.enable = true;
+        lsp.enable = true;
         # lsp.lspconfig.enable = true;
         diagnostics.enable = true;
         diagnostics.config.virtual_lines = true;
@@ -148,25 +165,36 @@ in {
           enableExtraDiagnostics = true;
           enableDAP = true;
           bash.enable = true;
+          clang.enable = true;
+          # css.enable = true;
+          # go.enable = true;
+          # html.enable = true;
+          # json.enable = true;
+          # lua.enable = true;
+          markdown.enable = true;
+          nix.enable = true;
+          # rust.enable = true;
+          # sql.enable = true;
+          ts.enable = true; # for typescript/javascript
+          # bash.lsp.enable = true;
           };
 
-        lsp.servers.nixd = {
-          capabilities = mkLuaInline "capabilities";
-          on_attach = mkLuaInline "default_on_attach";
-          cmd = ["${pkgs.nixd}/bin/nixd"];
-          settings.nixd.formatting.command = ["${pkgs.alejandra}/bin/alejandra" "--quiet"];
-        };
-
-formatter.conform-nvim.enable = true;
-dashboard.alpha.enable = true;
+        # lsp.servers.nixd = {
+        #   capabilities = mkLuaInline "capabilities";
+        #   on_attach = mkLuaInline "default_on_attach";
+        #   cmd = ["${pkgs.nixd}/bin/nixd"];
+        #   settings.nixd.formatting.command = ["${pkgs.alejandra}/bin/alejandra" "--quiet"];
+        # };
+        #
+        formatter.conform-nvim.enable = true;
+        dashboard.alpha.enable = true;
         # autopairs.nvim-autopairs.enable = true;
         # comments.comment-nvim.enable = true;
         autocomplete = {
           blink-cmp.enable = true;
-enableSharedCmpSources = true;
+          enableSharedCmpSources = true;
           blink-cmp.sourcePlugins.ripgrep.enable = true;
           blink-cmp.sourcePlugins.spell.enable = true;
-
         };
 
         ui = {
@@ -197,7 +225,7 @@ enableSharedCmpSources = true;
 
         debugger.nvim-dap = {
           enable = true;
-          # ui.enable = true;
+          ui.enable = true;
         };
 
         keymaps = [
@@ -240,5 +268,11 @@ enableSharedCmpSources = true;
         # after = "print('aerial loaded')";
         # };
         # };
+    # settings.vim.luaConfigPost = "${builtins.readFile ./test.lua}";
+    # settings.vim.luaConfigPost = ''
+    #   vim.opt.tabstop = 4
+    #
+    # '';
+
   };
 }
