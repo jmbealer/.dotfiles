@@ -17,16 +17,16 @@ in {
     # };
 
     # settings.vim.extraPlugins = {
-    #   nvim-dap-virtual-text = {
-    #     package = pkgs.vimPlugins.nvim-dap-virtual-text;
-    #     after = [ "nvim-dap" ];
-    #     setup = ''
-    #       require("nvim-dap-virtual-text").setup({
-    #         only_first_definiton = false,
-    #         all_references = true,
-    #       })
-    #     '';
-    #   };
+    #		nvim-dap-virtual-text = {
+    #			package = pkgs.vimPlugins.nvim-dap-virtual-text;
+    #			after = [ "nvim-dap" ];
+    #			setup = ''
+    #				require("nvim-dap-virtual-text").setup({
+    #					only_first_definiton = false,
+    #					all_references = true,
+    #				})
+    #			'';
+    #		};
     # };
     settings.vim.extraLuaFiles = [
       ./test.lua
@@ -52,20 +52,20 @@ in {
 
     # settings.vim.debugger.nvim-dap.sources = {bash = "bashdb";};
     # settings.vim.debugger.nvim-dap.sources = {
-    #   lldb-vscode = {
-    #     dapConfig = ''
-    #       dap.configurations.cpp = {
-    #         {
-    #           name = "Attach to process",
-    #           type = "lldb",
-    #           request = "attach",
-    #           pid = require('dap.utils').pick_process,
-    #           args = {},
-    #         },
-    #       }
+    #		lldb-vscode = {
+    #			dapConfig = ''
+    #				dap.configurations.cpp = {
+    #					{
+    #						name = "Attach to process",
+    #						type = "lldb",
+    #						request = "attach",
+    #						pid = require('dap.utils').pick_process,
+    #						args = {},
+    #					},
+    #				}
     #
-    #     '';
-    #   };
+    #			'';
+    #		};
     # };
 
     settings = {
@@ -88,53 +88,23 @@ in {
 
         spellcheck = {
           enable = true;
-          # programmingWordlist.enable = true;
+          programmingWordlist.enable = true;
         };
 
         lsp = {
           enable = true;
           formatOnSave = true;
+          inlayHints.enable = true;
+
+          lspconfig.enable = true;
           lspkind.enable = false;
           # lightbulb.enable = true;
           # lspsaga.enable = false;
           # trouble.enable = true;
-          lspSignature.enable = !true;
+          # lspSignature.enable = !true;
           # otter-nvim.enable = true;
           nvim-docs-view.enable = true;
           # harper-ls.enable = true;
-          servers = {
-            "*" = {
-              root_marker = [".git"];
-              capabilities = {
-                textDocument = {
-                  semanticTokens = {
-                    multilineTokenSupport = true;
-                  };
-                };
-              };
-            };
-            "clangd" = {
-              cmd = ["cland" "--query-driver=/nix/store/**/bin/*"];
-              filetypes = [
-                "c"
-                "cpp"
-                "objc"
-                "objcpp"
-                "cuda"
-                "proto"
-              ];
-              root_markers = [
-                ".clangd"
-                ".clang-tidy"
-                ".clang-format"
-                "compile_commands.json"
-                "compile_flags.txt"
-                "configure.at"
-                ".git"
-              ];
-              single_file_support = true;
-            };
-          };
         };
 
         enableLuaLoader = true;
@@ -153,18 +123,19 @@ in {
           # maplocalleader = ",";
           maplocalleader = "\\";
           autoformat = true;
+          deprecation_warnings = false;
         };
 
         options = {
           autowrite = true;
-          breakindent = true;
+          # breakindent = true;
           # clipboard = ''vim.env.SSH_CONNECTION and "" or "unnamedplus"'';
           completeopt = "menu,menuone,noselect";
           conceallevel = 2;
           confirm = true;
           cursorcolumn = true;
           cursorline = true;
-          # expandtab = true;
+          expandtab = false;
           # fillchars = ''
           # foldopen = "",
           # foldclose = "",
@@ -205,7 +176,7 @@ in {
           # sidesscrolloff = 8;
           signcolumn = "yes";
           smartcase = true;
-          smartindent = true;
+          # smartindent = true;
           smoothscroll = true;
           # diagnostics.nvim-lint.enable = true;
           # spelllang = { "en" };
@@ -259,7 +230,7 @@ in {
           # clang.dap.debugger = "codelldb";
           # css.enable = true;
           # clang.dap.enable = true;
-          # go.enable = true;
+          go.enable = true;
           # html.enable = true;
           # json.enable = true;
           # lua.enable = true;
@@ -268,15 +239,15 @@ in {
           nix.lsp.server = "nixd";
           # rust.enable = true;
           # sql.enable = true;
-          ts.enable = true; # for typescript/javascript
+          # ts.enable = true; # for typescript/javascript
           # bash.lsp.enable = true;
         };
 
         # lsp.servers.nixd = {
-        #   capabilities = mkLuaInline "capabilities";
-        #   on_attach = mkLuaInline "default_on_attach";
-        #   cmd = ["${pkgs.nixd}/bin/nixd"];
-        #   settings.nixd.formatting.command = ["${pkgs.alejandra}/bin/alejandra" "--quiet"];
+        #		capabilities = mkLuaInline "capabilities";
+        #		on_attach = mkLuaInline "default_on_attach";
+        #		cmd = ["${pkgs.nixd}/bin/nixd"];
+        #		settings.nixd.formatting.command = ["${pkgs.alejandra}/bin/alejandra" "--quiet"];
         # };
         #
         formatter.conform-nvim.enable = true;
@@ -325,15 +296,47 @@ in {
           {
             key = "<leader>qq";
             mode = "n";
-            silent = true;
-            action = ":q<cr>";
-            desc = "quiting";
+            action = "<cmd>qa<cr>";
+            desc = "Quit All";
+            # silent = true;
           }
           {
-            key = "<c-s>";
+            key = "<leader>fn";
             mode = "n";
+            action = "<cmd>enew<cr>";
+            desc = "New File";
+            # silent = true;
+          }
+          # {
+          #   key = "<leader>s";
+          #   mode = "n";
+          #   action = "<cmd>update<cr><cmd>source<cr>";
+          #   desc = "Source";
+          #   # silent = true;
+          # }
+          {
+            key = "<c-s>";
+            mode = ["n" "x" "i" "s"];
+            # action = ":w<cr>";
+            action = "<cmd>w<cr><esc>";
+            desc = "Save File";
+            # silent = true;
+          }
+          {
+            key = "j";
+            mode = ["n" "x"];
+            action = "v:count == 0 ? 'gj' : 'j'";
+            desc = "Down";
             silent = true;
-            action = ":w<cr>";
+            expr = true;
+          }
+          {
+            key = "k";
+            mode = ["n" "x"];
+            action = "v:count == 0 ? 'gk' : 'k'";
+            desc = "Up";
+            silent = true;
+            expr = true;
           }
         ];
 
@@ -359,7 +362,7 @@ in {
     # };
     # settings.vim.luaConfigPost = "${builtins.readFile ./test.lua}";
     # settings.vim.luaConfigPost = ''
-    #   vim.opt.tabstop = 4
+    #		vim.opt.tabstop = 4
     #
     # '';
   };

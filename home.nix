@@ -6,13 +6,12 @@
   ...
 }:
 # { lazyvim, ... }: { config, pkgs, ... }:
-
 {
-   imports = [
-  # # "${pkgs.lazyvim-nix}/homeManagerModules/default"
-  # lazyvim.homeManagerModules.lazyvim
+  imports = [
+    # # "${pkgs.lazyvim-nix}/homeManagerModules/default"
+    # lazyvim.homeManagerModules.lazyvim
     ./nvf.nix
-   ];
+  ];
 
   # home.packages = with pkgs; [
   # inputs.Akari.packages.x86_64-linux.default
@@ -24,7 +23,7 @@
 
   stylix.targets = {
     neovim.plugin = "base16-nvim";
-    floorp.profileNames = [ "default-release" ];
+    floorp.profileNames = ["default-release"];
   };
 
   programs.bash = {
@@ -145,9 +144,12 @@
       mv = "mv -iv";
       mkdir = "mkdir -vp";
       tf = "yazi";
+      ft = "yazi";
       # tfd = "yazi /home/0xjb/nixos-dotfiles/";
       tfd = "yazi /home/0xjb/.dotfiles/";
       tfc = "yazi /home/0xjb/.config/";
+      ftd = "yazi /home/0xjb/.dotfiles/";
+      ftc = "yazi /home/0xjb/.config/";
       # ls = "eza --group-directories-first";
       # la = "ls -la";
       # editors
@@ -193,7 +195,7 @@
   programs.starship = {
     enable = true;
     enableBashIntegration = true;
-    settings = { };
+    settings = {};
     # presets = [
     #   "nerd-font-symbols"
     # ];
@@ -323,23 +325,23 @@
   # };
 
   # programs.nvf = {
-    # enable = true;
+  # enable = true;
 
-    # settings = {
-      # vim.viAlias = true;
-      # vim.vimAlias = true;
-      # vim.lsp = {
-        # enable = true;
-      # };
-      # vim.assistant.avante-nvim.enable = true;
-      # vim.assistant.avante-nvim.setupOpts.prodider = "codex";
-      # vim.assistant.avante-nvim.setupOpts.prodiders = {
-        # gpt_5_codex = {
-          # __inherited_from = "openai";
-          # mode = "gpt-5-codex";
-        # };
-      # };
-    # };
+  # settings = {
+  # vim.viAlias = true;
+  # vim.vimAlias = true;
+  # vim.lsp = {
+  # enable = true;
+  # };
+  # vim.assistant.avante-nvim.enable = true;
+  # vim.assistant.avante-nvim.setupOpts.prodider = "codex";
+  # vim.assistant.avante-nvim.setupOpts.prodiders = {
+  # gpt_5_codex = {
+  # __inherited_from = "openai";
+  # mode = "gpt-5-codex";
+  # };
+  # };
+  # };
   # };
 
   # programs.nixvim = {
@@ -498,7 +500,7 @@
     validateSopsFiles = false;
 
     age = {
-      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
       # keyFile = "/var/lib/sops-nix/key.txt";
       keyFile = "/home/0xjb/.config/sops/age/keys.txt";
       generateKey = true;
@@ -507,7 +509,6 @@
     secrets = {
       # msmtp-password = { };
     };
-
   };
 
   # users.users."0xjb".hashedPasswordFile = config.sops.secrets.Zxjb-password.path;

@@ -194,7 +194,8 @@
     yaziPlugins.starship
     sops
     # bash-debug-adapter
-    bashdb
+    # bashdb
+    remnote
 
     # window manager
     wmenu
