@@ -1,35 +1,39 @@
-{ pkgs, lib, ... }: let
-inherit (lib.generators) mkLuaInline;
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  inherit (lib.generators) mkLuaInline;
 in {
   programs.nvf = {
     enable = true;
-    
+
     # settings.vim.luaConfigRC.base16-nvim = "vim.cmd('colorscheme base16-3024')";
     # settings.vim.extraPlugins = {
-      # base16-nvim = {
-        # package = pkgs.vimPlugins.base16-nvim;
-        # setup = "require('base16-nvim').setup {}";
-      # };
+    # base16-nvim = {
+    # package = pkgs.vimPlugins.base16-nvim;
+    # setup = "require('base16-nvim').setup {}";
+    # };
     # };
 
-    settings.vim.extraPlugins = {
-      nvim-dap-virtual-text = {
-        package = pkgs.vimPlugins.nvim-dap-virtual-text;
-        after = [ "nvim-dap" ];
-        setup = ''
-          require("nvim-dap-virtual-text").setup({
-            only_first_definiton = false,
-            all_references = true,
-          })
-        '';
-      };
-    };
+    # settings.vim.extraPlugins = {
+    #   nvim-dap-virtual-text = {
+    #     package = pkgs.vimPlugins.nvim-dap-virtual-text;
+    #     after = [ "nvim-dap" ];
+    #     setup = ''
+    #       require("nvim-dap-virtual-text").setup({
+    #         only_first_definiton = false,
+    #         all_references = true,
+    #       })
+    #     '';
+    #   };
+    # };
     settings.vim.extraLuaFiles = [
-      # ./test.lua
-      ./nvim/test.lua
+      ./test.lua
+      # ./nvim/test.lua
       # "$HOME/.dotfiles/test.lua"
     ];
-    settings.vim.treesitter ={
+    settings.vim.treesitter = {
       enable = true;
       # addDefaultGrammars = true;
       autotagHtml = true;
@@ -38,23 +42,107 @@ in {
         pkgs.vimPlugins.nvim-treesitter.withAllGrammars
       ];
 
-      # context.enable = false;
+      context.enable = true;
       textobjects.enable = true;
       highlight.enable = true;
       indent.enable = true;
     };
 
+    settings.vim.snippets.luasnip.enable = true;
+
+    # settings.vim.debugger.nvim-dap.sources = {bash = "bashdb";};
+    # settings.vim.debugger.nvim-dap.sources = {
+    #   lldb-vscode = {
+    #     dapConfig = ''
+    #       dap.configurations.cpp = {
+    #         {
+    #           name = "Attach to process",
+    #           type = "lldb",
+    #           request = "attach",
+    #           pid = require('dap.utils').pick_process,
+    #           args = {},
+    #         },
+    #       }
+    #
+    #     '';
+    #   };
+    # };
+
     settings = {
       vim = {
         viAlias = true;
         vimAlias = true;
+        undoFile = {
+          enable = true;
+        };
+        # luaConfigRC.custom = builtins.readFile ./init.lua;
+        # extraPackages = [];
+        # extraPlugins = {};
+        # autosaving.enable = true;
+        preventJunkFiles = true;
+        debugMode = {
+          enable = false;
+          level = 16;
+          logFile = "/tmp/nvim.log";
+        };
+
+        spellcheck = {
+          enable = true;
+          # programmingWordlist.enable = true;
+        };
+
+        lsp = {
+          enable = true;
+          formatOnSave = true;
+          lspkind.enable = false;
+          # lightbulb.enable = true;
+          # lspsaga.enable = false;
+          # trouble.enable = true;
+          lspSignature.enable = !true;
+          # otter-nvim.enable = true;
+          nvim-docs-view.enable = true;
+          # harper-ls.enable = true;
+          servers = {
+            "*" = {
+              root_marker = [".git"];
+              capabilities = {
+                textDocument = {
+                  semanticTokens = {
+                    multilineTokenSupport = true;
+                  };
+                };
+              };
+            };
+            "clangd" = {
+              cmd = ["cland" "--query-driver=/nix/store/**/bin/*"];
+              filetypes = [
+                "c"
+                "cpp"
+                "objc"
+                "objcpp"
+                "cuda"
+                "proto"
+              ];
+              root_markers = [
+                ".clangd"
+                ".clang-tidy"
+                ".clang-format"
+                "compile_commands.json"
+                "compile_flags.txt"
+                "configure.at"
+                ".git"
+              ];
+              single_file_support = true;
+            };
+          };
+        };
+
         enableLuaLoader = true;
         syntaxHighlighting = true;
-        preventJunkFiles = true;
         # theme.enable = lib.mkForce false;
         # theme.name = lib.mkForce "gruvbox";
         # theme.style = "dark";
-        lsp.enable = true;
+        # lsp.enable = true;
         # lsp.lspconfig.enable = true;
         diagnostics.enable = true;
         diagnostics.config.virtual_lines = true;
@@ -76,15 +164,15 @@ in {
           confirm = true;
           cursorcolumn = true;
           cursorline = true;
-          expandtab = true;
+          # expandtab = true;
           # fillchars = ''
-		  # foldopen = "",
-		  # foldclose = "",
-		  # fold = " ",
-		  # foldsep = " ",
-		  # diff = "╱",
-		  # eob = " ",
-		# '';
+          # foldopen = "",
+          # foldclose = "",
+          # fold = " ",
+          # foldsep = " ",
+          # diff = "╱",
+          # eob = " ",
+          # '';
           foldlevel = 99;
           foldmethod = "indent";
           foldtext = "";
@@ -109,8 +197,8 @@ in {
           relativenumber = true;
           ruler = false;
           scrolloff = 10;
-          # sessionoptions = 
-          shiftround = true;
+          # sessionoptions =
+          # shiftround = true;
           shiftwidth = 2;
           # shortmess
           showmode = false;
@@ -156,28 +244,33 @@ in {
         };
 
         # lazy = {
-          # enable = true;
-          # };
+        # enable = true;
+        # };
 
         languages = {
           enableFormat = true;
           enableTreesitter = true;
           enableExtraDiagnostics = true;
           enableDAP = true;
+
           bash.enable = true;
+          # bash.dap.enable = true;
           clang.enable = true;
+          # clang.dap.debugger = "codelldb";
           # css.enable = true;
+          # clang.dap.enable = true;
           # go.enable = true;
           # html.enable = true;
           # json.enable = true;
           # lua.enable = true;
           markdown.enable = true;
           nix.enable = true;
+          nix.lsp.server = "nixd";
           # rust.enable = true;
           # sql.enable = true;
           ts.enable = true; # for typescript/javascript
           # bash.lsp.enable = true;
-          };
+        };
 
         # lsp.servers.nixd = {
         #   capabilities = mkLuaInline "capabilities";
@@ -252,27 +345,22 @@ in {
           surround.enable = true;
           operators.enable = true;
         };
-
-
-        };
-
-
       };
+    };
     # config.vim.lazy.plugins = {
-      # aerial.nvim = {
-        # package = aerial-nvim;
+    # aerial.nvim = {
+    # package = aerial-nvim;
 
-        # setupModule = "aerial";
-        # setupOpts = {option_name = false;};
+    # setupModule = "aerial";
+    # setupOpts = {option_name = false;};
 
-        # after = "print('aerial loaded')";
-        # };
-        # };
+    # after = "print('aerial loaded')";
+    # };
+    # };
     # settings.vim.luaConfigPost = "${builtins.readFile ./test.lua}";
     # settings.vim.luaConfigPost = ''
     #   vim.opt.tabstop = 4
     #
     # '';
-
   };
 }
