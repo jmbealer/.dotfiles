@@ -4,9 +4,7 @@
   pkgs,
   inputs,
   ...
-}:
-
-{
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -50,6 +48,8 @@
     "nvidia_uvm"
     "nvidia_drm"
   ];
+
+  boot.kernel.sysctl."kernel.yama.ptrace_scope" = 0;
 
   networking.hostName = "myhost"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -121,7 +121,7 @@
     enable = true;
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
   hardware.graphics.enable = true;
   # hardware.nvidia.open = false;
   hardware.system76.enableAll = true;
@@ -193,6 +193,8 @@
     yazi
     yaziPlugins.starship
     sops
+    # bash-debug-adapter
+    bashdb
 
     # window manager
     wmenu
@@ -337,7 +339,7 @@
     enable = true;
     wlr.enable = true;
     xdgOpenUsePortal = true;
-    extraPortals = [ pkgs.xdg-desktop-portal ];
+    extraPortals = [pkgs.xdg-desktop-portal];
     configPackages = [
       pkgs.xdg-desktop-portal-gtk
       pkgs.xdg-desktop-portal
@@ -381,7 +383,7 @@
     enable = true;
     # autoEnable = false;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/3024.yaml";
-    
+
     # neovim.plugin = "base16-nvim";
 
     # gtk = {
@@ -485,5 +487,4 @@
     "flakes"
   ];
   system.stateVersion = "25.05"; # Did you read the comment?
-
 }

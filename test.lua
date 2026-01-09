@@ -1,9 +1,9 @@
 local dap = require('dap')
-dap.adapters.lldb = {
-	type = 'executable',
-	command = '/usr/bin/lldb-vscode',
-	name = 'lldb'
-}
+-- dap.adapters.lldb = {
+	-- type = 'executable',
+	-- command = '${cfg.dap.package}/bin/lldb-dap',
+	-- name = 'lldb'
+-- }
 dap.configurations.cpp = {
 	{
 		name = 'Lanuch',
@@ -21,28 +21,45 @@ dap.configurations.cpp = {
     type = 'lldb',
     request = 'attach',
     pid = require('dap.utils').pick_process,
+    -- pid = function()
+    --   local input = vim.fn.input('PID: ')
+    --   local num = tonumber(input)
+    --   if not num then
+    --     error('Invaild PID: ' .. input)
+    --   end
+    --   return num
+    -- end,
+		cwd = '${workspaceFolder}',
     args = {},
   },
 }
--- dap.configurations.sh = {
---   {
---     type = 'bashdb',
---     request = 'launch',
---     name = "Launch file",
---     showDebugOutput = true,
---     -- pathBashdb = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/extension/bashdb_dir/bashdb',
---     -- pathBashdbLib = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/extension/bashdb_dir',
---     trace = true,
---     file = "${file}",
---     program = "${file}",
---     cwd = '${workspaceFolder}',
---     pathCat = "cat",
---     pathBash = "/bin/bash",
---     pathMkfifo = "mkfifo",
---     pathPkill = "pkill",
---     args = {},
---     argsString = '',
---     env = {},
---     terminalKind = "integrated",
---   }
--- }
+dap.configurations.c = dap.configurations.cpp
+
+
+dap.adapters.bashdb = {
+  type = "executable",
+  command = "bash-debug-adapter",
+  name = "bashdb",
+}
+dap.configurations.sh = {
+  {
+    type = 'bashdb',
+    request = 'launch',
+    name = "Launch file",
+    showDebugOutput = true,
+    -- pathBashdb = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/extension/bashdb_dir/bashdb',
+    -- pathBashdbLib = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/extension/bashdb_dir',
+    trace = true,
+    file = "${file}",
+    program = "${file}",
+    cwd = '${workspaceFolder}',
+    -- pathCat = "cat",
+    -- pathBash = "/bin/bash",
+    -- pathMkfifo = "mkfifo",
+    -- pathPkill = "pkill",
+    args = {},
+    -- argsString = '',
+    -- env = {},
+    -- terminalKind = "integrated",
+  }
+}
