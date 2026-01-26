@@ -22,7 +22,9 @@
   home.stateVersion = "25.05";
 
   stylix.targets = {
-    neovim.plugin = "base16-nvim";
+    qt.platform = "qtct";
+    gnome.enable = false;
+    # neovim.plugin = "base16-nvim";
     floorp.profileNames = ["default-release"];
   };
 
@@ -127,8 +129,9 @@
             # export documents="$HOME/Documents"
             # export dropbox="$HOME/Dropbox"
 
-                ble-color-setface auto_complete fg=238,underline
-                ble-face -s syntax_error fg=242
+      		# bleopt color_scheme=default
+                # ble-color-setface auto_complete fg=238,underline
+                # ble-face -s syntax_error fg=242
     '';
 
     # profileExtra = ''
@@ -150,6 +153,7 @@
       tfc = "yazi /home/0xjb/.config/";
       ftd = "yazi /home/0xjb/.dotfiles/";
       ftc = "yazi /home/0xjb/.config/";
+      ftg = "yazi /home/0xjb/gdrive/";
       # ls = "eza --group-directories-first";
       # la = "ls -la";
       # editors
@@ -157,6 +161,7 @@
       v = "vim";
       vdh = "vim /home/0xjb/.dotfiles/home.nix";
       vdc = "vim /home/0xjb/.dotfiles/configuration.nix";
+      vch = "vim /home/0xjb/.config/hypr/hyprland.conf";
       e = "emacs";
       n = "nano";
       # nixos
@@ -168,6 +173,9 @@
     };
   };
 
+  # wayland.windowManager.hyprland.plugins = [
+  # pkgs.hyprlandPlugins.
+  # ];
   programs.yazi = {
     enable = true;
     enableBashIntegration = true;
@@ -178,9 +186,18 @@
     settings = {
       mgr = {
         # ratio = [ 2 3 4 ];
-        show-hidden = true;
-        show-symlink = true;
+        show_hidden = true;
+        show_symlink = true;
         sort_dirs_first = true;
+      };
+      opener = {
+        view = [
+          {
+            run = ''kitty +kitten icat "$@"'';
+            block = true;
+            desc = "View Image";
+          }
+        ];
       };
       plugin = {
         prepend_previewers = [
@@ -455,31 +472,31 @@
   #   };
   # };
 
-  programs.dankMaterialShell = {
-    enable = true;
-    # Core features
-    # enableSystemd = true; # Systemd service for auto-start
-    systemd.enable = true; # Systemd service for auto-start
-    enableSystemMonitoring = true; # System monitoring widgets (dgop)
-    enableClipboard = true; # Clipboard history manager
-    enableVPN = true; # VPN management widget
-    enableBrightnessControl = true; # Backlight/brightness controls
-    enableColorPicker = true; # Color picker tool
-    enableDynamicTheming = true; # Wallpaper-based theming (matugen)
-    enableAudioWavelength = true; # Audio visualizer (cava)
-    enableCalendarEvents = true; # Calendar integration (khal)
-    enableSystemSound = true; # System sound effects
-
-    # default.settings = {
-    #   theme = "dark";
-    #   dynamicTheming = true;
-    #   # Add any other settings here
-    # };
-    #
-    # default.session = {
-    #   # Session state defaults
-    # };
-  };
+  # programs.dankMaterialShell = {
+  #   enable = true;
+  #   # Core features
+  #   # enableSystemd = true; # Systemd service for auto-start
+  #   systemd.enable = true; # Systemd service for auto-start
+  #   enableSystemMonitoring = true; # System monitoring widgets (dgop)
+  #   enableClipboard = true; # Clipboard history manager
+  #   enableVPN = true; # VPN management widget
+  #   enableBrightnessControl = true; # Backlight/brightness controls
+  #   enableColorPicker = true; # Color picker tool
+  #   enableDynamicTheming = true; # Wallpaper-based theming (matugen)
+  #   enableAudioWavelength = true; # Audio visualizer (cava)
+  #   enableCalendarEvents = true; # Calendar integration (khal)
+  #   enableSystemSound = true; # System sound effects
+  #
+  #   # default.settings = {
+  #   #   theme = "dark";
+  #   #   dynamicTheming = true;
+  #   #   # Add any other settings here
+  #   # };
+  #   #
+  #   # default.session = {
+  #   #   # Session state defaults
+  #   # };
+  # };
 
   programs.floorp = {
     enable = true;
@@ -509,6 +526,10 @@
     secrets = {
       # msmtp-password = { };
     };
+  };
+
+  programs.rofi = {
+    enable = true;
   };
 
   # users.users."0xjb".hashedPasswordFile = config.sops.secrets.Zxjb-password.path;

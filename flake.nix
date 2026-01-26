@@ -19,20 +19,20 @@
       url = "github:StevenBlack/hosts";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    dgop = {
-      url = "github:AvengeMedia/dgop";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    # dms-cli = {
-      # url = "github:AvengeMedia/danklinux";
-      # inputs.nixpkgs.follows = "nixpkgs";
+    # dgop = {
+    # url = "github:AvengeMedia/dgop";
+    # inputs.nixpkgs.follows = "nixpkgs";
     # };
-    dankMaterialShell = {
-      url = "github:AvengeMedia/DankMaterialShell";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.dgop.follows = "dgop";
-      # inputs.dms-cli.follows = "dms-cli";
-    };
+    # dms-cli = {
+    # url = "github:AvengeMedia/danklinux";
+    # inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    # dankMaterialShell = {
+    # url = "github:AvengeMedia/DankMaterialShell";
+    # inputs.nixpkgs.follows = "nixpkgs";
+    # inputs.dgop.follows = "dgop";
+    # inputs.dms-cli.follows = "dms-cli";
+    # };
     stylix = {
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -48,70 +48,69 @@
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     # nixvim = {
     # url = "github:nix-community/nixvim";
     # inputs.nixpkgs.follows = "nixpkgs";
     # };
   };
 
-  outputs =
-    {
-      # self,
-      nixpkgs,
-      # home-manager,
-      # mango,
-      # lazyvim,
-      # hosts,
-      # dankMaterialShell,
-      # stylix,
-      ...
-    }@inputs:
-    {
-      nixosConfigurations.myhost = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./configuration.nix
-          inputs.mango.nixosModules.mango
-          inputs.stylix.nixosModules.stylix
-          inputs.sops-nix.nixosModules.sops
-          # inputs.nixvim.nixosModules.nixvim
-          # inputs.Akari.nixosModules.Akari
-          inputs.hosts.nixosModule
-          {
-            # networking.stevenBlackHosts.enable = true;
-            networking.stevenBlackHosts = {
-              enable = true;
-              enableIPv6 = true;
-              blockFakenews = true;
-              blockGambling = true;
-              # blockPorn = true;
-              # blockSocial = true;
-            };
-          }
-          inputs.home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              # users."0xjb" = import ./home.nix { inherit lazyvim; };
-              # users."0xjb" = import ./home.nix;
-              users."0xjb" = {
-                imports = [
-                  ./home.nix
-                  # inputs.lazyvim.homeManagerModules.default
-                  inputs.dankMaterialShell.homeModules.dankMaterialShell.default
-                  inputs.sops-nix.homeManagerModules.sops
-                  inputs.nvf.homeManagerModules.default
-                ];
-              };
-              backupFileExtension = "backup";
-              sharedModules = [
+  outputs = {
+    # self,
+    nixpkgs,
+    # home-manager,
+    # mango,
+    # lazyvim,
+    # hosts,
+    # dankMaterialShell,
+    # stylix,
+    ...
+  } @ inputs: {
+    nixosConfigurations.myhost = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = {inherit inputs;};
+      modules = [
+        ./configuration.nix
+        inputs.mango.nixosModules.mango
+        inputs.stylix.nixosModules.stylix
+        inputs.sops-nix.nixosModules.sops
+        # inputs.nixvim.nixosModules.nixvim
+        # inputs.Akari.nixosModules.Akari
+        inputs.hosts.nixosModule
+        inputs.chaotic.nixosModules.default
+        {
+          # networking.stevenBlackHosts.enable = true;
+          networking.stevenBlackHosts = {
+            enable = true;
+            enableIPv6 = true;
+            blockFakenews = true;
+            blockGambling = true;
+            # blockPorn = true;
+            # blockSocial = true;
+          };
+        }
+        inputs.home-manager.nixosModules.home-manager
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            # users."0xjb" = import ./home.nix { inherit lazyvim; };
+            # users."0xjb" = import ./home.nix;
+            users."0xjb" = {
+              imports = [
+                ./home.nix
+                # inputs.lazyvim.homeManagerModules.default
+                # inputs.dankMaterialShell.homeModules.dankMaterialShell.default
+                inputs.sops-nix.homeManagerModules.sops
+                inputs.nvf.homeManagerModules.default
               ];
             };
-          }
-        ];
-      };
+            backupFileExtension = "backup";
+            sharedModules = [
+            ];
+          };
+        }
+      ];
     };
-
+  };
 }

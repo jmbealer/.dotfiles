@@ -42,13 +42,17 @@ in {
         pkgs.vimPlugins.nvim-treesitter.withAllGrammars
       ];
 
-      context.enable = true;
+      # context.enable = true;
       textobjects.enable = true;
       highlight.enable = true;
       indent.enable = true;
     };
 
     settings.vim.snippets.luasnip.enable = true;
+    settings.vim = {
+      fzf-lua.enable = true;
+      git.enable = true;
+    };
 
     # settings.vim.debugger.nvim-dap.sources = {bash = "bashdb";};
     # settings.vim.debugger.nvim-dap.sources = {
@@ -102,8 +106,8 @@ in {
           # trouble.enable = true;
           lspSignature.enable = !true;
           otter-nvim.enable = true;
-          nvim-docs-view.enable = true;
-          harper-ls.enable = true;
+          # nvim-docs-view.enable = true;
+          # harper-ls.enable = true;
         };
 
         enableLuaLoader = true;
@@ -208,9 +212,14 @@ in {
 
         statusline.lualine = {
           enable = true;
-          # theme = "auto";
+          theme = lib.mkForce "auto";
           globalStatus = true;
           icons.enable = true;
+        };
+
+        assistant.avante-nvim = {
+          enable = true;
+          setupOpts.provider = "gemini-cli";
         };
 
         # lazy = {
@@ -254,19 +263,25 @@ in {
         # autopairs.nvim-autopairs.enable = true;
         # comments.comment-nvim.enable = true;
         autocomplete = {
-          blink-cmp.enable = true;
           enableSharedCmpSources = true;
-          blink-cmp.sourcePlugins.ripgrep.enable = true;
-          blink-cmp.sourcePlugins.spell.enable = true;
+          blink-cmp = {
+            enable = true;
+            sourcePlugins.ripgrep.enable = true;
+            sourcePlugins.spell.enable = true;
+            setupOpts.keymap.preset = "default";
+            setupOpts.cmdline.keymap.preset = "default";
+          };
         };
 
         ui = {
-          borders.enable = true;
-          # colorizer.enable = true;
           # illuminate.enable = true;
-          # modes-nvim.enable = true;
+          borders.enable = true;
           smartcolumn.enable = true;
-          nvim-highlight-colors.enable = true;
+          # nvim-highlight-colors.enable = true;
+          colorful-menu-nvim.enable = true;
+          colorizer.enable = true;
+          modes-nvim.enable = true; # nice!!
+          noice.enable = true;
         };
 
         terminal.toggleterm = {
@@ -277,7 +292,7 @@ in {
 
         utility = {
           motion.precognition.enable = true;
-          leetcode-nvim.enable = true;
+          # leetcode-nvim.enable = true;
           # surround.enable = true;
           yazi-nvim = {
             enable = true;
@@ -292,6 +307,30 @@ in {
         };
 
         keymaps = [
+          {
+            key = "<leader>q";
+            mode = "";
+            action = "";
+            desc = "quit";
+          }
+          {
+            key = "<leader>d";
+            mode = "";
+            action = "";
+            desc = "dap";
+          }
+          {
+            key = "<leader>g";
+            mode = "";
+            action = "";
+            desc = "git";
+          }
+          {
+            key = "<leader>l";
+            mode = "";
+            action = "";
+            desc = "lsp";
+          }
           {
             key = "<leader>qq";
             mode = "n";
@@ -337,7 +376,103 @@ in {
             silent = true;
             expr = true;
           }
+          {
+            key = "<leader>f";
+            mode = "";
+            action = "";
+            desc = "file";
+          }
+          {
+            key = "<leader>ff";
+            mode = "n";
+            action = "<cmd>FzfLua files<cr>";
+            desc = "Find Files";
+            # silent = true;
+          }
+          {
+            key = "<leader>fr";
+            mode = "n";
+            action = "<cmd>FzfLua oldfiles<cr>";
+            desc = "Find Recent Files";
+            # silent = true;
+          }
+          {
+            key = "<c-h>";
+            mode = ["n"];
+            action = "<c-w>h";
+            desc = "Go to Left Window";
+          }
+          {
+            key = "<c-j>";
+            mode = ["n"];
+            action = "<c-w>j";
+            desc = "Go to Down Window";
+          }
+          {
+            key = "<c-k>";
+            mode = ["n"];
+            action = "<c-w>k";
+            desc = "Go to Up Window";
+          }
+          {
+            key = "<c-l>";
+            mode = ["n"];
+            action = "<c-w>l";
+            desc = "Go to Right Window";
+          }
+          {
+            key = "<leader>bb";
+            mode = ["n"];
+            action = "<cmd>e #<cr>";
+            desc = "Switch to Other Buffer";
+          }
+          {
+            key = "<leader>bn";
+            mode = ["n"];
+            action = "<cmd>bdelete<cr>";
+            desc = "Delete Buffer";
+          }
+          {
+            key = "<s-h>";
+            mode = ["n"];
+            action = "<cmd>bprevious<cr>";
+            desc = "Prev Buffer";
+          }
+          {
+            key = "<s-l>";
+            mode = ["n"];
+            action = "<cmd>bnext<cr>";
+            desc = "Next Buffer";
+          }
+          # window close
+          {
+            key = "<esc>";
+            mode = ["t"];
+            action = "<c-\\><c-n>";
+            desc = "Escape Terminal Mode";
+          }
+          {
+            key = "<leader>,";
+            mode = ["n"];
+            action = "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>";
+            desc = "Switch Buffer";
+          }
+          # h k help keys
+          # f s sav file
+          # f S savas
+          # f D delete this file
+          # o t open terminal
+          # o f open file explorer
+          # w v window split vertically
+          # w s window split horizontally
+          # w q window quit
+          # w o enlargen/fullscreen window
+          # w u undo window size change
         ];
+
+        visuals = {
+          rainbow-delimiters.enable = true;
+        };
 
         mini = {
           basics.enable = true;
@@ -346,6 +481,7 @@ in {
           ai.enable = true;
           surround.enable = true;
           operators.enable = true;
+          tabline.enable = true;
         };
       };
     };

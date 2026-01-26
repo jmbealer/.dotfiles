@@ -40,7 +40,12 @@
 
   # Use latest kernel.
   # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  # boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages_cachyos-lto;
+  # services.scx = {
+  # enable = true;
+  # scheduler = "scx_rusty";
+  # };
 
   boot.kernelParams = [
     "nvidia"
@@ -88,6 +93,7 @@
     # VISUAL = "nvim";
     # gitUsername = "jmbealer";
     MOZ_USE_XINPUT2 = "1";
+    MANPAGER = "bat -plman";
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -130,6 +136,8 @@
     powerManagement.enable = true;
     open = false;
     # nvidiaSettings = false;
+    # package = pkgs.linuxPackages_cachyos-lto.nvidiaPackages.beta;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   hardware.keyboard.zsa.enable = true;
@@ -142,7 +150,11 @@
     # };
   };
 
-  programs.mango.enable = true;
+  # programs.mango.enable = true;
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
   programs.bash.blesh.enable = true;
 
   services.redshift = {
@@ -166,6 +178,8 @@
   environment.systemPackages = with pkgs; [
     # terminal
     foot
+    kitty
+    hyprpaper
     vim # neovim
     git
     ripgrep
@@ -179,7 +193,7 @@
     bat
     eza
     zoxide
-    zellij
+    # zellij
     gitui
     dust
     dua
@@ -192,13 +206,33 @@
     keymapp
     yazi
     yaziPlugins.starship
+    ffmpegthumbnailer
+    imagemagick
+    poppler
+    fontpreview
+    exiftool
+    glow
+    ouch # atool
+    gnome-epub-thumbnailer
+    pandoc
     sops
     # bash-debug-adapter
     # bashdb
     remnote
+    w3m
+    zathura
+    wildcard
+    # typiskt
+    typespeed
+    # hostsblock
+    czkawka
+    rclone
+    blesh
+    gemini-cli
 
     # window manager
-    wmenu
+    # wmenu
+    rofi
     wl-clipboard
     grim
     slurp
@@ -206,6 +240,31 @@
     firefox
     waybar
     keyd
+    mpv
+
+    # oauth2l
+    # oauth2c
+    # oauth2-proxy
+    libsForQt5.signond
+    kdePackages.dolphin
+    kdePackages.kaccounts-providers
+    kdePackages.kaccounts-integration
+    kdePackages.signond
+    kdePackages.signon-kwallet-extension
+    kdePackages.systemsettings
+    kdePackages.kirigami
+    kdePackages.kirigami-addons
+    kdePackages.qtstyleplugin-kvantum
+    kdePackages.kio
+    kdePackages.kio-gdrive
+    kdePackages.kio-fuse
+    kdePackages.kio-extras
+    kdePackages.kalm
+    kdePackages.artikulate
+    kdePackages.ktouch
+
+    gnome-shell
+    # gnome-browser-connector
 
     lua
     python3
@@ -232,6 +291,11 @@
     nwg-displays
     nwg-drawer
     nwg-look
+    xdg-desktop-portal-hyprland
+    hyprcursor
+    hyprsunset
+    obsidian
+    # hyprqt6engine
 
     ungoogled-chromium
     microsoft-edge
@@ -276,7 +340,6 @@
     gnome-settings-daemon
     # gnome-session
     # gvfs-goa
-    # gvfs-google
     #
     #
     gh
@@ -317,18 +380,33 @@
   };
   services.gvfs = {
     enable = true;
-    package = lib.mkForce pkgs.gnome.gvfs;
+    # package = lib.mkForce pkgs.gnome.gvfs;
   };
   services.udev.enable = true;
   services.udisks2.enable = true;
   services.devmon.enable = true;
-  services.gnome.gnome-keyring.enable = true;
+  # services.desktopManager.plasma6.enable = true;
+  services.desktopManager.gnome.enable = true;
+  # services.gnome.gnome-keyring.enable = true;
   services.passSecretService.enable = true;
-  services.gnome.gnome-settings-daemon.enable = true;
+  # services.gnome.gnome-settings-daemon.enable = true;
   services.gnome.gnome-online-accounts.enable = true;
   services.accounts-daemon.enable = true;
-  services.gnome.glib-networking.enable = true;
-  services.gnome.core-os-services.enable = true;
+  # services.gnome.glib-networking.enable = true;
+  # services.gnome.core-os-services.enable = true;
+  nixpkgs.overlays = [
+    (final: prev: {
+      gnome = prev.gnome.overrideScope (gfinal: gprev: {
+        gvfs = gprev.gvfs.override {
+          googleSupport = true;
+          gnomeSupport = true;
+        };
+      });
+    })
+  ];
+  nixpkgs.config.permittedInsecurePackages = [
+    "libsoup-2.74.3"
+  ];
 
   programs.fuse.userAllowOther = true;
   programs.direnv = {
@@ -340,7 +418,10 @@
     enable = true;
     wlr.enable = true;
     xdgOpenUsePortal = true;
-    extraPortals = [pkgs.xdg-desktop-portal];
+    extraPortals = with pkgs; [
+      # pkgs.xdg-desktop-portal
+      xdg-desktop-portal-hyprland
+    ];
     configPackages = [
       pkgs.xdg-desktop-portal-gtk
       pkgs.xdg-desktop-portal
@@ -358,6 +439,8 @@
     nerd-fonts.iosevka-term
     nerd-fonts.iosevka
     nerd-fonts.fira-code
+    font-awesome
+    material-design-icons
   ];
 
   # sops.secrets.Zxjb.neededForUsers = true;
@@ -394,13 +477,17 @@
     # };
 
     targets = {
-      gtk.enable = true;
-      qt.enable = true;
+      gnome.enable = false;
+      # qt.platform = "qtct";
+      # gtk.enable = true;
+      # qt.enable = true;
       # neovim.plugin = "base16-nvim";
       # neovim.enable = false;
       # bash.enable = true;
       # floorp.profileNames = [ "default" ];
     };
+
+    # qt.platformTheme.name = "adwaita";
 
     cursor = {
       package = pkgs.bibata-cursors;
@@ -409,6 +496,7 @@
     };
 
     fonts = {
+      # fontconfig.enable = true;
       monospace = {
         # packages =
         name = "IosevkaTerm NF";
@@ -466,6 +554,12 @@
     enable = true;
     enableSSHSupport = true;
   };
+
+  environment.gnome.excludePackages = with pkgs; [
+    gnome-shell
+    gnome-browser-connector
+    # gnome-gsettings
+  ];
 
   # List services that you want to enable:
 
