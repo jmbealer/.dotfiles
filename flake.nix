@@ -48,7 +48,10 @@
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    chaotic = {
+      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # nixvim = {
     # url = "github:nix-community/nixvim";
     # inputs.nixpkgs.follows = "nixpkgs";
@@ -70,7 +73,7 @@
       system = "x86_64-linux";
       specialArgs = {inherit inputs;};
       modules = [
-        ./configuration.nix
+        ./hosts/myhost/default.nix
         inputs.mango.nixosModules.mango
         inputs.stylix.nixosModules.stylix
         inputs.sops-nix.nixosModules.sops
@@ -98,7 +101,7 @@
             # users."0xjb" = import ./home.nix;
             users."0xjb" = {
               imports = [
-                ./home.nix
+                ./homes/0xjb/default.nix
                 # inputs.lazyvim.homeManagerModules.default
                 # inputs.dankMaterialShell.homeModules.dankMaterialShell.default
                 inputs.sops-nix.homeManagerModules.sops
