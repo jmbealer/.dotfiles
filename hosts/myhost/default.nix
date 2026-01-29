@@ -278,6 +278,14 @@
       name = "capitaine-cursors";
       size = 32;
     };
+    
+    # Enable Icon Theme management
+    icons = {
+      enable = true;
+      package = pkgs.papirus-icon-theme;
+      dark = "Papirus-Dark";
+      light = "Papirus-Light";
+    };
 
     fonts = {
       monospace = {
@@ -309,6 +317,7 @@
 
     targets = {
       gnome.enable = false;
+      gtk.enable = false;
     };
   };
 
@@ -327,6 +336,20 @@
     font-awesome
     material-design-icons
   ];
+
+  fonts.fontconfig = {
+    enable = true;
+    antialias = true;
+    hinting = {
+      enable = true;
+      style = "slight"; # or "full", "medium"
+      autohint = true;
+    };
+    subpixel = {
+      rgba = "rgb";
+      lcdfilter = "default";
+    };
+  };
 
   # ============================================================================
   # Programs & Services

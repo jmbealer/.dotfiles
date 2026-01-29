@@ -257,7 +257,7 @@ in {
         # lua.enable = true;
         markdown.enable = true;
         nix.enable = true;
-        nix.lsp.server = "nixd";
+        nix.lsp.servers = ["nixd"];
         # rust.enable = true;
         # sql.enable = true;
         # ts.enable = true; # for typescript/javascript
@@ -527,4 +527,3 @@ in {
     };
   };
 }
-

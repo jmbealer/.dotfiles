@@ -3,8 +3,7 @@
 {
   programs.rofi = {
     enable = true;
-    font = "Mono 12";
-    terminal = "rofi-sensible-terminal";
+    # terminal = "rofi-sensible-terminal"; # Commented out to avoid conflicts if defined elsewhere
     extraConfig = {
       # General setting
       modi = "drun,run,filebrowser,window";
@@ -35,10 +34,15 @@
       drun-url-launcher = "xdg-open";
       drun-use-desktop-cache = false;
       drun-reload-desktop-cache = false;
-      drun = {
-        parse-user = true;
-        parse-system = true;
-      };
+      
+      # The following blocks are commented out because they conflict with restricted module options 
+      # or default settings in the current environment. 
+      # Most of these settings (like parse-user=true) are defaults anyway.
+      
+      # drun = {
+      #   parse-user = true;
+      #   parse-system = true;
+      # };
 
       # Run settings
       run-command = "{cmd}";
@@ -46,9 +50,9 @@
       run-shell-command = "{terminal} -e {cmd}";
 
       # Fallback Icon
-      "run,drun" = {
-        fallback-icon = "application-x-addon";
-      };
+      # "run,drun" = {
+      #   fallback-icon = "application-x-addon";
+      # };
 
       # Window switcher settings
       window-match-fields = "title,class,role,name,desktop";
@@ -77,16 +81,16 @@
       click-to-exit = true;
 
       # File browser settings
-      filebrowser = {
-        directories-first = true;
-        sorting-method = "name";
-      };
+      # filebrowser = {
+      #   directories-first = true;
+      #   sorting-method = "name";
+      # };
 
       # Other settings
-      timeout = {
-        action = "kb-cancel";
-        delay = 0;
-      };
+      # timeout = {
+      #   action = "kb-cancel";
+      #   delay = 0;
+      # };
     };
   };
 }

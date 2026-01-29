@@ -373,6 +373,8 @@
   # ============================================================================
   xdg = {
     enable = true;
+    configFile."hypr".source = ../../modules/home-manager/configs/hypr;
+
     mime.enable = true;
     mimeApps = {
       enable = true;
@@ -412,7 +414,7 @@
   };
 
   stylix.targets = {
-    qt.platform = "qtct";
+    qt.enable = false;
     gnome.enable = false;
     # kitty.enable = true;
 
@@ -579,18 +581,46 @@
   #   imports = [ ./nixvim.nix ];
   # };
 
-  # gtk = {
-  #   # iconTheme = {
-  #   #   name = "Tela-purple-dark";
-  #   #   package = pkgs.tela-icon-theme;
-  #   # };
-  #   gtk3.extraConfig = {
-  #     gtk-application-prefer-dark-theme = 1;
-  #   };
-  #   gtk4.extraConfig = {
-  #     gtk-application-prefer-dark-theme = 1;
-  #   };
-  # };
+  gtk = {
+    enable = true;
+    theme = {
+      name = pkgs.lib.mkForce "Flat-Remix-GTK-Blue-Darkest";
+      package = pkgs.lib.mkForce pkgs.flat-remix-gtk;
+    };
+    iconTheme = {
+      name = pkgs.lib.mkForce "Papirus-Dark";
+      package = pkgs.lib.mkForce pkgs.papirus-icon-theme;
+    };
+    cursorTheme = {
+      name = pkgs.lib.mkForce "Material-Black-Cursors";
+      package = pkgs.lib.mkForce pkgs.material-cursors;
+    };
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+  };
+
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
+  };
+
+  qt = {
+    enable = true;
+    platformTheme.name = "gtk";
+    style = {
+      name = "adwaita";
+      package = pkgs.adwaita-qt;
+    };
+  };
+
+  home.packages = with pkgs; [
+    adwaita-qt6
+  ];
 
   # programs.dankMaterialShell = {
   #   enable = true;
