@@ -85,10 +85,22 @@
     waybar
     dconf
     wl-clipboard
+    cliphist
     grim
     slurp
     swaybg
     hyprpaper
+    hyprlock
+    hypridle
+    hyprpicker
+    swww
+    swaynotificationcenter
+    wlogout
+    polkit_gnome
+    libnotify
+    networkmanagerapplet
+    brightnessctl
+    playerctl
     nwg-displays
     nwg-drawer
     nwg-look

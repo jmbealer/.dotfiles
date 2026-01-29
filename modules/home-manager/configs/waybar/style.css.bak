@@ -1,0 +1,136 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: monospace;
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: #090300;
+    color: #a5a2a2;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    background: transparent;
+    color: #a5a2a2;
+}
+
+#workspaces button:hover {
+    background: rgba(165, 162, 162, 0.2);
+}
+
+#workspaces button.active {
+    background: #a5a2a2;
+    color: #090300;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#mpd {
+    padding: 0 10px;
+    margin: 0 4px;
+}
+
+#clock {
+    background-color: #01a0e4;
+    color: #090300;
+}
+
+#battery {
+    background-color: #01a252;
+    color: #090300;
+}
+
+#battery.charging, #battery.plugged {
+    color: #090300;
+    background-color: #01a252;
+}
+
+#battery.critical:not(.charging) {
+    background-color: #db2d20;
+    color: #f7f7f7;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#cpu {
+    background-color: #a16a94;
+    color: #090300;
+}
+
+#memory {
+    background-color: #b5e4f4;
+    color: #090300;
+}
+
+#backlight {
+    background-color: #5c5855;
+    color: #f7f7f7;
+}
+
+#network {
+    background-color: #01a0e4;
+    color: #090300;
+}
+
+#network.disconnected {
+    background-color: #db2d20;
+    color: #f7f7f7;
+}
+
+#pulseaudio {
+    background-color: #fded02;
+    color: #090300;
+}
+
+#pulseaudio.muted {
+    background-color: #5c5855;
+    color: #a5a2a2;
+}
+
+#temperature {
+    background-color: #cdab53;
+    color: #090300;
+}
+
+#temperature.critical {
+    background-color: #db2d20;
+    color: #f7f7f7;
+}
+
+#idle_inhibitor {
+    background-color: #4a4543;
+    color: #a5a2a2;
+}
+
+#idle_inhibitor.activated {
+    background-color: #f7f7f7;
+    color: #090300;
+}
+
+#tray {
+    background-color: #090300;
+}
+
+@keyframes blink {
+    to {
+        background-color: #f7f7f7;
+        color: #000000;
+    }
+}

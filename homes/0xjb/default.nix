@@ -374,6 +374,7 @@
   xdg = {
     enable = true;
     configFile."hypr".source = ../../modules/home-manager/configs/hypr;
+    configFile."waybar".source = ../../modules/home-manager/configs/waybar;
 
     mime.enable = true;
     mimeApps = {
