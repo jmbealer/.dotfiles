@@ -265,51 +265,33 @@
   # ============================================================================
   stylix = {
     enable = true;
-    # autoEnable = false;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/3024.yaml";
+    polarity = "dark";
 
-    # neovim.plugin = "base16-nvim";
-    # gtk = {
-    #   enable = true;
-    #   theme.name = "Adwaita-dark";
-    #   iconTheme.name = "Papirus-Dark";
-    # };
-
-    targets = {
-      nvf.enable = false;
-      # kitty.enable = false;
-      gnome.enable = false;
-      # qt.platform = "qtct";
-      # gtk.enable = true;
-      # qt.enable = true;
-      # neovim.plugin = "base16-nvim";
-      # neovim.enable = false;
-      # bash.enable = true;
-      # floorp.profileNames = [ "default" ];
+    image = pkgs.fetchurl {
+      url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/wallpapers/nix-wallpaper-simple-dark-gray.png";
+      sha256 = "sha256-JaLHdBxwrphKVherDVe5fgh+3zqUtpcwuNbjwrBlAok=";
     };
 
-    # qt.platformTheme.name = "adwaita";
-
     cursor = {
-      package = pkgs.bibata-cursors;
-      name = "Bibata-Modern-Amber";
-      size = 24;
+      package = pkgs.capitaine-cursors;
+      name = "capitaine-cursors";
+      size = 32;
     };
 
     fonts = {
-      # fontconfig.enable = true;
       monospace = {
-        # packages =
-        name = "IosevkaTerm NF";
+        package = pkgs.nerd-fonts.geist-mono;
+        name = "GeistMono Nerd Font";
       };
-      # serif = {
-      #   packages = pkgs.dejavu_fonts;
-      #   name = "DejaVu Serif";
-      # };
-      # sansSerif = {
-      #   packages = pkgs.dejavu_fonts;
-      #   name = "DejaVu Sans";
-      # };
+      sansSerif = {
+        package = pkgs.inter;
+        name = "Inter";
+      };
+      serif = {
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Serif";
+      };
       sizes = {
         applications = 12;
         terminal = 12;
@@ -320,12 +302,14 @@
 
     opacity = {
       applications = 1.0;
-      terminal = 1.0;
+      terminal = 0.95;
       desktop = 1.0;
-      popups = 1.0;
+      popups = 0.95;
     };
 
-    polarity = "dark";
+    targets = {
+      gnome.enable = false;
+    };
   };
 
   # qt = {
@@ -339,6 +323,7 @@
     nerd-fonts.iosevka-term
     nerd-fonts.iosevka
     nerd-fonts.fira-code
+    nerd-fonts.geist-mono
     font-awesome
     material-design-icons
   ];

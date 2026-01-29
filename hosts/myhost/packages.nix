@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     # --- System & Core ---
     gcc
@@ -69,8 +69,11 @@
     ouch # atool
     unrar
     ffmpegthumbnailer
+    mediainfo
     imagemagick
     poppler
+    poppler-utils
+    mupdf
     fontpreview
     exiftool
     glow

@@ -12,6 +12,7 @@
     # # "${pkgs.lazyvim-nix}/homeManagerModules/default"
     # lazyvim.homeManagerModules.lazyvim
     ../../modules/home-manager/editors/nvf.nix
+    ../../modules/home-manager/programs/rofi.nix
   ];
 
   # ============================================================================
@@ -28,115 +29,64 @@
   # ============================================================================
   # Shell (Bash)
   # ============================================================================
+  programs.readline = {
+    enable = true;
+    variables = {
+      completion-ignore-case = true;
+      completion-map-case = true;
+      show-all-if-ambiguous = true;
+      mark-symlinked-directories = true;
+    };
+    bindings = {
+      "\\e[A" = "history-search-backward";
+      "\\e[B" = "history-search-forward";
+      "\\e[C" = "forward-char";
+      "\\e[D" = "backward-char";
+      "Space" = "magic-space";
+    };
+  };
+
   programs.bash = {
     enable = true;
+    historyControl = ["erasedups" "ignoreboth"];
+    historyFileSize = 100000;
+    historySize = 500000;
+    historyIgnore = ["&" "[ ]*" "exit" "ls" "bg" "fg" "history" "clear"];
+    shellOptions = [
+      "autocd"
+      "checkwinsize"
+      "globstar"
+      "histappend"
+      "cmdhist"
+      "dirspell"
+      "cdspell"
+      "cdable_vars"
+    ];
+    sessionVariables = {
+      PROMPT_DIRTRIM = "2";
+      HISTTIMEFORMAT = "%F %T ";
+      CDPATH = ".";
+    };
     bashrcExtra = ''
-                     pfetch
+      	pfetch
+       # cat /run/secrets/msmtp-password
+       # export AVANTE_OPENAI_API_KEY=$(cat /run/secrets/msmtp-password)
+       # echo $AVANTE_OPENAI_API_KEY
 
-         # cat /run/secrets/msmtp-password
-         # export AVANTE_OPENAI_API_KEY=$(cat /run/secrets/msmtp-password)
-                     # echo $AVANTE_OPENAI_API_KEY
+       # Prevent file overwrite on stdout redirection
+       # Use `>|` to force redirection to an existing file
+       set -o noclobber
 
-               ## GENERAL OPTIONS ##
+       # Record each line as it gets issued
+       PROMPT_COMMAND='history -a'
 
-               shopt -s autocd
-
-               # Prevent file overwrite on stdout redirection
-               # Use `>|` to force redirection to an existing file
-               set -o noclobber
-
-               # Update window size after every command
-               shopt -s checkwinsize
-
-               # Automatically trim long paths in the prompt (requires Bash 4.x)
-               PROMPT_DIRTRIM=2
-
-               # Enable history expansion with space
-               # E.g. typing !!<space> will replace the !! with your last command
-               bind Space:magic-space
-
-               # Turn on recursive globbing (enables ** to recurse all directories)
-               shopt -s globstar 2> /dev/null
-
-               ## SMARTER TAB-COMPLETION (Readline bindings) ##
-
-               # Perform file completion in a case insensitive fashion
-               bind "set completion-ignore-case on"
-
-               # Treat hyphens and underscores as equivalent
-               bind "set completion-map-case on"
-
-               # Display matches for ambiguous patterns at first tab press
-               bind "set show-all-if-ambiguous on"
-
-               # Immediately add a trailing slash when autocompleting symlinks to directories
-               bind "set mark-symlinked-directories on"
-
-               ## SANE HISTORY DEFAULTS ##
-
-               # Append to the history file, don't overwrite it
-               shopt -s histappend
-
-               # Save multi-line commands as one command
-               shopt -s cmdhist
-
-               # Record each line as it gets issued
-               PROMPT_COMMAND='history -a'
-
-               # Huge history. Doesn't appear to slow things down, so why not?
-               HISTSIZE=500000
-               HISTFILESIZE=100000
-
-               # Avoid duplicate entries
-               HISTCONTROL="erasedups:ignoreboth"
-
-               # Don't record some commands
-               export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
-
-               # Use standard ISO 8601 timestamp
-               # %F equivalent to %Y-%m-%d
-               # %T equivalent to %H:%M:%S (24-hours format)
-               HISTTIMEFORMAT='%F %T '
-
-               # Enable incremental history search with up/down arrows (also Readline goodness)
-               # Learn more about this here: http://codeinthehole.com/writing/the-most-important-command-line-tip-incremental-history-searching-with-inputrc/
-               bind '"\e[A": history-search-backward'
-               bind '"\e[B": history-search-forward'
-               bind '"\e[C": forward-char'
-               bind '"\e[D": backward-char'
-
-               ## BETTER DIRECTORY NAVIGATION ##
-
-               # Prepend cd to directory names automatically
-               shopt -s autocd 2> /dev/null
-               # Correct spelling errors during tab-completion
-               shopt -s dirspell 2> /dev/null
-               # Correct spelling errors in arguments supplied to cd
-               shopt -s cdspell 2> /dev/null
-
-               # This defines where cd looks for targets
-               # Add the directories you want to have fast access to, separated by colon
-               # Ex: CDPATH=".:~:~/projects" will look for targets in the current working directory, in home and in the ~/projects folder
-               CDPATH="."
-
-               # This allows you to bookmark your favorite places across the file system
-               # Define a variable containing a path and you will be able to cd into it regardless of the directory you're in
-               shopt -s cdable_vars
-
-               # Examples:
-               # export dotfiles="$HOME/dotfiles"
-               # export projects="$HOME/projects"
-               # export documents="$HOME/Documents"
-               # export dropbox="$HOME/Dropbox"
-
-        set -o vi
+      set -o vi
       ble-bind -m vi_nmap --cursor 2
-         		# bleopt color_scheme=default
-                   # ble-color-setface auto_complete fg=238,underline
-                   # ble-face -s syntax_error fg=242
-         ble-import -d integration/fzf-completion
-         ble-import -d integration/fzf-key-bindings
-
+      # bleopt color_scheme=default
+       ble-color-setface auto_complete fg=238,underline
+       ble-face -s syntax_error fg=242
+       ble-import -d integration/fzf-completion
+       ble-import -d integration/fzf-key-bindings
     '';
 
     # profileExtra = ''
@@ -159,19 +109,24 @@
       ftd = "yazi /home/0xjb/.dotfiles/";
       ftc = "yazi /home/0xjb/.config/";
       ftg = "yazi /home/0xjb/gdrive/";
+      ftk = "yazi /home/0xjb/Documents/my-knowledge-base/";
+      ck = "cd /home/0xjb/Documents/my-knowledge-base/";
       # ls = "eza --group-directories-first";
       # la = "ls -la";
       # editors
       vim = "nvim";
       v = "vim";
-      vdh = "vim /home/0xjb/.dotfiles/home.nix";
-      vdc = "vim /home/0xjb/.dotfiles/configuration.nix";
+      # vdh = "vim /home/0xjb/.dotfiles/home.nix";
+      vdh = "vim /home/0xjb/.dotfiles/homes/0xjb/default.nix";
+      vdc = "vim /home/0xjb/.dotfiles/hosts/myhost/default.nix";
+      vdp = "vim /home/0xjb/.dotfiles/hosts/myhost/packages.nix";
+      vdn = "vim /home/0xjb/.dotfiles/modules/home-manager/editors/nvf.nix";
       vch = "vim /home/0xjb/.config/hypr/hyprland.conf";
       e = "emacs";
       n = "nano";
       # nixos
       nr = "sudo nixos-rebuild switch --flake /home/0xjb/.dotfiles/";
-      enr = "ls /home/0xjb/.dotfiles/ | entr sudo nixos-rebuild switch --flake /home/0xjb/.dotfiles/";
+      enr = "fd . /home/0xjb/.dotfiles/ | entr -c sudo nixos-rebuild switch --flake /home/0xjb/.dotfiles/#myhost";
 
       cat = "bat";
       # grep = "rg";
@@ -187,7 +142,15 @@
     plugins = with pkgs.yaziPlugins; {
       full-border = full-border;
       starship = starship;
+      glow = glow;
+      ouch = ouch;
+      mediainfo = mediainfo;
+      piper = piper;
     };
+    initLua = ''
+      require("full-border"):setup()
+      require("starship"):setup()
+    '';
     settings = {
       mgr = {
         # ratio = [ 2 3 4 ];
@@ -203,9 +166,74 @@
             desc = "View Image";
           }
         ];
+        # zathura = [
+        #   {
+        #     run = ''zathura "$@"'';
+        #     detach = true;
+        #     desc = "Zathura";
+        #   }
+        # ];
+        # edit = [
+        #   {
+        #     run = ''nvim "$@"'';
+        #     block = true;
+        #     desc = "Edit";
+        #   }
+        # ];
+        # open = [
+        #   {
+        #     run = ''xdg-open "$@"'';
+        #     desc = "Open";
+        #     detach = true;
+        #   }
+        # ];
       };
+      # open = {
+      #   rules = [
+      #     { name = "*.pdf"; use = "zathura"; }
+      #     { name = "*.epub"; use = "zathura"; }
+      #     { mime = "text/*"; use = "edit"; }
+      #     { name = "*"; use = "open"; }
+      #   ];
+      # };
       plugin = {
         prepend_previewers = [
+          {
+            name = "*.md";
+            run = "glow";
+          }
+          {
+            name = "*.epub";
+            run = "mutool draw -F png -o - \"$1\" 1 | kitty +kitten icat";
+          }
+          {
+            mime = "application/*zip";
+            run = "ouch";
+          }
+          {
+            mime = "application/x-tar";
+            run = "ouch";
+          }
+          {
+            mime = "application/x-bzip2";
+            run = "ouch";
+          }
+          {
+            mime = "application/x-7z-compressed";
+            run = "ouch";
+          }
+          {
+            mime = "application/x-rar";
+            run = "ouch";
+          }
+          {
+            mime = "audio/*";
+            run = "mediainfo";
+          }
+          {
+            mime = "video/*";
+            run = "mediainfo";
+          }
           {
             name = "*/";
             run = ''piper -- eza -TL=2 --color=always --icons=always --group-directories-first --no-quotes -a "$1"'';
@@ -224,7 +252,10 @@
     # ];
   };
 
-  programs.dircolors.enableBashIntegration = true;
+  programs.dircolors = {
+    enable = true;
+    enableBashIntegration = true;
+  };
 
   programs.eza = {
     enable = true;
@@ -246,7 +277,7 @@
   };
 
   home.shellAliases = {
-    ls = "eza";
+    # ls = "eza";
     l = "eza";
     lt = "eza --tree --level=2";
     tree = "eza --tree";
@@ -261,7 +292,7 @@
     # theme = "aeroroot";
     settings = {
       main = {
-        font = "IosevkaTerm NF:size=12";
+        # font = "IosevkaTerm NF:size=12";
         # theme = "nvim-dark";
       };
 
@@ -302,10 +333,6 @@
   };
 
   programs.floorp = {
-    enable = true;
-  };
-
-  programs.rofi = {
     enable = true;
   };
 
@@ -350,10 +377,38 @@
     mimeApps = {
       enable = true;
       defaultApplications = {
-        # "text/html" = "zen-beta.desktop";
-        # ...
+        # Web
+        "text/html" = ["floorp.desktop"];
+        "x-scheme-handler/http" = ["floorp.desktop"];
+        "x-scheme-handler/https" = ["floorp.desktop"];
+        "x-scheme-handler/about" = ["floorp.desktop"];
+        "x-scheme-handler/unknown" = ["floorp.desktop"];
+
+        # Documents
+        "application/pdf" = ["org.pwmt.zathura.desktop"];
+        "application/epub+zip" = ["org.pwmt.zathura.desktop"];
+
+        # Media
+        "video/*" = ["mpv.desktop"];
+        "audio/*" = ["mpv.desktop"];
+
+        # Images
+        "image/*" = ["org.gnome.Loupe.desktop"];
+
+        # Text
+        "text/plain" = ["nvim.desktop" "vim.desktop"];
+
+        # Directories
+        # "inode/directory" = ["yazi.desktop"];
+        "inode/directory" = ["org.gnome.Nautilus.desktop"];
       };
     };
+  };
+
+  programs.vivid = {
+    enable = true;
+    # themes = "solarized-dark";
+    # theme = "tokyonight-night";
   };
 
   stylix.targets = {
@@ -363,6 +418,9 @@
 
     # neovim.plugin = "base16-nvim";
     floorp.profileNames = ["default-release"];
+
+    # vivid.enable = true;
+    # vidid.colors.enable = true;
   };
 
   # ============================================================================
@@ -570,4 +628,3 @@
   # shfmt
   # lscolors
 }
-
