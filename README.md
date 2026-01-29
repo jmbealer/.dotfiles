@@ -17,8 +17,12 @@ This repository contains my NixOS system configuration, structured as a **modula
 │       └── default.nix      # Main user configuration (formerly home.nix)
 ├── modules/                 # Reusable configuration blocks
 │   └── home-manager/        # User-level modules
-│       └── editors/
-│           └── nvf.nix      # Neovim (nvf) configuration
+│       ├── configs/         # Raw configuration files (symlinked)
+│       │   └── hypr/        # Hyprland config files
+│       ├── editors/
+│       │   └── nvf.nix      # Neovim (nvf) configuration
+│       └── programs/
+│           └── rofi.nix     # Rofi configuration
 └── secrets/                 # Encrypted secrets (SOPS)
     └── secrets.yaml
 ```
@@ -44,6 +48,12 @@ This repository contains my NixOS system configuration, structured as a **modula
     ```
 
 ## 🛠️ Customization
+
+### Raw Dotfiles (Non-Nix Configs)
+To keep configuration simple, some programs use raw config files instead of Nix options. These are stored in `modules/home-manager/configs/` and symlinked by Home Manager.
+
+*   **Hyprland:** Located in `modules/home-manager/configs/hypr/`.
+*   **Editing:** Edit the files in your dotfiles repo, then run `nr` to apply changes.
 
 ### Adding a New Host
 1.  Create a new directory in `hosts/` (e.g., `hosts/laptop`).
