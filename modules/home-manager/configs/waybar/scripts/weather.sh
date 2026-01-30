@@ -1,24 +1,24 @@
 #!/bin/sh
-BSSIDS="$(nmcli device wifi list |
-    awk 'NR>1 {if ($1 != "*") {print $1}}' |
-    tr -d ":" |
-    tr "\n" ",")"
 
-LOC=""
-REQUEST_GEO="$(wget -qO - http://openwifi.su/api/v1/bssids/"$BSSIDS")"
-if [[ "$(jq ".count_results" <<< "$REQUEST_GEO")" -gt 0 ]] ; then
-    LAT="$(jq ".lat" <<< "$REQUEST_GEO")"
-    LON="$(jq ".lon" <<< "$REQUEST_GEO")"
-    LOC="$LAT,$LON"
-fi
+# Location: Humble, Texas
+LOC="Humble,Texas"
+# Alternative: LOC="29.99,-95.26"
 
-text="$(curl -s "https://wttr.in/$LOC?format=1" | sed 's/ //g')"
-tooltip="$(curl -s "https://wttr.in/$LOC?0QT" |
+# Fetch weather
+# format=1: one line output (e.g., "☀️ +25°C")
+# u: USCS (Fahrenheit, mph, etc.)
+text="$(curl -s "https://wttr.in/$LOC?format=1&u")"
+
+# Fetch full forecast for tooltip
+# 0: current weather
+# Q: super quiet
+# T: no terminal sequences (plain text)
+# u: USCS
+tooltip="$(curl -s "https://wttr.in/$LOC?0QTu" |
     sed 's/\\/\\\\/g' |
     sed ':a;N;$!ba;s/\n/\\n/g' |
     sed 's/"/\\"/g')"
 
-if ! grep -q "Unknown location" <<< "$text"; then
+if [[ -n "$text" ]] && ! grep -q "Unknown location" <<< "$text"; then
     echo "{\"text\": \"$text\", \"tooltip\": \"<tt>$tooltip</tt>\", \"class\": \"weather\"}"
 fi
-

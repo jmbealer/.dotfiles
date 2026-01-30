@@ -105,7 +105,7 @@
     nwg-drawer
     nwg-look
     hyprcursor
-    hyprsunset
+    wlsunset
     # hyprqt6engine
     # wmenu
 
@@ -132,6 +132,12 @@
     # hostsblock
     keymapp
     wiki-tui
+
+    # --- Fonts ---
+    nerd-fonts.geist-mono
+    nerd-fonts.jetbrains-mono
+    inter
+    # nerd-fonts.inter
 
     # --- Gnome & GTK ---
     gtk3
