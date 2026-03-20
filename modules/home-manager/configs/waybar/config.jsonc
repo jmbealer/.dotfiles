@@ -45,7 +45,8 @@
 		"default": "" 
 	},
        "persistent-workspaces": {
-         "*": [ 2, 3, 4, 5, 6 ]
+         // "*": [ 2, 3, 4, 5, 6 ]
+         "*": 6
        }
 },
 
@@ -125,13 +126,24 @@
  }, 
 
 "network": {
-      "format-wifi": " ",
-      "format-ethernet":" ",
-      "format-disconnected": "",
-      "tooltip-format": "{ipaddr}",
-      "tooltip-format-wifi": "{essid} ({signalStrength}%)  | {ipaddr}",
-      "tooltip-format-ethernet": "{ifname} 🖧 | {ipaddr}",
-      "on-click": "nm-connection-editor"
+      // "format-wifi": " ",
+      // "format-ethernet":" ",
+      // "format-disconnected": "",
+      // "tooltip-format": "{ipaddr}",
+      // "tooltip-format-wifi": "{essid} ({signalStrength}%)  | {ipaddr}",
+      // "tooltip-format-ethernet": "{ifname} 🖧 | {ipaddr}",
+      // "on-click": "nm-connection-editor"
+		// test
+    "interface": "wlp5s0",
+    "format": "{ifname}",
+    "format-wifi": "{essid} ({signalStrength}%) ",
+    "format-ethernet": "{ipaddr}/{cidr} 󰊗",
+    "format-disconnected": "", //An empty format will hide the module.
+    "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+    "tooltip-format-ethernet": "{ifname} ",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 50
     },
 
 "battery": {
@@ -196,14 +208,32 @@
 
   "cpu": {
       "interval": 1,
-      "format": " {usage}%",
-      "min-length": 6,
-      "max-length": 6,
-      "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+      // "format": " {usage}%",
+      // "min-length": 6,
+      // "max-length": 6,
+      // "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+		// test
+     "format": "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}",
+     "format-icons": [
+          "<span color='#69ff94'>▁</span>", // green
+          "<span color='#2aa9ff'>▂</span>", // blue
+          "<span color='#f8f8f2'>▃</span>", // white
+          "<span color='#f8f8f2'>▄</span>", // white
+          "<span color='#ffffa5'>▅</span>", // yellow
+          "<span color='#ffffa5'>▆</span>", // yellow
+          "<span color='#ff9977'>▇</span>", // orange
+          "<span color='#dd532e'>█</span>"  // red
+     ]
  },
 
 "memory": {
-  "format": " {percentage}%"
+	"interval": 30,
+  // "format": " {percentage}%"
+		// test
+    // "format": "{}% ",
+    // "max-length": 10
+		// test
+    "format": "{used:0.1f}G/{total:0.1f}G "
 },
 
  "hyprland/window": {

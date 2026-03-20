@@ -4,6 +4,7 @@
   programs.rofi = {
     enable = true;
     # terminal = "rofi-sensible-terminal"; # Commented out to avoid conflicts if defined elsewhere
+    terminal = "${pkgs.kitty}/bin/kitty";
     extraConfig = {
       # General setting
       modi = "drun,run,filebrowser,window";
@@ -28,12 +29,15 @@
 
       # Drun settings
       drun-categories = "";
-      drun-match-fields = "name,generic,exec,categories,keywords";
+      # drun-match-fields = "name,generic,exec,categories,keywords";
+      drun-match-fields = "name,generic,categories,keywords";
       drun-display-format = "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";
       drun-show-actions = false;
       drun-url-launcher = "xdg-open";
-      drun-use-desktop-cache = false;
-      drun-reload-desktop-cache = false;
+      # drun-use-desktop-cache = false;
+      drun-use-desktop-cache = true;
+      # drun-reload-desktop-cache = false;
+      drun-reload-desktop-cache = true;
       
       # The following blocks are commented out because they conflict with restricted module options 
       # or default settings in the current environment. 
@@ -62,7 +66,8 @@
 
       # History and Sorting
       disable-history = false;
-      sorting-method = "normal";
+      # sorting-method = "normal";
+      sorting-method = "fzf";
       max-history-size = 25;
 
       # Display setting
@@ -76,9 +81,11 @@
       display-filebrowser = "Files";
 
       # Misc setting
-      sort = false;
+      # sort = false;
+      sort = true;
       threads = 0;
       click-to-exit = true;
+      sidebar-mode = true;
 
       # File browser settings
       # filebrowser = {

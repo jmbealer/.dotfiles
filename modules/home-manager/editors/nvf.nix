@@ -18,17 +18,17 @@ in {
       # };
 
       # extraPlugins = {
-      #\t\t\tnvim-dap-virtual-text = {
-      #\t\t\tpackage = pkgs.vimPlugins.nvim-dap-virtual-text;
-      #\t\t\tafter = [ "nvim-dap" ];
-      #\t\t\tsetup = ''
-      #\t\t\t\t\t\t\t\trequire("nvim-dap-virtual-text").setup({
-      #\t\t\t\t\t\t\t\tonly_first_definiton = false,
-      #\t\t\t\t\t\t\t\tall_references = true,
-      #\t\t\t\t\t\t\t})
-      #\t\t\t\t\t\t\t''
-      #\t\t\t};
-      #\t\t};
+      #      nvim-dap-virtual-text = {
+      #      package = pkgs.vimPlugins.nvim-dap-virtual-text;
+      #      after = [ "nvim-dap" ];
+      #      setup = ''
+      #                require("nvim-dap-virtual-text").setup({
+      #                only_first_definiton = false,
+      #                all_references = true,
+      #              })
+      #              ''
+      #      };
+      #    };
 
       extraLuaFiles = [
         ./test.lua
@@ -107,11 +107,11 @@ in {
         # harper-ls.enable = true;
 
         # servers.nixd = {
-        #\t\t\t\tcapabilities = mkLuaInline "capabilities";
-        #\t\t\t\ton_attach = mkLuaInline "default_on_attach";
-        #\t\t\t\tcmd = ["${pkgs.nixd}/bin/nixd"];
-        #\t\t\t\tsettings.nixd.formatting.command = ["${pkgs.alejandra}/bin/alejandra" "--quiet"];
-        #\t\t};
+        #        capabilities = mkLuaInline "capabilities";
+        #        on_attach = mkLuaInline "default_on_attach";
+        #        cmd = ["${pkgs.nixd}/bin/nixd"];
+        #        settings.nixd.formatting.command = ["${pkgs.alejandra}/bin/alejandra" "--quiet"];
+        #    };
       };
 
       enableLuaLoader = true;
@@ -132,6 +132,7 @@ in {
         maplocalleader = "\\";
         autoformat = true;
         deprecation_warnings = false;
+        # markdown_folding = 1;
       };
 
       options = {
@@ -143,18 +144,15 @@ in {
         confirm = true;
         cursorcolumn = true;
         # cursorline = true;
-        expandtab = false;
-        # fillchars = ''
-        # foldopen = "",
-        # foldclose = "",
-        # fold = " ",
-        # foldsep = " ",
-        # diff = "╱",
-        # eob = " ",
-        # '';
+        expandtab = true;
+        fillchars = "eob: ,fold: ,foldopen:,foldclose:,diff:╱";
         foldlevel = 99;
-        foldmethod = "indent";
+        foldlevelstart = 99;
+        foldenable = true;
+        foldcolumn = "1";
         foldtext = "";
+        # foldclose = "all";
+        foldopen = "all";
         # formatexpr = "";
         formatoptions = "jcroqlnt";
         grepformat = "%f:%l:%c:%m";
@@ -166,7 +164,7 @@ in {
         # lasttatus = 3;
         linebreak = true;
         list = true;
-        listchars = "tab:»·,trail:·,nbsp:␣";
+        listchars = "tab:→ ,trail:·,nbsp:␣,extends:›,precedes:‹";
         # listchars = ''
         # tab:»·,trail:·,nbsp:␣,"extends:...
         # '';
@@ -196,6 +194,8 @@ in {
         tabstop = 2;
         termguicolors = true;
         # timeoutlen
+        textwidth = 80;
+        colorcolumn = "80";
         undofile = true;
         undolevels = 10000;
         updatetime = 200;
@@ -256,6 +256,7 @@ in {
         # json.enable = true;
         # lua.enable = true;
         markdown.enable = true;
+        markdown.extensions.render-markdown-nvim.enable = true;
         nix.enable = true;
         nix.lsp.servers = ["nixd"];
         # rust.enable = true;
@@ -291,6 +292,16 @@ in {
           setupOpts.line_opacity.visual = 0.5;
         };
         # noice.enable = true;
+        nvim-ufo = {
+          enable = true;
+          setupOpts = {
+            provider_selector = mkLuaInline ''
+              function(bufnr, filetype, buftype)
+                return {'treesitter', 'indent'}
+              end
+            '';
+          };
+        };
       };
 
       terminal.toggleterm = {
@@ -315,23 +326,53 @@ in {
         ui.enable = true;
         # sources = {bash = "bashdb";};
         # sources = {
-        #\t\t\tlldb-vscode = {
-        #\t\t\t\tdapConfig = ''
-        #\t\t\t\t\t\t\t\tdap.configurations.cpp = {
-        #\t\t\t\t\t\t\t\t\t\t{
-        #\t\t\t\t\t\t\t\t\t\tname = "Attach to process",
-        #\t\t\t\t\t\t\t\t\t\ttype = "lldb",
-        #\t\t\t\t\t\t\t\t\t\trequest = "attach",
-        #\t\t\t\t\t\t\t\t\t\tpid = require('dap.utils').pick_process,
-        #\t\t\t\t\t\t\t\t\t\targs = {},
-        #\t\t\t\t\t\t\t\t\t}
-        #\t\t\t\t\t\t\t\t}
-        #\t\t\t\t\t\t\t''
-        #\t\t\t\t\t\t\t};
-        #\t\t};
+        #      lldb-vscode = {
+        #        dapConfig = ''
+        #                dap.configurations.cpp = {
+        #                    {
+        #                    name = "Attach to process",
+        #                    type = "lldb",
+        #                    request = "attach",
+        #                    pid = require('dap.utils').pick_process,
+        #                    args = {},
+        #                  }
+        #                }
+        #              ''
+        #              };
+        #    };
       };
 
       keymaps = [
+        {
+          key = "<leader>s";
+          mode = "";
+          action = "";
+          desc = "search/spell";
+        }
+        {
+          key = "<leader>ss";
+          mode = "n";
+          action = "z=";
+          desc = "Spelling Suggestions";
+        }
+        {
+          key = "<leader>sa";
+          mode = "n";
+          action = "zg";
+          desc = "Add Word to Dictionary";
+        }
+        {
+          key = "<leader>sn";
+          mode = "n";
+          action = "]s";
+          desc = "Next Misspelling";
+        }
+        {
+          key = "<leader>sp";
+          mode = "n";
+          action = "[s";
+          desc = "Prev Misspelling";
+        }
         {
           key = "<leader>q";
           mode = "";
@@ -482,6 +523,36 @@ in {
           action = "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>";
           desc = "Switch Buffer";
         }
+        {
+          key = "<c-p>";
+          mode = ["c"];
+          action = "<Up>";
+          desc = "Previous Action";
+        }
+        {
+          key = "<c-n>";
+          mode = ["c"];
+          action = "<Down>";
+          desc = "Next Action";
+        }
+        {
+          key = "<c-d>";
+          mode = ["i"];
+          action = "<c-o>dw";
+          desc = "Delete Next Word";
+        }
+        {
+          key = "<leader>o";
+          mode = ["n"];
+          action = ":put _<cr>";
+          desc = "Add Blank line below";
+        }
+        {
+          key = "<leader>O";
+          mode = ["n"];
+          action = ":put! _<cr>";
+          desc = "Add Blank line above";
+        }
         # h k help keys
         # f s sav file
         # f S savas
@@ -507,6 +578,7 @@ in {
         surround.enable = true;
         operators.enable = true;
         tabline.enable = true;
+        indentscope.enable = true;
       };
 
       # config.vim.lazy.plugins = {
@@ -521,7 +593,7 @@ in {
       # };
       # settings.vim.luaConfigPost = "${builtins.readFile ./test.lua}";
       # settings.vim.luaConfigPost = ''
-      #\t\t\tvim.opt.tabstop = 4
+      #      vim.opt.tabstop = 4
       #
       # ''
     };
