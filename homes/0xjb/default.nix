@@ -5,137 +5,136 @@
   sops,
   ...
 }: {
-  # ============================================================================
-  # Imports
-  # ============================================================================
+  # Imports: Modularize configuration by importing separate files
   imports = [
-    # # "${pkgs.lazyvim-nix}/homeManagerModules/default"
-    # lazyvim.homeManagerModules.lazyvim
+    # # "${pkgs.lazyvim-nix}/homeManagerModules/default" # why should delete: LazyVim managed via other means or replaced
+    # lazyvim.homeManagerModules.lazyvim # why should delete: Duplicate/unused import
     ../../modules/home-manager/editors/nvf.nix
     ../../modules/home-manager/programs/rofi.nix
   ];
 
-  # ============================================================================
-  # Home Information
-  # ============================================================================
+  # Home Manager Metadata
   home.username = "0xjb";
   home.homeDirectory = "/home/0xjb";
-  home.stateVersion = "25.05";
+  home.stateVersion = "25.05"; # Check release notes before changing
 
-  # home.packages = with pkgs; [
+  # Silence Home Manager news updates on rebuild
+  news.display = "silent";
+
+  # home.packages = with pkgs; [ # why should delete: Empty package list
   # inputs.Akari.packages.x86_64-linux.default
   # ];
 
-  # ============================================================================
-  # Shell (Bash)
-  # ============================================================================
+  # Shell Configuration (Bash & Readline)
   programs.readline = {
     enable = true;
     variables = {
-      completion-ignore-case = true;
-      completion-map-case = true;
-      show-all-if-ambiguous = true;
-      mark-symlinked-directories = true;
+      completion-ignore-case = true; # Case-insensitive completion
+      completion-map-case = true; # Treat hyphens/underscores identically
+      show-all-if-ambiguous = true; # Show all matches immediately
+      mark-symlinked-directories = true; # Append / to symlinked dirs
     };
     bindings = {
-      "\\e[A" = "history-search-backward";
-      "\\e[B" = "history-search-forward";
-      "\\e[C" = "forward-char";
-      "\\e[D" = "backward-char";
-      "Space" = "magic-space";
+      "\e[A" = "history-search-backward"; # Up arrow searches history
+      "\e[B" = "history-search-forward"; # Down arrow searches history
+      "\e[C" = "forward-char";
+      "\e[D" = "backward-char";
+      "Space" = "magic-space"; # Expand history expansion on space
     };
   };
 
   programs.bash = {
     enable = true;
-    historyControl = ["erasedups" "ignoreboth"];
+    historyControl = ["erasedups" "ignoreboth"]; # Clean history
     historyFileSize = 100000;
     historySize = 500000;
     historyIgnore = ["&" "[ ]*" "exit" "ls" "bg" "fg" "history" "clear"];
     shellOptions = [
-      "autocd"
-      "checkwinsize"
-      "globstar"
-      "histappend"
-      "cmdhist"
-      "dirspell"
-      "cdspell"
-      "cdable_vars"
+      "autocd" # cd to dir just by typing name
+      "checkwinsize" # Update window size after command
+      "globstar" # Enable **
+      "histappend" # Append to history file
+      "cmdhist" # Save multi-line commands as one
+      "dirspell" # Correct directory names
+      "cdspell" # Correct minor cd typos
+      "cdable_vars" # cd to variable if directory not found
     ];
     sessionVariables = {
-      PROMPT_DIRTRIM = "2";
-      HISTTIMEFORMAT = "%F %T ";
-      CDPATH = ".";
+      PROMPT_DIRTRIM = "2"; # Shorten path in prompt
+      HISTTIMEFORMAT = "%F %T "; # Add timestamps to history
+      CDPATH = "."; # CD search path
     };
     bashrcExtra = ''
-      	pfetch
-       # cat /run/secrets/msmtp-password
-       # export AVANTE_OPENAI_API_KEY=$(cat /run/secrets/msmtp-password)
-       # echo $AVANTE_OPENAI_API_KEY
+      # pfetch # why should delete: Using fastfetch instead
+      fastfetch
 
-       # Prevent file overwrite on stdout redirection
-       # Use `>|` to force redirection to an existing file
-       set -o noclobber
+      export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
 
-       # Record each line as it gets issued
-       PROMPT_COMMAND='history -a'
+      # Prevent file overwrite on stdout redirection (use >| to force)
+      set -o noclobber
 
+      # Record each line as it gets issued
+      PROMPT_COMMAND='history -a'
+
+      # Vi mode configuration
       set -o vi
       ble-bind -m vi_nmap --cursor 2
-      # bleopt color_scheme=default
-       ble-color-setface auto_complete fg=238,underline
-       ble-face -s syntax_error fg=242
-       ble-import -d integration/fzf-completion
-       ble-import -d integration/fzf-key-bindings
+      # bleopt color_scheme=default # why should delete: Using manual color settings below
+      ble-color-setface auto_complete fg=238,underline
+      ble-face -s syntax_error fg=242
+      ble-import -d integration/fzf-completion
+      ble-import -d integration/fzf-key-bindings
+
+      # Carapace integration (patched for ble.sh)
+      source <(carapace _carapace bash | sed 's/read -r -d/builtin read -r -d/')
     '';
 
-    # profileExtra = ''
-    #   # Auto-start MangoWC only on TTY1
-    #   if [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
-    #     exec ~/.config/mangowc/autostart.sh
-    #   fi
-    # '';
-
     shellAliases = {
-      # file access
-      cp = "cp -riv";
-      mv = "mv -iv";
-      mkdir = "mkdir -vp";
+      # File Operations
+      cp = "cp -riv"; # Recursive, interactive, verbose
+      mv = "mv -iv"; # Interactive, verbose
+      mkdir = "mkdir -vp"; # Verbose, create parents
+
+      # Yazi / File Navigation
       tf = "yazi";
       ft = "yazi";
-      # tfd = "yazi /home/0xjb/nixos-dotfiles/";
       tfd = "yazi /home/0xjb/.dotfiles/";
       tfc = "yazi /home/0xjb/.config/";
       ftd = "yazi /home/0xjb/.dotfiles/";
       ftc = "yazi /home/0xjb/.config/";
-      ftg = "yazi /home/0xjb/gdrive/";
+      ftg2 = "yazi /home/0xjb/gdrive/";
+      ftg = "yazi /run/media/0xjb/Elements-5TB/gdrive/";
       ftk = "yazi /home/0xjb/Documents/my-knowledge-base/";
       ck = "cd /home/0xjb/Documents/my-knowledge-base/";
-      # ls = "eza --group-directories-first";
-      # la = "ls -la";
-      # editors
+      cc = "cd /home/0xjb/.config";
+      cdd = "cd /home/0xjb/.dotfiles";
+      cg2 = "cd /home/0xjb/gdrive";
+      cg = "cd /run/media/0xjb/Elements-5TB/gdrive/";
+
+      # Editors
       vim = "nvim";
       v = "vim";
-      # vdh = "vim /home/0xjb/.dotfiles/home.nix";
+      e = "emacs";
+      n = "nano";
+
+      # Configuration Shortcuts
       vdh = "vim /home/0xjb/.dotfiles/homes/0xjb/default.nix";
       vdc = "vim /home/0xjb/.dotfiles/hosts/myhost/default.nix";
       vdp = "vim /home/0xjb/.dotfiles/hosts/myhost/packages.nix";
       vdn = "vim /home/0xjb/.dotfiles/modules/home-manager/editors/nvf.nix";
       vch = "vim /home/0xjb/.config/hypr/hyprland.conf";
-      e = "emacs";
-      n = "nano";
-      # nixos
-      nr = "sudo nixos-rebuild switch --flake /home/0xjb/.dotfiles/";
-      enr = "fd . /home/0xjb/.dotfiles/ | entr -c sudo nixos-rebuild switch --flake /home/0xjb/.dotfiles/#myhost";
 
-      cat = "bat";
-      # grep = "rg";
+      # NixOS Management
+      nr = "sudo nixos-rebuild switch --flake /home/0xjb/.dotfiles/";
+      enr = "fd . /home/0xjb/.dotfiles/ | entr -c sudo nixos-rebuild switch --flake /home/0xjb/.dotfiles/#myhost"; # Watch and rebuild
+
+      # Utilities
+      cat = "bat"; # Use bat instead of cat
+      # grep = "rg"; # why should delete: ripgrep is a different tool, aliasing might break scripts expecting grep behavior
     };
   };
 
-  # ============================================================================
-  # CLI Tools & Utilities
-  # ============================================================================
+  # Terminal File Manager (Yazi)
   programs.yazi = {
     enable = true;
     enableBashIntegration = true;
@@ -153,7 +152,6 @@
     '';
     settings = {
       mgr = {
-        # ratio = [ 2 3 4 ];
         show_hidden = true;
         show_symlink = true;
         sort_dirs_first = true;
@@ -166,36 +164,7 @@
             desc = "View Image";
           }
         ];
-        # zathura = [
-        #   {
-        #     run = ''zathura "$@"'';
-        #     detach = true;
-        #     desc = "Zathura";
-        #   }
-        # ];
-        # edit = [
-        #   {
-        #     run = ''nvim "$@"'';
-        #     block = true;
-        #     desc = "Edit";
-        #   }
-        # ];
-        # open = [
-        #   {
-        #     run = ''xdg-open "$@"'';
-        #     desc = "Open";
-        #     detach = true;
-        #   }
-        # ];
       };
-      # open = {
-      #   rules = [
-      #     { name = "*.pdf"; use = "zathura"; }
-      #     { name = "*.epub"; use = "zathura"; }
-      #     { mime = "text/*"; use = "edit"; }
-      #     { name = "*"; use = "open"; }
-      #   ];
-      # };
       plugin = {
         prepend_previewers = [
           {
@@ -243,26 +212,56 @@
     };
   };
 
+  # Fuzzy Finder (Ctrl+R replacement)
+  programs.fzf = {
+    enable = true;
+    enableBashIntegration = true;
+  };
+
+  # Smarter 'cd'
+  programs.zoxide = {
+    enable = true;
+    enableBashIntegration = true;
+  };
+
+  # Per-directory environment variables
+  # programs.direnv = {
+  #   enable = true;
+  #   nix-direnv.enable = true;
+  #   enableBashIntegration = true;
+  # };
+
+  # Fast 'command-not-found' replacement
+  programs.nix-index = {
+    enable = true;
+    enableBashIntegration = true;
+  };
+
+  # Multi-shell completion binary (powers modern CLI completions)
+  programs.carapace = {
+    enable = true;
+    enableBashIntegration = false;
+  };
+
+  # Shell Prompt (Starship)
   programs.starship = {
     enable = true;
     enableBashIntegration = true;
     settings = {};
-    # presets = [
-    #   "nerd-font-symbols"
-    # ];
   };
 
+  # LS_COLORS Support
   programs.dircolors = {
     enable = true;
     enableBashIntegration = true;
   };
 
+  # Modern 'ls' replacement (Eza)
   programs.eza = {
     enable = true;
     icons = "auto";
     enableBashIntegration = true;
     git = true;
-
     extraOptions = [
       "--group-directories-first"
       "--no-quotes"
@@ -276,30 +275,22 @@
     ];
   };
 
+  # Aliases specifically for Eza
   home.shellAliases = {
-    # ls = "eza";
     l = "eza";
     lt = "eza --tree --level=2";
     tree = "eza --tree";
+    # ls = "eza"; # why should delete: eza is already aliased to ls by enableBashIntegration? Check docs.
   };
 
-  # ============================================================================
-  # GUI Applications & Services
-  # ============================================================================
+  # Terminal Emulator (Foot)
   programs.foot = {
     enable = true;
-    # enableBashIntegration = true;
-    # theme = "aeroroot";
     settings = {
       main = {
-        # font = "IosevkaTerm NF:size=12";
-        # theme = "nvim-dark";
+        # font = "IosevkaTerm NF:size=12"; # why should delete: Using default font
+        # theme = "nvim-dark"; # why should delete: Using custom colors
       };
-
-      # cursor = {
-      # color = "ffffff 7030af";
-      # };
-
       colors = {
         cursor = "ffffff 7030af";
         foreground = "ffffff";
@@ -332,13 +323,10 @@
     };
   };
 
-  programs.floorp = {
-    enable = true;
-  };
+  # Web Browser (Floorp)
+  programs.floorp.enable = true;
 
-  # ============================================================================
-  # Version Control
-  # ============================================================================
+  # Version Control (Git)
   programs.git = {
     enable = true;
     settings = {
@@ -348,29 +336,74 @@
     };
   };
 
-  # ============================================================================
+  # Modern Diff Viewer (Delta)
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      navigate = true;
+      line-numbers = true;
+      side-by-side = true;
+    };
+  };
+
   # Secrets Management (SOPS)
-  # ============================================================================
   sops = {
     defaultSopsFile = ../../secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
     validateSopsFiles = false;
-
     age = {
       sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-      # keyFile = "/var/lib/sops-nix/key.txt";
       keyFile = "/home/0xjb/.config/sops/age/keys.txt";
       generateKey = true;
     };
-
     secrets = {
-      # msmtp-password = { };
+      # msmtp-password = { }; # why should delete: Placeholder/Unused secret
     };
   };
 
-  # ============================================================================
-  # XDG & Theming
-  # ============================================================================
+  # Systemd Service for Google Drive Bidirectional Sync
+  # systemd.user.services.gdrive-sync = {
+  #   Unit = {
+  #     Description = "Google Drive Bidirectional Sync";
+  #     After = ["network-online.target"];
+  #     Wants = ["network-online.target"];
+  #   };
+  #   Service = {
+  #     # Loop to run bisync every 5 minutes
+  #     ExecStart = "${pkgs.writeShellScript "gdrive-sync-loop" ''
+  #       export PATH="${pkgs.rclone}/bin:$PATH"
+  #       REMOTE="gdrive:"
+  #       LOCAL="/run/media/0xjb/Elements-5TB/gdrive"
+  #
+  #       while true; do
+  #         echo "Syncing $LOCAL <-> $REMOTE..."
+  #         # bisync handles bidirectional sync.
+  #         # Note: Run 'rclone bisync gdrive: /run/media/0xjb/Elements-5TB/gdrive --resync' manually once if this is the first run.
+  #         # rclone bisync "$REMOTE" "$LOCAL" \
+  #         rclone bisync "$LOCAL" "$REMOTE" \
+  #           # --create-empty-src-dirs \
+  #           --drive-skip-gdoc \
+  #           --links \
+  #           --drive-skip-shortcuts \
+  #           --compare size,modtime \
+  #           --slow-hash-sync-only \
+  #           --resync-mode newer \
+  #           --recover \
+  #           --verbose || echo "Sync error (will retry)"
+  #         # sleep 300
+  #         sleep 60
+  #       done
+  #     ''}";
+  #     Restart = "always";
+  #     RestartSec = "60";
+  #   };
+  #   Install = {
+  #     WantedBy = ["default.target"];
+  #   };
+  # };
+
+  # XDG Configuration & Default Apps
   xdg = {
     enable = true;
     configFile."hypr".source = ../../modules/home-manager/configs/hypr;
@@ -386,202 +419,33 @@
         "x-scheme-handler/https" = ["floorp.desktop"];
         "x-scheme-handler/about" = ["floorp.desktop"];
         "x-scheme-handler/unknown" = ["floorp.desktop"];
-
         # Documents
         "application/pdf" = ["org.pwmt.zathura.desktop"];
         "application/epub+zip" = ["org.pwmt.zathura.desktop"];
-
         # Media
         "video/*" = ["mpv.desktop"];
         "audio/*" = ["mpv.desktop"];
-
         # Images
         "image/*" = ["org.gnome.Loupe.desktop"];
-
         # Text
         "text/plain" = ["nvim.desktop" "vim.desktop"];
-
         # Directories
-        # "inode/directory" = ["yazi.desktop"];
         "inode/directory" = ["org.gnome.Nautilus.desktop"];
       };
     };
   };
 
-  programs.vivid = {
-    enable = true;
-    # themes = "solarized-dark";
-    # theme = "tokyonight-night";
-  };
+  # LS_COLORS Generator (Vivid)
+  programs.vivid.enable = true;
 
+  # Global Theming (Stylix)
   stylix.targets = {
-    qt.enable = false;
-    gnome.enable = false;
-    # kitty.enable = true;
-
-    # neovim.plugin = "base16-nvim";
+    qt.enable = false; # Manually configured below
+    gnome.enable = false; # Manually configured below
     floorp.profileNames = ["default-release"];
-
-    # vivid.enable = true;
-    # vidid.colors.enable = true;
   };
 
-  # ============================================================================
-  # Commented-out Configurations (Archived)
-  # ============================================================================
-
-  # wayland.windowManager.hyprland.plugins = [
-  # pkgs.hyprlandPlugins.
-  # ];
-
-  # programs.neovim = {
-  # 	enable = true;
-  #    plugins = [
-  #      pkgs.vimPlugins.LazyVim
-  #      pkgs.vimPlugins.nvim-treesitter.withAllGrammars
-  #    ];
-  #    # extraLuaConfig = ''
-  #    # ''
-  # };
-
-  # programs.neovim = {
-  #   enable = true;
-  # defaultEditor = true;
-  # viAlias = true;
-  # vimAlias = true;
-  #   extraPackages = with pkgs; [
-  #     nodejs
-  #     python3
-  #     tree-sitter
-  #   ];
-  #   plugins = [
-  #     pkgs.vimPlugins.nvim-treesitter.withAllGrammars
-  #   ];
-  # };
-
-  # programs.vim.defaultEditor = true;
-  #
-  # programs.lazyvim = {
-  #   enable = true;
-  #   # defaultEditor = true;
-  #   # configFiles = "/home/0xjb/.config/nvim";
-  #
-  #   extras = {
-  #     lang.nix = {
-  #       enable = true;
-  #       installDependencies = true;
-  #     };
-  #     lang.python = {
-  #       enable = true;
-  #       installDependencies = true; # Install ruff
-  #       # installRuntimeDependencies = true; # Install python3
-  #     };
-  #     lang.go = {
-  #       enable = true;
-  #       installDependencies = true; # Install gopls, gofumpt, etc.
-  #       installRuntimeDependencies = true; # Install go compiler
-  #     };
-  #     dap.core = {
-  #       enable = true;
-  #       installDependencies = true;
-  #     };
-  #     util.dot = {
-  #       enable = true;
-  #       installDependencies = true;
-  #     };
-  #     ai.avante = {
-  #       enable = true;
-  #       installDependencies = true;
-  #       # installRuntimeDependencies = true;
-  #     };
-  #     ai.copilot = {
-  #       enable = true;
-  #       installDependencies = true;
-  #       installRuntimeDependencies = true;
-  #     };
-  #   };
-  #   # Additional packages (optional)
-  #   extraPackages = with pkgs; [
-  #     tree-sitter
-  #     nixd # Nix LSP
-  #     alejandra # Nix formatter
-  #     ripgrep
-  #     fd
-  #     lazygit
-  #     fzf
-  #     curl
-  #     # pip
-  #     # ruff
-  #   ];
-  #
-  #   # Only needed for languages not covered by LazyVim
-  #   # treesitterParsers = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
-  #   # treesitterParsers = with pkgs.tree-sitter-grammars; [
-  #   # # tree-sitter-wgsl      # WebGPU Shading Language
-  #   #   tree-sitter-templ     # Go templ files
-  #   # ];
-  #
-  #   config = {
-  #     options = ''
-  #       vim.opt.relativenumber = false
-  #       vim.opt.cursorcolumn = true
-  #       vim.opt.scrolloff = 7
-  #     '';
-  #     keymaps = ''
-  #       vim.keymap.set("n", "<leader>w", "<cmd>w<cr", { desc = "Save"})
-  #     '';
-  #   };
-  #   plugins = {
-  #     # "catppuccin/nvim",
-  #     # flavour = "mocha"
-  #     colorscheme = ''
-  #         return {
-  #         { "miikanissi/modus-themes.nvim" },
-  #         { "RRethy/base16-nvim" },
-  #           {
-  #             "LazyVim/LazyVim",
-  #             opts = {
-  #               colorscheme = "base16-3024",
-  #             },
-  #           }
-  #       }
-  #     '';
-  #     avante = ''
-  #       return {
-  #         "yetone/avante.nvim",
-  #         opts = {
-  #           provider = "openai",
-  #         }
-  #       }
-  #     '';
-  #   };
-  # };
-
-  # programs.nvf = {
-  # enable = true;
-
-  # settings = {
-  # vim.viAlias = true;
-  # vim.vimAlias = true;
-  # vim.lsp = {
-  # enable = true;
-  # };
-  # vim.assistant.avante-nvim.enable = true;
-  # vim.assistant.avante-nvim.setupOpts.prodider = "codex";
-  # vim.assistant.avante-nvim.setupOpts.prodiders = {
-  # gpt_5_codex = {
-  # __inherited_from = "openai";
-  # mode = "gpt-5-codex";
-  # };
-  # };
-  # };
-  # };
-
-  # programs.nixvim = {
-  #   enable = true;
-  #   imports = [ ./nixvim.nix ];
-  # };
-
+  # GTK Theme Configuration
   gtk = {
     enable = true;
     theme = {
@@ -596,20 +460,16 @@
       name = pkgs.lib.mkForce "Material-Black-Cursors";
       package = pkgs.lib.mkForce pkgs.material-cursors;
     };
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-    };
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-    };
+    gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+    gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
   };
 
+  # GNOME Interface Settings
   dconf.settings = {
-    "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
-    };
+    "org/gnome/desktop/interface".color-scheme = "prefer-dark";
   };
 
+  # Qt Theme Configuration
   qt = {
     enable = true;
     platformTheme.name = "gtk";
@@ -620,13 +480,16 @@
   };
 
   home.packages = with pkgs; [
-    adwaita-qt6
+    adwaita-qt6 # Qt6 Adwaita style
   ];
 
+  # ============================================================================
+  # Legacy / Commented Out Code (Marked for Deletion)
+  # ============================================================================
+
+  # why should delete: DankMaterialShell is no longer used, we are on Hyprland/Gnome.
   # programs.dankMaterialShell = {
   #   enable = true;
-  #   # Core features
-  #   # enableSystemd = true; # Systemd service for auto-start
   #   systemd.enable = true; # Systemd service for auto-start
   #   enableSystemMonitoring = true; # System monitoring widgets (dgop)
   #   enableClipboard = true; # Clipboard history manager
@@ -637,25 +500,34 @@
   #   enableAudioWavelength = true; # Audio visualizer (cava)
   #   enableCalendarEvents = true; # Calendar integration (khal)
   #   enableSystemSound = true; # System sound effects
-  #
-  #   # default.settings = {
-  #   #   theme = "dark";
-  #   #   dynamicTheming = true;
-  #   #   # Add any other settings here
-  #   # };
-  #   #
-  #   # default.session = {
-  #   #   # Session state defaults
-  #   # };
   # };
 
-  # home.file.".config/nvim".source = ./config/nvim;
-  #
-  #
-  # things to look at later
-  # sshrc
-  # bashmount
-  # shellcheck
-  # shfmt
-  # lscolors
+  # why should delete: Duplicate/Older Neovim configs. We are using 'nvf.nix' imported at top.
+  # programs.neovim = {
+  # 	enable = true;
+  #    plugins = [
+  #      pkgs.vimPlugins.LazyVim
+  #      pkgs.vimPlugins.nvim-treesitter.withAllGrammars
+  #    ];
+  # };
+
+  # why should delete: LazyVim managed separately or via NVF
+  # programs.lazyvim = {
+  #   enable = true;
+  #   extras = {
+  #     lang.nix = { enable = true; installDependencies = true; };
+  #     # ... (rest of lazyvim config)
+  #   };
+  # };
+
+  # why should delete: NixVim replaced by NVF
+  # programs.nixvim = {
+  #   enable = true;
+  #   imports = [ ./nixvim.nix ];
+  # };
+
+  # why should delete: NVF config is now imported via module
+  # programs.nvf = {
+  # enable = true;
+  # };
 }
