@@ -50,45 +50,48 @@
   ];
 
   # Boot & Kernel
-  boot.loader = {
-    efi = {
-      canTouchEfiVariables = true;
-      # efiSysMountPoint = "/boot/efi";
+  boot = {
+    loader = {
+      efi = {
+        canTouchEfiVariables = true;
+        # efiSysMountPoint = "/boot/efi";
+      };
+      # grub = {
+      # enable = true;
+      # efiSupport = true;
+      # device = "nodev";
+      # useOSProber = true;
+      # theme = pkgs.sleek-grub-theme.override {withStyle = "dark";};
+      # };
+      systemd-boot.enable = true; # why should delete: Conflicting bootloader. We chose GRUB for themes/compatibility.
+      systemd-boot.configurationLimit = 5;
     };
-    # grub = {
-    # enable = true;
-    # efiSupport = true;
-    # device = "nodev";
-    # useOSProber = true;
-    # theme = pkgs.sleek-grub-theme.override {withStyle = "dark";};
-    # };
-    systemd-boot.enable = true; # why should delete: Conflicting bootloader. We chose GRUB for themes/compatibility.
-    systemd-boot.configurationLimit = 10;
-  };
 
-  # why should delete: Duplicates/Alternatives to our chosen cachyos-lto kernel
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.kernelPackages = pkgs.linuxPackages_zen;
-  # boot.kernelPackages = pkgs.linuxPackages_cachyos;
-  # boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
-  boot.kernelPackages = pkgs.linuxPackages_cachyos-lto;
+    # why should delete: Duplicates/Alternatives to our chosen cachyos-lto kernel
+    # boot.kernelPackages = pkgs.linuxPackages_latest;
+    # boot.kernelPackages = pkgs.linuxPackages_zen;
+    # boot.kernelPackages = pkgs.linuxPackages_cachyos;
+    # boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    kernelPackages = pkgs.linuxPackages_cachyos-lto;
 
-  boot.kernelParams = [
-    "nvidia"
-    "nvidia_modeset"
-    "nvidia_uvm"
-    "nvidia_drm"
-    "nowatchdog" # Disable watchdog to reduce CPU interrupts
-    "nmi_watchdog=0" # Disable NMI watchdog
-  ];
+    kernelParams = [
+      "nvidia"
+      "nvidia_modeset"
+      "nvidia_uvm"
+      "nvidia_drm"
+      "nowatchdog" # Disable watchdog to reduce CPU interrupts
+      "nmi_watchdog=0" # Disable NMI watchdog
+    ];
 
-  # Resume from hibernation
-  boot.resumeDevice = "/dev/disk/by-uuid/19cc334f-199e-46e8-8e3c-32cb6e8636ac";
-  boot.kernel.sysctl = {
-    "kernel.yama.ptrace_scope" = 0;
-    # Optimize Network (TCP BBR)
-    "net.core.default_qdisc" = "fq";
-    "net.ipv4.tcp_congestion_control" = "bbr";
+    # Resume from hibernation
+    # resumeDevice = "/dev/disk/by-uuid/19cc334f-199e-46e8-8e3c-32cb6e8636ac";
+    # resumeDevice = "/dev/disk/by-label/SWAP";
+    kernel.sysctl = {
+      "kernel.yama.ptrace_scope" = 0;
+      # Optimize Network (TCP BBR)
+      "net.core.default_qdisc" = "fq";
+      "net.ipv4.tcp_congestion_control" = "bbr";
+    };
   };
 
   # Performance & Power Management
@@ -321,7 +324,103 @@
   };
 
   # Programs & Services
-  services.keyd.enable = true;
+  services.keyd = {
+    enable = true;
+    keyboards = {
+      default = {
+        ids = ["*" "-3297:4976"];
+        settings = {
+          main = {
+            # capslock = "layer(control)";
+            capslock = "esc";
+            a = "overloadi(a, overloadt2(meta, a, 200), 150)";
+            s = "overloadi(s, overloadt2(alt, s, 200), 150)";
+            d = "overloadi(d, overloadt2(shift, d, 200), 150)";
+            f = "overloadi(f, overloadt2(control, f, 200), 150)";
+
+            l = "overloadi(l, overloadt2(alt, l, 200), 150)";
+            k = "overloadi(k, overloadt2(shift, k, 200), 150)";
+            j = "overloadi(j, overloadt2(control, j, 200), 150)";
+
+            g = "overloadi(g, overloadt2(symb, g, 200), 150)";
+            h = "overloadi(h, overloadt2(symb, h, 200), 150)";
+            v = "overloadi(v, overloadt2(num, v, 200), 150)";
+            m = "overloadi(m, overloadt2(num, m, 200), 150)";
+          };
+          symb = {
+            w = "<";
+            e = "=";
+            r = ">";
+            t = "@";
+            y = "`";
+            u = "[";
+            i = "_";
+            o = "]";
+
+            s = "(";
+            d = "-";
+            f = ")";
+            g = "+";
+            h = "%";
+            j = "{";
+            k = ";";
+            l = "}";
+
+            z = "$";
+            x = "*";
+            c = ":";
+            v = "/";
+            b = "#";
+            n = "^";
+            m = "|";
+          };
+          num = {
+            q = "-";
+            w = "5";
+            e = "2";
+            r = "3";
+            t = "@";
+            u = "[";
+            o = "]";
+
+            a = "7";
+            s = ".";
+            d = "1";
+            f = "0";
+            g = "4";
+            h = "{";
+            j = "C";
+            k = "B";
+            l = "A";
+
+            z = "$";
+            x = "6";
+            c = "9";
+            v = "8";
+            b = "/";
+            n = "+";
+            m = "[";
+          };
+          otherlayer = {};
+        };
+        extraConfig = ''
+          [main]
+          ; = overloadi(;, overloadt2(meta, ;, 200), 150);
+
+          [symb]
+          a = \
+          ; = !
+          , = ~
+          . = &
+
+          [num]
+          ; = }
+          , = ]
+          . = %
+        '';
+      };
+    };
+  };
   services.fstrim.enable = true;
   services.fwupd.enable = true;
   services.openssh.enable = true;
