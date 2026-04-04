@@ -105,7 +105,8 @@
     hyprlock # Screen locker for Hyprland
     hypridle # Idle daemon for Hyprland
     hyprpicker # Color picker for Hyprland
-    swww # Efficient animated wallpaper daemon
+    # swww # Efficient animated wallpaper daemon
+    awww
     swaynotificationcenter # Notification daemon for Wayland
     wlogout # Logout menu for Wayland
     wlsunset # Night light for Wayland
@@ -147,7 +148,7 @@
     typespeed # Typing practice game
     keymapp # ZSA keyboard configuration tool
     wiki-tui # Wikipedia TUI
-    rclone-ui
+    # rclone-ui
     rclone-browser
 
     # Fonts

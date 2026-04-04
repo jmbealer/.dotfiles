@@ -14,8 +14,8 @@
   ];
 
   # Home Manager Metadata
-  home.username = "0xjb";
-  home.homeDirectory = "/home/0xjb";
+  home.username = "cipher";
+  home.homeDirectory = "/home/cipher";
   # home.stateVersion = "25.05"; # Check release notes before changing
   home.stateVersion = "26.05"; # Check release notes before changing
 
@@ -99,18 +99,18 @@
       # Yazi / File Navigation
       tf = "yazi";
       ft = "yazi";
-      tfd = "yazi /home/0xjb/.dotfiles/";
-      tfc = "yazi /home/0xjb/.config/";
-      ftd = "yazi /home/0xjb/.dotfiles/";
-      ftc = "yazi /home/0xjb/.config/";
-      ftg2 = "yazi /home/0xjb/gdrive/";
-      ftg = "yazi /run/media/0xjb/Elements-5TB/gdrive/";
-      ftk = "yazi /home/0xjb/Documents/my-knowledge-base/";
-      ck = "cd /home/0xjb/Documents/my-knowledge-base/";
-      cc = "cd /home/0xjb/.config";
-      cdd = "cd /home/0xjb/.dotfiles";
-      cg2 = "cd /home/0xjb/gdrive";
-      cg = "cd /run/media/0xjb/Elements-5TB/gdrive/";
+      tfd = "yazi /home/cipher/.dotfiles/";
+      tfc = "yazi /home/cipher/.config/";
+      ftd = "yazi /home/cipher/.dotfiles/";
+      ftc = "yazi /home/cipher/.config/";
+      ftg2 = "yazi /home/cipher/gdrive/";
+      ftg = "yazi /run/media/cipher/Elements-5TB/gdrive/";
+      ftk = "yazi /home/cipher/Documents/my-knowledge-base/";
+      ck = "cd /home/cipher/Documents/my-knowledge-base/";
+      cc = "cd /home/cipher/.config";
+      cdd = "cd /home/cipher/.dotfiles";
+      cg2 = "cd /home/cipher/gdrive";
+      cg = "cd /run/media/cipher/Elements-5TB/gdrive/";
 
       # Editors
       vim = "nvim";
@@ -119,15 +119,15 @@
       n = "nano";
 
       # Configuration Shortcuts
-      vdh = "vim /home/0xjb/.dotfiles/homes/0xjb/default.nix";
-      vdc = "vim /home/0xjb/.dotfiles/hosts/myhost/default.nix";
-      vdp = "vim /home/0xjb/.dotfiles/hosts/myhost/packages.nix";
-      vdn = "vim /home/0xjb/.dotfiles/modules/home-manager/editors/nvf.nix";
-      vch = "vim /home/0xjb/.config/hypr/hyprland.conf";
+      vdh = "vim /home/cipher/.dotfiles/homes/cipher/default.nix";
+      vdc = "vim /home/cipher/.dotfiles/hosts/void/default.nix";
+      vdp = "vim /home/cipher/.dotfiles/hosts/void/packages.nix";
+      vdn = "vim /home/cipher/.dotfiles/modules/home-manager/editors/nvf.nix";
+      vch = "vim /home/cipher/.config/hypr/hyprland.conf";
 
       # NixOS Management
-      nr = "sudo nixos-rebuild switch --flake /home/0xjb/.dotfiles/";
-      enr = "fd . /home/0xjb/.dotfiles/ | entr -c sudo nixos-rebuild switch --flake /home/0xjb/.dotfiles/#myhost"; # Watch and rebuild
+      nr = "sudo nixos-rebuild switch --flake /home/cipher/.dotfiles/";
+      enr = "fd . /home/cipher/.dotfiles/ | entr -c sudo nixos-rebuild switch --flake /home/cipher/.dotfiles/#void"; # Watch and rebuild
 
       # Utilities
       cat = "bat"; # Use bat instead of cat
@@ -355,7 +355,7 @@
     validateSopsFiles = false;
     age = {
       sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-      keyFile = "/home/0xjb/.config/sops/age/keys.txt";
+      keyFile = "/home/cipher/.config/sops/age/keys.txt";
       generateKey = true;
     };
     secrets = {
@@ -375,12 +375,12 @@
   #     ExecStart = "${pkgs.writeShellScript "gdrive-sync-loop" ''
   #       export PATH="${pkgs.rclone}/bin:$PATH"
   #       REMOTE="gdrive:"
-  #       LOCAL="/run/media/0xjb/Elements-5TB/gdrive"
+  #       LOCAL="/run/media/cipher/Elements-5TB/gdrive"
   #
   #       while true; do
   #         echo "Syncing $LOCAL <-> $REMOTE..."
   #         # bisync handles bidirectional sync.
-  #         # Note: Run 'rclone bisync gdrive: /run/media/0xjb/Elements-5TB/gdrive --resync' manually once if this is the first run.
+  #         # Note: Run 'rclone bisync gdrive: /run/media/cipher/Elements-5TB/gdrive --resync' manually once if this is the first run.
   #         # rclone bisync "$REMOTE" "$LOCAL" \
   #         rclone bisync "$LOCAL" "$REMOTE" \
   #           # --create-empty-src-dirs \

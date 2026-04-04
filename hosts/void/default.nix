@@ -33,7 +33,7 @@
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 7d --keep 5";
-    flake = "/home/0xjb/.dotfiles";
+    flake = "/home/cipher/.dotfiles";
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -53,16 +53,17 @@
   boot.loader = {
     efi = {
       canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot/efi";
+      # efiSysMountPoint = "/boot/efi";
     };
-    grub = {
-      enable = true;
-      efiSupport = true;
-      device = "nodev";
-      useOSProber = true;
-      theme = pkgs.sleek-grub-theme.override {withStyle = "dark";};
-    };
-    # systemd-boot.enable = true; # why should delete: Conflicting bootloader. We chose GRUB for themes/compatibility.
+    # grub = {
+    # enable = true;
+    # efiSupport = true;
+    # device = "nodev";
+    # useOSProber = true;
+    # theme = pkgs.sleek-grub-theme.override {withStyle = "dark";};
+    # };
+    systemd-boot.enable = true; # why should delete: Conflicting bootloader. We chose GRUB for themes/compatibility.
+    systemd-boot.configurationLimit = 10;
   };
 
   # why should delete: Duplicates/Alternatives to our chosen cachyos-lto kernel
@@ -99,7 +100,7 @@
   # Prevent system freezes during high memory load
   services.earlyoom.enable = true;
 
-  zramSwap.enable = true; # Enable ZRAM to compress RAM usage, improving system responsiveness
+  # zramSwap.enable = true; # Enable ZRAM to compress RAM usage, improving system responsiveness
 
   # SCX Scheduler: Uses BPF to provide better process scheduling
   services.scx = {
@@ -137,7 +138,7 @@
   };
 
   # Networking & Location
-  networking.hostName = "myhost";
+  networking.hostName = "void";
   networking.networkmanager.enable = true;
 
   # why should delete: Redundant networking options usually managed by NetworkManager
@@ -175,15 +176,15 @@
   sops = {
     defaultSopsFile = ../../secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
-    age.keyFile = "/home/0xjb/.config/sops/age/keys.txt";
+    age.keyFile = "/home/cipher/.config/sops/age/keys.txt";
     secrets.msmtp-password = {
-      owner = config.users.users."0xjb".name;
+      owner = config.users.users."cipher".name;
       neededForUsers = true;
     };
   };
 
   # Users
-  users.users."0xjb" = {
+  users.users."cipher" = {
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager" "input" "video" "jackaudio"];
     packages = with pkgs; [tree];
@@ -194,7 +195,7 @@
     enable = true;
     settings.animation = "matrix";
   };
-  services.getty.autologinUser = "0xjb";
+  services.getty.autologinUser = "cipher";
 
   # why should delete: Redundant X11/GNOME settings replaced by Ly and Hyprland
   # services.xserver.desktopManager.gnome.enable = true;

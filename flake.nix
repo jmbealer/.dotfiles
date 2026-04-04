@@ -69,11 +69,11 @@
     # stylix,
     ...
   } @ inputs: {
-    nixosConfigurations.myhost = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.void = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {inherit inputs;};
       modules = [
-        ./hosts/myhost/default.nix
+        ./hosts/void/default.nix
         inputs.mango.nixosModules.mango
         inputs.stylix.nixosModules.stylix
         inputs.sops-nix.nixosModules.sops
@@ -99,9 +99,9 @@
             useUserPackages = true;
             # users."0xjb" = import ./home.nix { inherit lazyvim; };
             # users."0xjb" = import ./home.nix;
-            users."0xjb" = {
+            users."cipher" = {
               imports = [
-                ./homes/0xjb/default.nix
+                ./homes/cipher/default.nix
                 # inputs.lazyvim.homeManagerModules.default
                 # inputs.dankMaterialShell.homeModules.dankMaterialShell.default
                 inputs.sops-nix.homeManagerModules.sops
