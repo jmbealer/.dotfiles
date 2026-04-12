@@ -126,8 +126,12 @@
       vch = "vim /home/cipher/.config/hypr/hyprland.conf";
 
       # NixOS Management
-      nr = "sudo nixos-rebuild switch --flake /home/cipher/.dotfiles/";
+      onr = "sudo nixos-rebuild switch --flake /home/cipher/.dotfiles/";
+      nr = "nh os switch";
       enr = "fd . /home/cipher/.dotfiles/ | entr -c sudo nixos-rebuild switch --flake /home/cipher/.dotfiles/#void"; # Watch and rebuild
+
+      # Keyboard Shortcuts
+      kb-red = "sudo sh -c 'for zone in left center right extra; do [ -f /sys/class/leds/system76::kbd_backlight/color_\\$zone ] && echo FF0000 > /sys/class/leds/system76::kbd_backlight/color_\\$zone; done && brightnessctl -d \"system76::kbd_backlight\" set 50%'";
 
       # Utilities
       cat = "bat"; # Use bat instead of cat

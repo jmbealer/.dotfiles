@@ -56,6 +56,7 @@
     espeak-ng
     piper-tts
     pied
+    xdg-ninja
 
     # Editors & Git Tools
     vim # Classic text editor
@@ -127,7 +128,9 @@
     klavaro
 
     # Web Browsers
-    firefox # Standard Firefox
+    # firefox # Standard Firefox
+
+    # firefox-devedition
     ungoogled-chromium # Privacy-focused Chromium
     microsoft-edge # Edge browser
     floorp-bin # Customizable Firefox fork

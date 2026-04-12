@@ -170,7 +170,6 @@
 },
 
 "backlight": {
-  "device": "intel_backlight",
   // "format": "<span font='12'>{icon}</span>",
   "format": "{percent}% {icon}",
 "format-icons": ["", ""],

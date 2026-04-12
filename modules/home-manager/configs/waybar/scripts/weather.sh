@@ -19,6 +19,8 @@ tooltip="$(curl -s "https://wttr.in/$LOC?0QTu" |
     sed ':a;N;$!ba;s/\n/\\n/g' |
     sed 's/"/\\"/g')"
 
-if [[ -n "$text" ]] && ! grep -q "Unknown location" <<< "$text"; then
+if [[ -n "$text" ]] && ! grep -qE "Unknown location|failed|missing" <<< "$text"; then
     echo "{\"text\": \"$text\", \"tooltip\": \"<tt>$tooltip</tt>\", \"class\": \"weather\"}"
+else
+    echo "{\"text\": \"error\", \"tooltip\": \"error\", \"class\": \"weather\"}"
 fi

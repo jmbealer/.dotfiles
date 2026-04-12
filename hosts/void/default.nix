@@ -46,52 +46,45 @@
           gnomeSupport = true;
         };
       });
+      #   anki = prev.anki.overrideAttrs (oldAttrs: {
+      #     makeWrapperArgs = (oldAttrs.makeWrapperArgs or []) ++ [
+      #       "--prefix PYTHONPATH : ${prev.speechd}/lib/python3.13/site-packages"
+      #     ];
+      #   });
     })
   ];
 
   # Boot & Kernel
-  boot = {
-    loader = {
-      efi = {
-        canTouchEfiVariables = true;
-        # efiSysMountPoint = "/boot/efi";
-      };
-      # grub = {
-      # enable = true;
-      # efiSupport = true;
-      # device = "nodev";
-      # useOSProber = true;
-      # theme = pkgs.sleek-grub-theme.override {withStyle = "dark";};
-      # };
-      systemd-boot.enable = true; # why should delete: Conflicting bootloader. We chose GRUB for themes/compatibility.
-      systemd-boot.configurationLimit = 5;
+  boot.loader = {
+    efi = {
+      canTouchEfiVariables = true;
     };
+    systemd-boot.enable = true;
+  };
 
-    # why should delete: Duplicates/Alternatives to our chosen cachyos-lto kernel
-    # boot.kernelPackages = pkgs.linuxPackages_latest;
-    # boot.kernelPackages = pkgs.linuxPackages_zen;
-    # boot.kernelPackages = pkgs.linuxPackages_cachyos;
-    # boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
-    kernelPackages = pkgs.linuxPackages_cachyos-lto;
+  boot.kernelPackages = pkgs.linuxPackages_cachyos-lto;
 
-    kernelParams = [
-      "nvidia"
-      "nvidia_modeset"
-      "nvidia_uvm"
-      "nvidia_drm"
-      "nowatchdog" # Disable watchdog to reduce CPU interrupts
-      "nmi_watchdog=0" # Disable NMI watchdog
-    ];
+  boot.kernelParams = [
+    "nvidia"
+    "nvidia_modeset"
+    "nvidia_uvm"
+    "nvidia_drm"
+    "nowatchdog" # Disable watchdog to reduce CPU interrupts
+    "nmi_watchdog=0" # Disable NMI watchdog
+    "initcall_blacklist=amd_pstate_init" # Disable amd_pstate as CPU lacks CPPC support (prevents boot errors)
+    "module_blacklist=ucsi_ccg" # Disable Nvidia USB-C controller to fix I2C timeout errors
+  ];
 
-    # Resume from hibernation
-    # resumeDevice = "/dev/disk/by-uuid/19cc334f-199e-46e8-8e3c-32cb6e8636ac";
-    # resumeDevice = "/dev/disk/by-label/SWAP";
-    kernel.sysctl = {
-      "kernel.yama.ptrace_scope" = 0;
-      # Optimize Network (TCP BBR)
-      "net.core.default_qdisc" = "fq";
-      "net.ipv4.tcp_congestion_control" = "bbr";
-    };
+  # Resume from hibernation
+  # boot.resumeDevice = "/dev/disk/by-uuid/19cc334f-199e-46e8-8e3c-32cb6e8636ac";
+  boot.resumeDevice = "/dev/disk/by-uuid/1d34d2be-f4cd-46c5-9cb3-9aa0cb0949ba";
+  # boot.resumeDevice = "/dev/disk/by-label/SWAP";
+
+  boot.kernel.sysctl = {
+    "kernel.yama.ptrace_scope" = 0;
+    # Optimize Network (TCP BBR)
+    "net.core.default_qdisc" = "fq";
+    "net.ipv4.tcp_congestion_control" = "bbr";
   };
 
   # Performance & Power Management
@@ -166,6 +159,7 @@
   # Security & Secrets
   security.polkit.enable = true;
 
+  services.gnome.gnome-keyring.enable = true; # Fix 'gkr-pam: unable to locate daemon control file'
   security.pam.services = {
     login.enableGnomeKeyring = true;
     gdm.enableGnomeKeyring = true;
@@ -189,7 +183,7 @@
   # Users
   users.users."cipher" = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "input" "video" "jackaudio"];
+    extraGroups = ["wheel" "networkmanager" "input" "video" "backlight" "system76" "jackaudio"];
     packages = with pkgs; [tree];
   };
 
@@ -211,10 +205,41 @@
     xwayland.enable = true;
   };
 
+  # Keyboard Backlight Configuration (System76)
+  systemd.services.keyboard-backlight = {
+    description = "Set keyboard backlight to red and 50% brightness";
+    after = ["multi-user.target"];
+    wantedBy = ["multi-user.target"];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = pkgs.writeShellScript "set-kb-backlight" ''
+        # Set all zones to Red (FF0000)
+        for zone in left center right extra; do
+          if [ -f /sys/class/leds/system76::kbd_backlight/color_$zone ]; then
+            echo "FF0000" > /sys/class/leds/system76::kbd_backlight/color_$zone
+          fi
+        done
+        # Set brightness to 50% (approx 128 out of 255)
+        ${pkgs.brightnessctl}/bin/brightnessctl -d "system76::kbd_backlight" set 50%
+      '';
+    };
+  };
+
   # Gnome & Desktop Services
   services.desktopManager.gnome.enable = true;
   services.gvfs.enable = true;
-  services.udev.enable = true;
+  services.udev = {
+    enable = true;
+    extraRules = ''
+      # Allow members of the 'video' group to modify screen backlight
+      ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chgrp video /sys/class/backlight/%k/brightness", RUN+="${pkgs.coreutils}/bin/chmod g+w /sys/class/backlight/%k/brightness"
+
+      # Allow members of the 'backlight' group to modify keyboard backlight
+      ACTION=="add", SUBSYSTEM=="leds", KERNEL=="*kbd_backlight", RUN+="${pkgs.coreutils}/bin/chgrp backlight /sys/class/leds/%k/brightness", RUN+="${pkgs.coreutils}/bin/chmod g+w /sys/class/leds/%k/brightness"
+      ACTION=="add", SUBSYSTEM=="leds", KERNEL=="system76::kbd_backlight", RUN+="${pkgs.coreutils}/bin/chgrp backlight /sys/class/leds/%k/brightness", RUN+="${pkgs.coreutils}/bin/chmod g+w /sys/class/leds/%k/brightness"
+    '';
+  };
   services.udisks2.enable = true;
   services.devmon.enable = true;
   services.passSecretService.enable = true;
@@ -324,6 +349,7 @@
   };
 
   # Programs & Services
+  systemd.user.services.swaync.enable = false; # Disable auto-start service; handled by Hyprland autostart.conf
   services.keyd = {
     enable = true;
     keyboards = {

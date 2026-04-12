@@ -13,9 +13,9 @@
   ];
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
-  boot.initrd.kernelModules = [];
+  boot.initrd.kernelModules = ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"];
   boot.kernelModules = ["kvm-amd"];
-  # boot.kernelParams = [ "resume=UUID=1d34d2be-f4cd-46c5-9cb3-9aa0cb0949ba"];
+  # boot.kernelParams = ["resume=UUID=1d34d2be-f4cd-46c5-9cb3-9aa0cb0949ba"];
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
@@ -69,7 +69,7 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/A899-2C8E";
     fsType = "vfat";
-    options = ["fmask=0022" "dmask=0022"];
+    options = ["fmask=0077" "dmask=0077"]; # Fix world-accessible random seed security warning
   };
 
   swapDevices = [
