@@ -7,349 +7,354 @@
 }: {
   # Imports: Modularize configuration by importing separate files
   imports = [
-    # # "${pkgs.lazyvim-nix}/homeManagerModules/default" # why should delete: LazyVim managed via other means or replaced
-    # lazyvim.homeManagerModules.lazyvim # why should delete: Duplicate/unused import
     ../../modules/home-manager/editors/nvf.nix
     ../../modules/home-manager/programs/rofi.nix
   ];
 
-  # Home Manager Metadata
-  home.username = "cipher";
-  home.homeDirectory = "/home/cipher";
-  # home.stateVersion = "25.05"; # Check release notes before changing
-  home.stateVersion = "26.05"; # Check release notes before changing
+  home = {
+    # Home Manager Metadata
+    username = "cipher";
+    homeDirectory = "/home/cipher";
+    # stateVersion = "25.05"; # Check release notes before changing
+    stateVersion = "26.05"; # Check release notes before changing
+
+    # Aliases specifically for Eza
+    shellAliases = {
+      l = "eza";
+      lt = "eza --tree --level=2";
+      tree = "eza --tree";
+      # ls = "eza"; # why should delete: eza is already aliased to ls by enableBashIntegration? Check docs.
+    };
+
+    packages = with pkgs; [
+      adwaita-qt6 # Qt6 Adwaita style
+    ];
+  };
 
   # Silence Home Manager news updates on rebuild
   news.display = "silent";
 
-  # home.packages = with pkgs; [ # why should delete: Empty package list
-  # inputs.Akari.packages.x86_64-linux.default
-  # ];
-
-  # Shell Configuration (Bash & Readline)
-  programs.readline = {
-    enable = true;
-    variables = {
-      completion-ignore-case = true; # Case-insensitive completion
-      completion-map-case = true; # Treat hyphens/underscores identically
-      show-all-if-ambiguous = true; # Show all matches immediately
-      mark-symlinked-directories = true; # Append / to symlinked dirs
-    };
-    bindings = {
-      "\e[A" = "history-search-backward"; # Up arrow searches history
-      "\e[B" = "history-search-forward"; # Down arrow searches history
-      "\e[C" = "forward-char";
-      "\e[D" = "backward-char";
-      "Space" = "magic-space"; # Expand history expansion on space
-    };
-  };
-
-  programs.bash = {
-    enable = true;
-    historyControl = ["erasedups" "ignoreboth"]; # Clean history
-    historyFileSize = 100000;
-    historySize = 500000;
-    historyIgnore = ["&" "[ ]*" "exit" "ls" "bg" "fg" "history" "clear"];
-    shellOptions = [
-      "autocd" # cd to dir just by typing name
-      "checkwinsize" # Update window size after command
-      "globstar" # Enable **
-      "histappend" # Append to history file
-      "cmdhist" # Save multi-line commands as one
-      "dirspell" # Correct directory names
-      "cdspell" # Correct minor cd typos
-      "cdable_vars" # cd to variable if directory not found
-    ];
-    sessionVariables = {
-      PROMPT_DIRTRIM = "2"; # Shorten path in prompt
-      HISTTIMEFORMAT = "%F %T "; # Add timestamps to history
-      CDPATH = "."; # CD search path
-    };
-    bashrcExtra = ''
-      # pfetch # why should delete: Using fastfetch instead
-      fastfetch
-
-      export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
-
-      # Prevent file overwrite on stdout redirection (use >| to force)
-      set -o noclobber
-
-      # Record each line as it gets issued
-      PROMPT_COMMAND='history -a'
-
-      # Vi mode configuration
-      set -o vi
-      ble-bind -m vi_nmap --cursor 2
-      # bleopt color_scheme=default # why should delete: Using manual color settings below
-      ble-color-setface auto_complete fg=238,underline
-      ble-face -s syntax_error fg=242
-      ble-import -d integration/fzf-completion
-      ble-import -d integration/fzf-key-bindings
-
-      # Carapace integration (patched for ble.sh)
-      source <(carapace _carapace bash | sed 's/read -r -d/builtin read -r -d/')
-    '';
-
-    shellAliases = {
-      # File Operations
-      cp = "cp -riv"; # Recursive, interactive, verbose
-      mv = "mv -iv"; # Interactive, verbose
-      mkdir = "mkdir -vp"; # Verbose, create parents
-
-      # Yazi / File Navigation
-      tf = "yazi";
-      ft = "yazi";
-      tfd = "yazi /home/cipher/.dotfiles/";
-      tfc = "yazi /home/cipher/.config/";
-      ftd = "yazi /home/cipher/.dotfiles/";
-      ftc = "yazi /home/cipher/.config/";
-      ftg2 = "yazi /home/cipher/gdrive/";
-      ftg = "yazi /run/media/cipher/Elements-5TB/gdrive/";
-      ftk = "yazi /home/cipher/Documents/my-knowledge-base/";
-      ck = "cd /home/cipher/Documents/my-knowledge-base/";
-      cc = "cd /home/cipher/.config";
-      cdd = "cd /home/cipher/.dotfiles";
-      cg2 = "cd /home/cipher/gdrive";
-      cg = "cd /run/media/cipher/Elements-5TB/gdrive/";
-
-      # Editors
-      vim = "nvim";
-      v = "vim";
-      e = "emacs";
-      n = "nano";
-
-      # Configuration Shortcuts
-      vdh = "vim /home/cipher/.dotfiles/homes/cipher/default.nix";
-      vdc = "vim /home/cipher/.dotfiles/hosts/void/default.nix";
-      vdp = "vim /home/cipher/.dotfiles/hosts/void/packages.nix";
-      vdn = "vim /home/cipher/.dotfiles/modules/home-manager/editors/nvf.nix";
-      vch = "vim /home/cipher/.config/hypr/hyprland.conf";
-
-      # NixOS Management
-      onr = "sudo nixos-rebuild switch --flake /home/cipher/.dotfiles/";
-      nr = "nh os switch";
-      enr = "fd . /home/cipher/.dotfiles/ | entr -c sudo nixos-rebuild switch --flake /home/cipher/.dotfiles/#void"; # Watch and rebuild
-
-      # Keyboard Shortcuts
-      kb-red = "sudo sh -c 'for zone in left center right extra; do [ -f /sys/class/leds/system76::kbd_backlight/color_\\$zone ] && echo FF0000 > /sys/class/leds/system76::kbd_backlight/color_\\$zone; done && brightnessctl -d \"system76::kbd_backlight\" set 50%'";
-
-      # Utilities
-      cat = "bat"; # Use bat instead of cat
-      # grep = "rg"; # why should delete: ripgrep is a different tool, aliasing might break scripts expecting grep behavior
-    };
-  };
-
-  # Terminal File Manager (Yazi)
-  programs.yazi = {
-    enable = true;
-    enableBashIntegration = true;
-    plugins = with pkgs.yaziPlugins; {
-      full-border = full-border;
-      starship = starship;
-      glow = glow;
-      ouch = ouch;
-      mediainfo = mediainfo;
-      piper = piper;
-    };
-    initLua = ''
-      require("full-border"):setup()
-      require("starship"):setup()
-    '';
-    settings = {
-      mgr = {
-        show_hidden = true;
-        show_symlink = true;
-        sort_dirs_first = true;
+  programs = {
+    # Shell Configuration (Bash & Readline)
+    readline = {
+      enable = true;
+      variables = {
+        completion-ignore-case = true; # Case-insensitive completion
+        completion-map-case = true; # Treat hyphens/underscores identically
+        show-all-if-ambiguous = true; # Show all matches immediately
+        mark-symlinked-directories = true; # Append / to symlinked dirs
       };
-      opener = {
-        view = [
-          {
-            run = ''kitty +kitten icat "$@"'';
-            block = true;
-            desc = "View Image";
-          }
-        ];
-      };
-      plugin = {
-        prepend_previewers = [
-          {
-            name = "*.md";
-            run = "glow";
-          }
-          {
-            name = "*.epub";
-            run = "mutool draw -F png -o - \"$1\" 1 | kitty +kitten icat";
-          }
-          {
-            mime = "application/*zip";
-            run = "ouch";
-          }
-          {
-            mime = "application/x-tar";
-            run = "ouch";
-          }
-          {
-            mime = "application/x-bzip2";
-            run = "ouch";
-          }
-          {
-            mime = "application/x-7z-compressed";
-            run = "ouch";
-          }
-          {
-            mime = "application/x-rar";
-            run = "ouch";
-          }
-          {
-            mime = "audio/*";
-            run = "mediainfo";
-          }
-          {
-            mime = "video/*";
-            run = "mediainfo";
-          }
-          {
-            name = "*/";
-            run = ''piper -- eza -TL=2 --color=always --icons=always --group-directories-first --no-quotes -a "$1"'';
-          }
-        ];
+      bindings = {
+        "\e[A" = "history-search-backward"; # Up arrow searches history
+        "\e[B" = "history-search-forward"; # Down arrow searches history
+        "\e[C" = "forward-char";
+        "\e[D" = "backward-char";
+        "Space" = "magic-space"; # Expand history expansion on space
       };
     };
-  };
 
-  # Fuzzy Finder (Ctrl+R replacement)
-  programs.fzf = {
-    enable = true;
-    enableBashIntegration = true;
-  };
-
-  # Smarter 'cd'
-  programs.zoxide = {
-    enable = true;
-    enableBashIntegration = true;
-  };
-
-  # Per-directory environment variables
-  # programs.direnv = {
-  #   enable = true;
-  #   nix-direnv.enable = true;
-  #   enableBashIntegration = true;
-  # };
-
-  # Fast 'command-not-found' replacement
-  programs.nix-index = {
-    enable = true;
-    enableBashIntegration = true;
-  };
-
-  # Multi-shell completion binary (powers modern CLI completions)
-  programs.carapace = {
-    enable = true;
-    enableBashIntegration = false;
-  };
-
-  # Shell Prompt (Starship)
-  programs.starship = {
-    enable = true;
-    enableBashIntegration = true;
-    settings = {};
-  };
-
-  # LS_COLORS Support
-  programs.dircolors = {
-    enable = true;
-    enableBashIntegration = true;
-  };
-
-  # Modern 'ls' replacement (Eza)
-  programs.eza = {
-    enable = true;
-    icons = "auto";
-    enableBashIntegration = true;
-    git = true;
-    extraOptions = [
-      "--group-directories-first"
-      "--no-quotes"
-      "--header"
-      "--git-ignore"
-      "--icons=always"
-      "--classify"
-      "--hyperlink"
-      "--all"
-      "--long"
-    ];
-  };
-
-  # Aliases specifically for Eza
-  home.shellAliases = {
-    l = "eza";
-    lt = "eza --tree --level=2";
-    tree = "eza --tree";
-    # ls = "eza"; # why should delete: eza is already aliased to ls by enableBashIntegration? Check docs.
-  };
-
-  # Terminal Emulator (Foot)
-  programs.foot = {
-    enable = true;
-    settings = {
-      main = {
-        # font = "IosevkaTerm NF:size=12"; # why should delete: Using default font
-        # theme = "nvim-dark"; # why should delete: Using custom colors
+    bash = {
+      enable = true;
+      historyControl = ["erasedups" "ignoreboth"]; # Clean history
+      historyFileSize = 100000;
+      historySize = 500000;
+      historyIgnore = ["&" "[ ]*" "exit" "ls" "bg" "fg" "history" "clear"];
+      shellOptions = [
+        "autocd" # cd to dir just by typing name
+        "checkwinsize" # Update window size after command
+        "globstar" # Enable **
+        "histappend" # Append to history file
+        "cmdhist" # Save multi-line commands as one
+        "dirspell" # Correct directory names
+        "cdspell" # Correct minor cd typos
+        "cdable_vars" # cd to variable if directory not found
+      ];
+      sessionVariables = {
+        PROMPT_DIRTRIM = "2"; # Shorten path in prompt
+        HISTTIMEFORMAT = "%F %T "; # Add timestamps to history
+        CDPATH = "."; # CD search path
       };
-      colors = {
-        cursor = "ffffff 7030af";
-        foreground = "ffffff";
-        background = "000000";
-        selection-foreground = "ffffff";
-        selection-background = "7030af";
-        urls = "c6daff";
+      bashrcExtra = ''
+        # pfetch # why should delete: Using fastfetch instead
+        fastfetch
 
-        regular0 = "000000";
-        regular1 = "ff5f59";
-        regular2 = "44bc44";
-        regular3 = "d0bc00";
-        regular4 = "2fafff";
-        regular5 = "feacd0";
-        regular6 = "00d3d0";
-        regular7 = "ffffff";
+        export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
 
-        bright0 = "1e1e1e";
-        bright1 = "ff5f5f";
-        bright2 = "44df44";
-        bright3 = "efef00";
-        bright4 = "338fff";
-        bright5 = "ff66ff";
-        bright6 = "00eff0";
-        bright7 = "989898";
+        # Prevent file overwrite on stdout redirection (use >| to force)
+        set -o noclobber
 
-        "16" = "fec43f";
-        "17" = "ff9580";
+        # Record each line as it gets issued
+        PROMPT_COMMAND='history -a'
+
+        # Vi mode configuration
+        set -o vi
+        ble-bind -m vi_nmap --cursor 2
+        # bleopt color_scheme=default # why should delete: Using manual color settings below
+        ble-color-setface auto_complete fg=238,underline
+        ble-face -s syntax_error fg=242
+        ble-import -d integration/fzf-completion
+        ble-import -d integration/fzf-key-bindings
+
+        # Carapace integration (patched for ble.sh)
+        source <(carapace _carapace bash | sed 's/read -r -d/builtin read -r -d/')
+      '';
+
+      shellAliases = {
+        # File Operations
+        cp = "cp -riv"; # Recursive, interactive, verbose
+        mv = "mv -iv"; # Interactive, verbose
+        mkdir = "mkdir -vp"; # Verbose, create parents
+
+        # Yazi / File Navigation
+        tf = "yazi";
+        ft = "yazi";
+        tfd = "yazi /home/cipher/.dotfiles/";
+        tfc = "yazi /home/cipher/.config/";
+        ftd = "yazi /home/cipher/.dotfiles/";
+        ftc = "yazi /home/cipher/.config/";
+        ftg2 = "yazi /home/cipher/gdrive/";
+        ftg = "yazi /run/media/cipher/Elements-5TB/gdrive/";
+        ftk = "yazi /home/cipher/Documents/my-knowledge-base/";
+        ck = "cd /home/cipher/Documents/my-knowledge-base/";
+        cc = "cd /home/cipher/.config";
+        cdd = "cd /home/cipher/.dotfiles";
+        cg2 = "cd /home/cipher/gdrive";
+        cg = "cd /run/media/cipher/Elements-5TB/gdrive/";
+
+        # Editors
+        vim = "nvim";
+        v = "vim";
+        e = "emacs";
+        n = "nano";
+
+        # Configuration Shortcuts
+        vdh = "vim /home/cipher/.dotfiles/homes/cipher/default.nix";
+        vdc = "vim /home/cipher/.dotfiles/hosts/void/default.nix";
+        vdp = "vim /home/cipher/.dotfiles/hosts/void/packages.nix";
+        vdn = "vim /home/cipher/.dotfiles/modules/home-manager/editors/nvf.nix";
+        vch = "vim /home/cipher/.config/hypr/hyprland.conf";
+
+        # NixOS Management
+        onr = "sudo nixos-rebuild switch --flake /home/cipher/.dotfiles/";
+        nr = "nh os switch";
+        enr = "fd . /home/cipher/.dotfiles/ | entr -c sudo nixos-rebuild switch --flake /home/cipher/.dotfiles/#void"; # Watch and rebuild
+
+        # Keyboard Shortcuts
+        kb-red = "sudo sh -c 'for zone in left center right extra; do [ -f /sys/class/leds/system76::kbd_backlight/color_\\$zone ] && echo FF0000 > /sys/class/leds/system76::kbd_backlight/color_\\$zone; done && brightnessctl -d \"system76::kbd_backlight\" set 50%'";
+
+        # Utilities
+        cat = "bat"; # Use bat instead of cat
+        # grep = "rg"; # why should delete: ripgrep is a different tool, aliasing might break scripts expecting grep behavior
       };
     };
-  };
 
-  # Web Browser (Floorp)
-  programs.floorp.enable = true;
-
-  # Version Control (Git)
-  programs.git = {
-    enable = true;
-    settings = {
-      user.name = "jmbealer";
-      user.email = "jmbealer11@gmail.com";
-      init.defaultBranch = "main";
+    # Terminal File Manager (Yazi)
+    yazi = {
+      enable = true;
+      enableBashIntegration = true;
+      plugins = with pkgs.yaziPlugins; {
+        full-border = full-border;
+        starship = starship;
+        glow = glow;
+        ouch = ouch;
+        mediainfo = mediainfo;
+        piper = piper;
+      };
+      initLua = ''
+        require("full-border"):setup()
+        require("starship"):setup()
+      '';
+      settings = {
+        mgr = {
+          show_hidden = true;
+          show_symlink = true;
+          sort_dirs_first = true;
+        };
+        opener = {
+          view = [
+            {
+              run = ''kitty +kitten icat "$@"'';
+              block = true;
+              desc = "View Image";
+            }
+          ];
+        };
+        plugin = {
+          prepend_previewers = [
+            {
+              name = "*.md";
+              run = "glow";
+            }
+            {
+              name = "*.epub";
+              run = "mutool draw -F png -o - \"$1\" 1 | kitty +kitten icat";
+            }
+            {
+              mime = "application/*zip";
+              run = "ouch";
+            }
+            {
+              mime = "application/x-tar";
+              run = "ouch";
+            }
+            {
+              mime = "application/x-bzip2";
+              run = "ouch";
+            }
+            {
+              mime = "application/x-7z-compressed";
+              run = "ouch";
+            }
+            {
+              mime = "application/x-rar";
+              run = "ouch";
+            }
+            {
+              mime = "audio/*";
+              run = "mediainfo";
+            }
+            {
+              mime = "video/*";
+              run = "mediainfo";
+            }
+            {
+              name = "*/";
+              run = ''piper -- eza -TL=2 --color=always --icons=always --group-directories-first --no-quotes -a "$1"'';
+            }
+          ];
+        };
+      };
     };
-  };
 
-  # Modern Diff Viewer (Delta)
-  programs.delta = {
-    enable = true;
-    enableGitIntegration = true;
-    options = {
-      navigate = true;
-      line-numbers = true;
-      side-by-side = true;
+    # Fuzzy Finder (Ctrl+R replacement)
+    fzf = {
+      enable = true;
+      enableBashIntegration = true;
     };
+
+    # Smarter 'cd'
+    zoxide = {
+      enable = true;
+      enableBashIntegration = true;
+    };
+
+    # Per-directory environment variables
+    # direnv = {
+    #   enable = true;
+    #   nix-direnv.enable = true;
+    #   enableBashIntegration = true;
+    # };
+
+    # Fast 'command-not-found' replacement
+    nix-index = {
+      enable = true;
+      enableBashIntegration = true;
+    };
+
+    # Multi-shell completion binary (powers modern CLI completions)
+    carapace = {
+      enable = true;
+      enableBashIntegration = false;
+    };
+
+    # Shell Prompt (Starship)
+    starship = {
+      enable = true;
+      enableBashIntegration = true;
+      settings = {};
+    };
+
+    # LS_COLORS Support
+    dircolors = {
+      enable = true;
+      enableBashIntegration = true;
+    };
+
+    # Modern 'ls' replacement (Eza)
+    eza = {
+      enable = true;
+      icons = "auto";
+      enableBashIntegration = true;
+      git = true;
+      extraOptions = [
+        "--group-directories-first"
+        "--no-quotes"
+        "--header"
+        "--git-ignore"
+        "--icons=always"
+        "--classify"
+        "--hyperlink"
+        "--all"
+        "--long"
+      ];
+    };
+
+    # Terminal Emulator (Foot)
+    foot = {
+      enable = true;
+      settings = {
+        main = {
+          # font = "IosevkaTerm NF:size=12"; # why should delete: Using default font
+          # theme = "nvim-dark"; # why should delete: Using custom colors
+        };
+        colors = {
+          cursor = "ffffff 7030af";
+          foreground = "ffffff";
+          background = "000000";
+          selection-foreground = "ffffff";
+          selection-background = "7030af";
+          urls = "c6daff";
+
+          regular0 = "000000";
+          regular1 = "ff5f59";
+          regular2 = "44bc44";
+          regular3 = "d0bc00";
+          regular4 = "2fafff";
+          regular5 = "feacd0";
+          regular6 = "00d3d0";
+          regular7 = "ffffff";
+
+          bright0 = "1e1e1e";
+          bright1 = "ff5f5f";
+          bright2 = "44df44";
+          bright3 = "efef00";
+          bright4 = "338fff";
+          bright5 = "ff66ff";
+          bright6 = "00eff0";
+          bright7 = "989898";
+
+          "16" = "fec43f";
+          "17" = "ff9580";
+        };
+      };
+    };
+
+    # Web Browser (Floorp)
+    floorp.enable = true;
+
+    # Version Control (Git)
+    git = {
+      enable = true;
+      settings = {
+        user.name = "jmbealer";
+        user.email = "jmbealer11@gmail.com";
+        init.defaultBranch = "main";
+      };
+    };
+
+    # Modern Diff Viewer (Delta)
+    delta = {
+      enable = true;
+      enableGitIntegration = true;
+      options = {
+        navigate = true;
+        line-numbers = true;
+        side-by-side = true;
+      };
+    };
+
+    # LS_COLORS Generator (Vivid)
+    vivid.enable = true;
   };
 
   # Secrets Management (SOPS)
@@ -440,9 +445,6 @@
     };
   };
 
-  # LS_COLORS Generator (Vivid)
-  programs.vivid.enable = true;
-
   # Global Theming (Stylix)
   stylix.targets = {
     qt.enable = false; # Manually configured below
@@ -483,56 +485,4 @@
       package = pkgs.adwaita-qt;
     };
   };
-
-  home.packages = with pkgs; [
-    adwaita-qt6 # Qt6 Adwaita style
-  ];
-
-  # ============================================================================
-  # Legacy / Commented Out Code (Marked for Deletion)
-  # ============================================================================
-
-  # why should delete: DankMaterialShell is no longer used, we are on Hyprland/Gnome.
-  # programs.dankMaterialShell = {
-  #   enable = true;
-  #   systemd.enable = true; # Systemd service for auto-start
-  #   enableSystemMonitoring = true; # System monitoring widgets (dgop)
-  #   enableClipboard = true; # Clipboard history manager
-  #   enableVPN = true; # VPN management widget
-  #   enableBrightnessControl = true; # Backlight/brightness controls
-  #   enableColorPicker = true; # Color picker tool
-  #   enableDynamicTheming = true; # Wallpaper-based theming (matugen)
-  #   enableAudioWavelength = true; # Audio visualizer (cava)
-  #   enableCalendarEvents = true; # Calendar integration (khal)
-  #   enableSystemSound = true; # System sound effects
-  # };
-
-  # why should delete: Duplicate/Older Neovim configs. We are using 'nvf.nix' imported at top.
-  # programs.neovim = {
-  # 	enable = true;
-  #    plugins = [
-  #      pkgs.vimPlugins.LazyVim
-  #      pkgs.vimPlugins.nvim-treesitter.withAllGrammars
-  #    ];
-  # };
-
-  # why should delete: LazyVim managed separately or via NVF
-  # programs.lazyvim = {
-  #   enable = true;
-  #   extras = {
-  #     lang.nix = { enable = true; installDependencies = true; };
-  #     # ... (rest of lazyvim config)
-  #   };
-  # };
-
-  # why should delete: NixVim replaced by NVF
-  # programs.nixvim = {
-  #   enable = true;
-  #   imports = [ ./nixvim.nix ];
-  # };
-
-  # why should delete: NVF config is now imported via module
-  # programs.nvf = {
-  # enable = true;
-  # };
 }
