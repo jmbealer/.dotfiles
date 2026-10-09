@@ -1,77 +1,67 @@
 # NixOS Dotfiles
 
-This repository contains my NixOS system configuration, structured as a **modular flake**. This setup separates machine-level configuration, user-level configuration, and reusable modules for better scalability and maintenance.
+Declarative NixOS + Home Manager configuration, managed as a flake.
 
-## 📂 Directory Structure
+## Directory Structure
 
 ```text
 .
-├── flake.nix                # Entry point for the system configuration
-├── flake.lock               # Lockfile for reproducible dependencies
-├── hosts/                   # Machine-specific configurations
-│   └── myhost/              # Configuration for the 'myhost' machine
-│       ├── default.nix      # Main system configuration (formerly configuration.nix)
-│       └── hardware-configuration.nix
-├── homes/                   # User-specific configurations (Home Manager)
-│   └── 0xjb/                # Configuration for user '0xjb'
-│       └── default.nix      # Main user configuration (formerly home.nix)
-├── modules/                 # Reusable configuration blocks
-│   └── home-manager/        # User-level modules
-│       ├── configs/         # Raw configuration files (symlinked)
-│       │   └── hypr/        # Hyprland config files
-│       ├── editors/
-│       │   └── nvf.nix      # Neovim (nvf) configuration
-│       └── programs/
-│           └── rofi.nix     # Rofi configuration
-└── secrets/                 # Encrypted secrets (SOPS)
-    └── secrets.yaml
+├── flake.nix                  # Flake inputs, outputs, and entrypoint
+├── flake.lock                 # Pinned input versions
+├── .sops.yaml                 # SOPS encryption rules
+├── hosts/                     # Machine-specific configurations
+│   ├── common/                # Shared baseline across all machines
+│   │   ├── default.nix        # (planned) nix settings, locale, audio, sysctl
+│   │   └── users.nix          # (planned) user definitions + Home Manager wiring
+│   └── serval/                # System76 Serval WS laptop (hostname: serval)
+│       ├── default.nix        # System config (boot, kernel, GPU, services, theming)
+│       ├── hardware.nix       # Generated hardware config (nixos-generate-config)
+│       └── packages.nix       # System-wide packages
+├── modules/                   # Custom reusable NixOS / Home Manager modules
+│   ├── nixos/                 # System-level (desktop/hyprland, services/keyd, ...)
+│   └── home/                  # User-level (editors/nvf, desktop/hyprland, ...)
+├── home/                      # User environments via Home Manager
+│   ├── common/                # Shared CLI tools, git, shell aliases
+│   └── users/
+│       └── cipher/            # User profile for 'cipher'
+│           └── default.nix
+├── secrets/                   # SOPS-encrypted secrets
+│   └── secrets.yaml
+└── deprecated/                # Retired configs/backups kept for review
 ```
 
-## 🚀 Getting Started
+## Usage
 
-### Prerequisites
-*   **NixOS** installed on your machine.
-*   **Git** to clone this repository.
-*   **Flakes** enabled in your Nix configuration.
+```bash
+# Rebuild system (run from this directory)
+sudo nixos-rebuild switch --flake .#serval
+# or, with nh
+nh os switch
 
-### Installation
+# Rebuild Home Manager
+home-manager switch --flake .
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/yourusername/dotfiles.git ~/.dotfiles
-    cd ~/.dotfiles
-    ```
+# Update flake inputs
+nix flake update
 
-2.  **Apply the system configuration:**
-    ```bash
-    sudo nixos-rebuild switch --flake .#myhost
-    ```
+# Validate evaluation without applying
+nix flake check
+```
 
-## 🛠️ Customization
+## Secrets
 
-### Raw Dotfiles (Non-Nix Configs)
-To keep configuration simple, some programs use raw config files instead of Nix options. These are stored in `modules/home-manager/configs/` and symlinked by Home Manager.
+Secrets are managed with SOPS + age. The age private key is expected at
+`~/.config/sops/age/keys.txt`. Only edit `secrets/secrets.yaml` through `sops`.
 
-*   **Hyprland:** Located in `modules/home-manager/configs/hypr/`.
-*   **Editing:** Edit the files in your dotfiles repo, then run `nr` to apply changes.
+## Conventions
 
-### Adding a New Host
-1.  Create a new directory in `hosts/` (e.g., `hosts/laptop`).
-2.  Generate a hardware config: `nixos-generate-config --dir hosts/laptop`.
-3.  Create a `default.nix` in that folder importing your hardware config and other modules.
-4.  Add the new host entry to `flake.nix` under `nixosConfigurations`.
-
-### Adding a New User
-1.  Create a new directory in `homes/` (e.g., `homes/newuser`).
-2.  Create a `default.nix` with your Home Manager configuration.
-3.  Import this user configuration in the relevant host configuration or `flake.nix`.
-
-### Modifying Modules
-*   **System-wide changes:** Edit files in `hosts/myhost/`.
-*   **User-specific changes:** Edit files in `homes/0xjb/`.
-*   **Component changes:** Edit specific modules in `modules/` (e.g., `nvf.nix`).
-
-## 🔐 Secrets
-Secrets are managed using **sops-nix**.
-*   **Edit secrets:** `sops secrets/secrets.yaml`
-*   **Key location:** Keys are expected at `/home/0xjb/.config/sops/age/keys.txt` or `/etc/ssh/ssh_host_ed25519_key` depending on configuration.
+- **Hosts** live in `hosts/<hostname>/`; each has a `default.nix` imported by
+  `flake.nix` as `nixosConfigurations.<hostname>`. See `hosts/README.md`.
+- **Modules** are reusable, ideally toggleable blocks in `modules/`. See
+  `modules/README.md`.
+- **User profiles** live in `home/users/<name>/` and are wired into
+  `home-manager.users.<name>` in `flake.nix`. See `home/README.md`.
+- **Raw config files** (Hyprland `.conf`, Waybar `config.jsonc`, etc.) stay
+  next to their module and are symlinked into `~/.config/` via `xdg.configFile`.
+- **Deprecated** files are moved to `deprecated/` with an explanation instead of
+  being deleted, until manually reviewed.

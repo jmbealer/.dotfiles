@@ -69,11 +69,11 @@
     # stylix,
     ...
   } @ inputs: {
-    nixosConfigurations.void = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.serval = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {inherit inputs;};
       modules = [
-        ./hosts/void/default.nix
+        ./hosts/serval/default.nix
         inputs.mango.nixosModules.mango
         inputs.stylix.nixosModules.stylix
         inputs.sops-nix.nixosModules.sops
@@ -101,7 +101,7 @@
             # users."0xjb" = import ./home.nix;
             users."cipher" = {
               imports = [
-                ./homes/cipher/default.nix
+                ./home/users/cipher/default.nix
                 # inputs.lazyvim.homeManagerModules.default
                 # inputs.dankMaterialShell.homeModules.dankMaterialShell.default
                 inputs.sops-nix.homeManagerModules.sops
