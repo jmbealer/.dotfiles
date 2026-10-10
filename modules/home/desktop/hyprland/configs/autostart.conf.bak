@@ -1,0 +1,21 @@
+#################
+### AUTOSTART ###
+#################
+
+# Launch necessary processes at startup
+exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec-once = [workspace special:scratchpad silent] $terminal --class scratchpad
+# exec-once = $terminal
+exec-once = wl-paste --type text --watch cliphist store
+exec-once = wl-paste --type image --watch cliphist store
+exec-once = waybar
+exec-once = rclone mount gdrive: ~/gdrive
+exec-once = floorp
+# exec-once = swww-daemon
+exec-once = awww-daemon
+# exec-once = hyprpaper
+exec-once = swaync
+exec-once = nm-applet --indicator
+exec-once = wlsunset -l 29.9 -L -95.2 -t 3700 -T 5500
+exec-once = hypridle
+exec-once = /nix/store/$(ls -d /nix/store/*polkit-gnome* | head -n 1 | xargs basename)/libexec/polkit-gnome-authentication-agent-1

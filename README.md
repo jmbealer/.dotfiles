@@ -30,22 +30,24 @@ Declarative NixOS + Home Manager configuration, managed as a flake.
 └── deprecated/                # Retired configs/backups kept for review
 ```
 
-## Usage
+## Usage & Guides
+
+For a complete walkthrough of daily operations, updates, package management, and alias shortcuts, see:
+* **[NixOS Workflow & Operations Guide](NIXOS_GUIDE.md)**
+* **[Hyprland Lua & Noctalia Migration Walkthrough](WALKTHROUGH.md)**
 
 ```bash
-# Rebuild system (run from this directory)
-sudo nixos-rebuild switch --flake .#serval
-# or, with nh
-nh os switch
+# Rebuild and switch (system + Home Manager)
+nh os switch           # or alias: nos / nr
 
-# Rebuild Home Manager
-home-manager switch --flake .
+# Test without adding to boot menu
+nh os test             # or alias: not
 
 # Update flake inputs
-nix flake update
+nix flake update       # or alias: nfu
 
-# Validate evaluation without applying
-nix flake check
+# Clean old generations
+nh clean all           # or alias: ncg
 ```
 
 ## Secrets

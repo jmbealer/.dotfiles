@@ -7,6 +7,15 @@
   # Shell configuration (Bash & Readline) — shared baseline
   # for the user's shell on every machine.
 
+  home.file.".blerc".text = ''
+    # ble.sh settings (evaluated only when ble.sh attaches to an interactive shell)
+    ble-bind -m vi_nmap --cursor 2
+    ble-color-setface auto_complete fg=238,underline
+    ble-face -s syntax_error fg=242
+    ble-import -d integration/fzf-completion
+    ble-import -d integration/fzf-key-bindings
+  '';
+
   programs = {
     # Shell Configuration (Bash & Readline)
     readline = {
@@ -48,50 +57,64 @@
         CDPATH = "."; # CD search path
       };
       bashrcExtra = ''
-        # pfetch # why should delete: Using fastfetch instead
-        fastfetch
-
-        export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
-
         # Prevent file overwrite on stdout redirection (use >| to force)
         set -o noclobber
+      '';
 
-        # Record each line as it gets issued
-        PROMPT_COMMAND='history -a'
+      initExtra = ''
+        # Interactive shell startup banner
+        fastfetch
 
         # Vi mode configuration
         set -o vi
-        ble-bind -m vi_nmap --cursor 2
-        # bleopt color_scheme=default # why should delete: Using manual color settings below
-        ble-color-setface auto_complete fg=238,underline
-        ble-face -s syntax_error fg=242
-        ble-import -d integration/fzf-completion
-        ble-import -d integration/fzf-key-bindings
 
-        # Carapace integration (patched for ble.sh)
-        source <(carapace _carapace bash | sed 's/read -r -d/builtin read -r -d')
+        # Carapace completion integration (with ble.sh compatibility patch)
+        export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
+        if command -v carapace &>/dev/null; then
+          source <(carapace _carapace bash | sed 's/read -r -d/builtin read -r -d/')
+        fi
+
+        # Append history on each prompt without clobbering Starship
+        PROMPT_COMMAND="history -a; ''${PROMPT_COMMAND:-}"
+
+        # System76 keyboard backlight helper function
+        kb-color() {
+          local color="''${1:-FF0000}"
+          local brightness="''${2:-50%}"
+          sudo bash -c "
+            for zone in left center right extra; do
+              f=/sys/class/leds/system76::kbd_backlight/color_\$zone
+              [ -f \"\$f\" ] && echo '$color' > \"\$f\"
+            done
+            brightnessctl -d 'system76::kbd_backlight' set '$brightness'
+          "
+        }
       '';
 
-      shellAliases = {
-        # File Operations
+      shellAliases = let
+        dotfiles = "${config.home.homeDirectory}/.dotfiles";
+        homeDir = config.home.homeDirectory;
+      in {
+        # File Operations & Safety
         cp = "cp -riv"; # Recursive, interactive, verbose
         mv = "mv -iv"; # Interactive, verbose
         mkdir = "mkdir -vp"; # Verbose, create parents
+        cat = "bat"; # Use bat instead of cat
 
         # Yazi / File Navigation
         tf = "yazi";
         ft = "yazi";
-        tfd = "yazi /home/cipher/.dotfiles/";
-        tfc = "yazi /home/cipher/.config/";
-        ftd = "yazi /home/cipher/.dotfiles/";
-        ftc = "yazi /home/cipher/.config/";
-        ftg2 = "yazi /home/cipher/gdrive/";
+        tfd = "yazi ${dotfiles}/";
+        tfc = "yazi ${homeDir}/.config/";
+        ftd = "yazi ${dotfiles}/";
+        ftc = "yazi ${homeDir}/.config/";
+        ftg2 = "yazi ${homeDir}/gdrive/";
         ftg = "yazi /run/media/cipher/Elements-5TB/gdrive/";
-        ftk = "yazi /home/cipher/Documents/my-knowledge-base/";
-        ck = "cd /home/cipher/Documents/my-knowledge-base/";
-        cc = "cd /home/cipher/.config";
-        cdd = "cd /home/cipher/.dotfiles";
-        cg2 = "cd /home/cipher/gdrive";
+        ftk = "yazi ${homeDir}/Documents/my-knowledge-base/";
+        ck = "cd ${homeDir}/Documents/my-knowledge-base/";
+        cc = "cd ${homeDir}/.config";
+        cdd = "cd ${dotfiles}";
+        cg2 = "cd ${homeDir}/gdrive";
         cg = "cd /run/media/cipher/Elements-5TB/gdrive/";
 
         # Editors
@@ -101,25 +124,53 @@
         n = "nano";
 
         # Configuration Shortcuts
-        vdh = "vim /home/cipher/.dotfiles/home/users/cipher/default.nix";
-        vdc = "vim /home/cipher/.dotfiles/hosts/serval/default.nix";
-        vdp = "vim /home/cipher/.dotfiles/hosts/serval/packages.nix";
-        vdn = "vim /home/cipher/.dotfiles/modules/home/editors/nvf.nix";
-        vch = "vim /home/cipher/.config/hypr/hyprland.conf";
+        vdf = "vim ${dotfiles}/flake.nix";
+        vdh = "vim ${dotfiles}/home/users/cipher/default.nix";
+        vdc = "vim ${dotfiles}/hosts/serval/default.nix";
+        vdp = "vim ${dotfiles}/hosts/serval/packages.nix";
+        vdn = "vim ${dotfiles}/modules/home/editors/nvf.nix";
+        vds = "vim ${dotfiles}/home/common/shell.nix";
+        vdk = "vim ${dotfiles}/modules/home/desktop/kitty.nix";
+        vch = "vim ${homeDir}/.config/hypr/hyprland.lua";
+        vcn = "vim ${homeDir}/.config/noctalia/config.toml";
 
-        # NixOS Management
-        onr = "sudo nixos-rebuild switch --flake /home/cipher/.dotfiles/";
-        nr = "nh os switch";
-        # nu = "nh home switch";
-        nu = "home-manager switch --flake /home/cipher/.dotfiles";
-        enr = "fd . /home/cipher/.dotfiles/ | entr -c sudo nixos-rebuild switch --flake /home/cipher/.dotfiles/#serval"; # Watch and rebuild
+        # NixOS System Management (nh & nix)
+        nos = "nh os switch"; # Rebuild and switch system
+        not = "nh os test"; # Test rebuild without boot entry
+        nob = "nh os boot"; # Rebuild and set boot entry without switching
+        nosd = "nh os switch --dry"; # Dry-run system build
+        nhs = "nh home switch"; # Rebuild and switch Home Manager
+        nhsd = "nh home switch --dry"; # Dry-run Home Manager build
+        nr = "nh os switch"; # Muscle-memory fallback
+        nu = "nh home switch"; # Muscle-memory fallback
+        onr = "sudo nixos-rebuild switch --flake ${dotfiles}#serval"; # Low-level fallback
+        enr = "fd . ${dotfiles}/ | entr -c sudo nixos-rebuild switch --flake ${dotfiles}#serval"; # Watch and rebuild
 
-        # Keyboard Shortcuts
-        kb-red = "sudo sh -c 'for zone in left center right extra; do [ -f /sys/class/leds/system76::kbd_backlight/color_\\$zone ] && echo FF0000 > /sys/class/leds/system76::kbd_backlight/color_\\$zone; done && brightnessctl -d \"system76::kbd_backlight\" set 50%'";
+        # Nix Updates
+        nfu = "nix flake update --flake ${dotfiles}"; # Update all flake inputs
+        nuo = "nh os switch --update"; # Update inputs & switch system
+        nhu = "nh home switch --update"; # Update inputs & switch home-manager
 
-        # Utilities
-        cat = "bat"; # Use bat instead of cat
-        # grep = "rg"; # why should delete: ripgrep is a different tool, aliasing might break scripts expecting grep behavior
+        # Nix Search & Documentation
+        ns = "nh search"; # Fast local package search
+        nsp = "nix search nixpkgs"; # Search nixpkgs
+        nso = "manix"; # Search options & documentation
+
+        # Ephemeral Shells & Runs (Try without installing)
+        nsh = "nix shell nixpkgs#"; # e.g. nsh ripgrep jq
+        nrn = "nix run nixpkgs#"; # e.g. nrn cowsay
+        nb = "nix build";
+
+        # Maintenance & Garbage Collection
+        ncg = "nh clean all"; # Clean old system & user generations
+        ncgd = "nh clean all --dry"; # Dry-run clean
+        ngen = "nixos-rebuild list-generations"; # List system generations
+        nhgen = "home-manager generations"; # List user generations
+
+        # Hardware & Keyboard Backlight
+        kb-red = "kb-color FF0000 50%";
+        kb-blue = "kb-color 0000FF 50%";
+        kb-off = "brightnessctl -d 'system76::kbd_backlight' set 0%";
       };
     };
   };

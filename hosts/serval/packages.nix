@@ -154,7 +154,9 @@
     qjackctl # JACK control UI
     blueman # Bluetooth manager
     redshift # Screen color temperature adjustment
-    gemini-cli # CLI for Gemini models
+    # gemini-cli # CLI for Gemini models
+    antigravity-cli
+    antigravity-ide
     wildcard # Simple file search utility
     typespeed # Typing practice game
     keymapp # ZSA keyboard configuration tool

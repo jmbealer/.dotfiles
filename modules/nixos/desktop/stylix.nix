@@ -15,9 +15,9 @@
     };
 
     cursor = {
-      package = pkgs.capitaine-cursors;
-      name = "capitaine-cursors";
-      size = 32;
+      package = pkgs.afterglow-cursors-recolored;
+      name = "Afterglow-Recolored-Dracula-Red";
+      size = 24;
     };
 
     icons = {

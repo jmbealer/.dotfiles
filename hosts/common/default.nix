@@ -14,6 +14,12 @@
       experimental-features = ["nix-command" "flakes"];
       auto-optimise-store = true; # Deduplicates files in the store to save space
       builders-use-substitutes = true; # Allow builders to use binary cache which speeds up builds
+      extra-substituters = [
+        "https://noctalia.cachix.org"
+      ];
+      extra-trusted-public-keys = [
+        "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      ];
     };
 
     # Automatic Garbage Collection (Disabled in favor of programs.nh clean)
@@ -82,6 +88,7 @@
     # zramSwap.enable = true; # Enable ZRAM to compress RAM usage, improving system responsiveness
 
     power-profiles-daemon.enable = false;
+    upower.enable = true;
     blueman.enable = true;
     libinput = {
       enable = true;

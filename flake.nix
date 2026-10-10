@@ -52,6 +52,9 @@
       url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia/cachix";
+    };
     # nixvim = {
     # url = "github:nix-community/nixvim";
     # inputs.nixpkgs.follows = "nixpkgs";
@@ -97,6 +100,7 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
+            extraSpecialArgs = {inherit inputs;};
             # users."0xjb" = import ./home.nix { inherit lazyvim; };
             # users."0xjb" = import ./home.nix;
             users."cipher" = {
@@ -106,6 +110,7 @@
                 # inputs.dankMaterialShell.homeModules.dankMaterialShell.default
                 inputs.sops-nix.homeManagerModules.sops
                 inputs.nvf.homeManagerModules.default
+                inputs.noctalia.homeModules.default
               ];
             };
             backupFileExtension = "backup";

@@ -13,6 +13,8 @@
     ../../common/shell.nix
     ../../../modules/home/editors/nvf.nix
     ../../../modules/home/desktop/rofi.nix
+    ../../../modules/home/desktop/noctalia/default.nix
+    ../../../modules/home/desktop/kitty.nix
   ];
 
   home = {
@@ -130,8 +132,8 @@
       package = pkgs.lib.mkForce pkgs.papirus-icon-theme;
     };
     cursorTheme = {
-      name = pkgs.lib.mkForce "Material-Black-Cursors";
-      package = pkgs.lib.mkForce pkgs.material-cursors;
+      name = pkgs.lib.mkForce "Afterglow-Recolored-Dracula-Red";
+      package = pkgs.lib.mkForce pkgs.afterglow-cursors-recolored;
     };
     gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
     gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
